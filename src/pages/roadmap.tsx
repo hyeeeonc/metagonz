@@ -10,7 +10,7 @@ const RoadmapPage: FunctionComponent = function () {
   return (
     <>
       <Global styles={reset} />
-      <Header />
+      <Header headerDarkMode={true} />
     </>
   )
 }

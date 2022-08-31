@@ -6,12 +6,16 @@ import styled from '@emotion/styled'
 
 import Header from 'components/common/Header'
 
+import Audio from 'components/common/Audio'
+import Layout from 'components/common/Layout'
+
 const GalleryPage: FunctionComponent = function () {
   return (
-    <>
+    <Layout>
       <Global styles={reset} />
-      <Header />
-    </>
+      <Header headerDarkMode={true} />
+      <Audio />
+    </Layout>
   )
 }
 
