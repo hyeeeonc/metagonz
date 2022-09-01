@@ -50,11 +50,21 @@ const CharactersPage: FunctionComponent = function () {
   const [selectedCharacter, setSelectedCharacter] = useState<number | null>(
     null,
   )
-  /**
-   * height: 100% 만들기
-   */
-  const [characterDefaultMode, setCharacterDefaultMode] =
-    useState<boolean>(true)
+
+  let makeDefault = false
+
+  const characterSelectHandler = (order: number) => {
+    if (makeDefault == false) {
+      setSelectedCharacter(order)
+      makeDefault = true
+      console.log(makeDefault)
+    } else if (makeDefault === true) {
+      setSelectedCharacter(null)
+      makeDefault = false
+      console.log('null')
+    }
+    console.log('작동중')
+  }
 
   return (
     <>
@@ -65,9 +75,14 @@ const CharactersPage: FunctionComponent = function () {
       <CharactersBlock>
         <CharactersItemsContainer>
           <CharactersItems
-            onClick={() => setSelectedCharacter(0)}
+            onClick={() => characterSelectHandler(0)}
             style={{
-              height: selectedCharacter === 0 || null ? '40%' : '25%',
+              height:
+                selectedCharacter === 0
+                  ? '40%'
+                  : selectedCharacter === null
+                  ? '100%'
+                  : '25%',
               zIndex: selectedCharacter === 0 ? 1 : 2,
             }}
           >
@@ -75,9 +90,14 @@ const CharactersPage: FunctionComponent = function () {
           </CharactersItems>
 
           <CharactersItems
-            onClick={() => setSelectedCharacter(1)}
+            onClick={() => characterSelectHandler(1)}
             style={{
-              height: selectedCharacter === 1 || null ? '100%' : '25%',
+              height:
+                selectedCharacter === 1
+                  ? '40%'
+                  : selectedCharacter === null
+                  ? '100%'
+                  : '25%',
               zIndex: selectedCharacter === 0 ? 1 : 2,
             }}
           >
@@ -85,9 +105,14 @@ const CharactersPage: FunctionComponent = function () {
           </CharactersItems>
 
           <CharactersItems
-            onClick={() => setSelectedCharacter(2)}
+            onClick={() => characterSelectHandler(2)}
             style={{
-              height: selectedCharacter === 2 || null ? '100%' : '25%',
+              height:
+                selectedCharacter === 2
+                  ? '40%'
+                  : selectedCharacter === null
+                  ? '100%'
+                  : '25%',
               zIndex: selectedCharacter === 0 ? 1 : 2,
             }}
           >
@@ -95,9 +120,14 @@ const CharactersPage: FunctionComponent = function () {
           </CharactersItems>
 
           <CharactersItems
-            onClick={() => setSelectedCharacter(3)}
+            onClick={() => characterSelectHandler(3)}
             style={{
-              height: selectedCharacter === 3 || null ? '100%' : '25%',
+              height:
+                selectedCharacter === 3
+                  ? '40%'
+                  : selectedCharacter === null
+                  ? '100%'
+                  : '25%',
               zIndex: selectedCharacter === 0 ? 1 : 2,
             }}
           >
@@ -105,9 +135,14 @@ const CharactersPage: FunctionComponent = function () {
           </CharactersItems>
 
           <CharactersItems
-            onClick={() => setSelectedCharacter(4)}
+            onClick={() => characterSelectHandler(4)}
             style={{
-              height: selectedCharacter === 4 || null ? '100%' : '25%',
+              height:
+                selectedCharacter === 4
+                  ? '40%'
+                  : selectedCharacter === null
+                  ? '100%'
+                  : '25%',
               zIndex: selectedCharacter === 0 ? 1 : 2,
             }}
           >
@@ -115,9 +150,14 @@ const CharactersPage: FunctionComponent = function () {
           </CharactersItems>
 
           <CharactersItems
-            onClick={() => setSelectedCharacter(5)}
+            onClick={() => characterSelectHandler(5)}
             style={{
-              height: selectedCharacter === 5 || null ? '100%' : '25%',
+              height:
+                selectedCharacter === 5
+                  ? '40%'
+                  : selectedCharacter === null
+                  ? '100%'
+                  : '25%',
               zIndex: selectedCharacter === 0 ? 1 : 2,
             }}
           >
@@ -125,9 +165,14 @@ const CharactersPage: FunctionComponent = function () {
           </CharactersItems>
 
           <CharactersItems
-            onClick={() => setSelectedCharacter(6)}
+            onClick={() => characterSelectHandler(6)}
             style={{
-              height: selectedCharacter === 6 || null ? '100%' : '25%',
+              height:
+                selectedCharacter === 6
+                  ? '40%'
+                  : selectedCharacter === null
+                  ? '100%'
+                  : '25%',
               zIndex: selectedCharacter === 0 ? 1 : 2,
             }}
           >
@@ -135,9 +180,14 @@ const CharactersPage: FunctionComponent = function () {
           </CharactersItems>
 
           <CharactersItems
-            onClick={() => setSelectedCharacter(7)}
+            onClick={() => characterSelectHandler(7)}
             style={{
-              height: selectedCharacter === 7 || null ? '100%' : '25%',
+              height:
+                selectedCharacter === 7
+                  ? '40%'
+                  : selectedCharacter === null
+                  ? '100%'
+                  : '25%',
               zIndex: selectedCharacter === 0 ? 1 : 2,
             }}
           >
