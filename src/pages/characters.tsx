@@ -50,20 +50,23 @@ const CharactersPage: FunctionComponent = function () {
   const [selectedCharacter, setSelectedCharacter] = useState<number | null>(
     null,
   )
+  const [makeDefault, setMakeDefault] = useState<boolean>(false)
 
-  let makeDefault = false
-
+  /**
+   * 캐릭터 image에서 onClick시 발동하는 함수 / selectedCharacter 값 넣음
+   * @param order 클릭한 character 받음
+   */
   const characterSelectHandler = (order: number) => {
     if (makeDefault == false) {
       setSelectedCharacter(order)
-      makeDefault = true
-      console.log(makeDefault)
-    } else if (makeDefault === true) {
+      setMakeDefault(true)
+    } else if (makeDefault === true && selectedCharacter !== order) {
+      setSelectedCharacter(order)
+      setMakeDefault(true)
+    } else {
       setSelectedCharacter(null)
-      makeDefault = false
-      console.log('null')
+      setMakeDefault(false)
     }
-    console.log('작동중')
   }
 
   return (
