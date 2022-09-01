@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react'
-
 import styled from '@emotion/styled'
 
 const AudioBlock = styled.div`
@@ -19,4 +18,4 @@ const Audio: FunctionComponent = function () {
   )
 }
 
-export default React.memo(Audio)
+export default Audio

@@ -7,7 +7,8 @@ import styled from '@emotion/styled'
 import Header from 'components/common/Header'
 
 import Audio from 'components/common/Audio'
-import Layout from 'components/common/Layout'
+
+import Layout from 'components/layout'
 
 const GalleryPage: FunctionComponent = function () {
   return (

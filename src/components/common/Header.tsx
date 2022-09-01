@@ -172,11 +172,6 @@ const Header: FunctionComponent<HeaderType> = function ({ headerDarkMode }) {
                 fill={headerDarkMode ? 'black' : 'white'}
               />
             </g>
-            <defs>
-              <clipPath id="clip0_180_165">
-                <rect width="132.982" height="20" fill="white" />
-              </clipPath>
-            </defs>
           </svg>
         </Link>
       </HeaderLogoContainer>
