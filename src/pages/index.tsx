@@ -77,7 +77,6 @@ const IndexPage: FunctionComponent = function () {
       <Global styles={reset} />
       <Global styles={indexStyle} />
       <Header headerDarkMode={false} />
-      <Audio />
 
       <IndexBlock>
         <IndexBackgroundImageContainer

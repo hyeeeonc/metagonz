@@ -15,7 +15,6 @@ const GalleryPage: FunctionComponent = function () {
     <Layout>
       <Global styles={reset} />
       <Header headerDarkMode={true} />
-      <Audio />
     </Layout>
   )
 }
