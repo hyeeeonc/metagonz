@@ -73,7 +73,7 @@ const IndexPage: FunctionComponent = function () {
   }, [windowSize])
 
   return (
-    <Layout>
+    <>
       <Global styles={reset} />
       <Global styles={indexStyle} />
       <Header headerDarkMode={false} />
@@ -95,7 +95,7 @@ const IndexPage: FunctionComponent = function () {
           />
         </IndexBackgroundImageContainer>
       </IndexBlock>
-    </Layout>
+    </>
   )
 }
 
