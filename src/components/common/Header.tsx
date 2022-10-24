@@ -13,6 +13,8 @@ const HeaderBlock = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  z-index: 10;
 `
 
 const HeaderLogoContainer = styled.div`
@@ -98,7 +100,7 @@ const Header: FunctionComponent<HeaderType> = function ({ headerDarkMode }) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clip-path="url(#clip0_180_165)">
+            <g clipPath="url(#clip0_180_165)">
               <path
                 d="M15.8806 14.9661V5.03003H11.4241L7.94032 8.51385L4.4565 5.03003H0V14.97H4.4565L7.93645 11.4861L11.4203 14.97H15.8768L15.8806 14.9661ZM2.97229 13.4819V6.51811L6.45611 10.0019L2.97229 13.4858V13.4819ZM12.9122 6.51424V13.4819L9.42841 9.99806L12.9122 6.51424Z"
                 fill={headerDarkMode ? 'black' : 'white'}
@@ -176,13 +178,13 @@ const Header: FunctionComponent<HeaderType> = function ({ headerDarkMode }) {
         </Link>
       </HeaderLogoContainer>
       <HeaderNavContainer>
-        <HeaderNavItems to={`/gallery`}>Gallery</HeaderNavItems>
+        <HeaderNavItems to={`/about`}>ABOUT</HeaderNavItems>
 
         <HeaderNavItems to={`/characters`}>Characters</HeaderNavItems>
 
         <HeaderNavItems to={`/scenario`}>Scenari0</HeaderNavItems>
 
-        <HeaderNavItems to={`/roadmap`}>Roadmap</HeaderNavItems>
+        <HeaderNavItems to={`/about`}>Roadmap</HeaderNavItems>
 
         <HeaderNavItems to={`/license`}>License</HeaderNavItems>
       </HeaderNavContainer>
