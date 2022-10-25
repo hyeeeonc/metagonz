@@ -1,5 +1,6 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useContext, useEffect } from 'react'
 import styled from '@emotion/styled'
+import { AudioContext } from '../../contexts/AudioProvider'
 
 const AudioBlock = styled.div`
   height: 100px;
@@ -9,10 +10,12 @@ const AudioBlock = styled.div`
 `
 
 const Audio: FunctionComponent = function () {
+  const { src } = useContext(AudioContext)
+
   return (
     <AudioBlock>
       <audio controls>
-        <source src="static/audios/emaj01.mp3" />
+        <source src={src} />
       </audio>
     </AudioBlock>
   )

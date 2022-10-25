@@ -1,10 +1,18 @@
-import React, { FunctionComponent } from 'react'
+import React, {
+  FunctionComponent,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react'
+import { AudioContext } from '../contexts/AudioProvider'
 
 import reset from '../../lib/styles/reset'
 import { Global } from '@emotion/react'
 import styled from '@emotion/styled'
 
 import Header from 'components/common/Header'
+import AboutTabProvider from '../contexts/AboutTabProvider'
 
 const AboutBlock = styled.main`
   position: relative;
@@ -45,8 +53,11 @@ const AboutNavItems = styled.div`
 `
 
 const AboutPage: FunctionComponent = function () {
+  const TabProvider = AboutTabProvider(4)
+  const { setSrc } = useContext(AudioContext)
+
   return (
-    <>
+    <TabProvider>
       <Global styles={reset} />
       <Header headerDarkMode={true} />
 
@@ -56,9 +67,10 @@ const AboutPage: FunctionComponent = function () {
           <AboutNavItems>characters</AboutNavItems>
           <AboutNavItems>concept</AboutNavItems>
           <AboutNavItems>utility</AboutNavItems>
+          <button onClick={() => setSrc('test.mp3')}>test button</button>
         </AboutNavContainer>
       </AboutBlock>
-    </>
+    </TabProvider>
   )
 }
 

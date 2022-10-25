@@ -12,10 +12,6 @@ import styled from '@emotion/styled'
 
 import Header from 'components/common/Header'
 
-import Audio from 'components/common/Audio'
-
-import Layout from 'components/layout'
-
 const IndexBlock = styled.div`
   width: 100vw;
   height: 100vh;

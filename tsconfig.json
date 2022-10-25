@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "allowJs": true,
     "jsx": "preserve",
@@ -19,6 +19,6 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*.tsx", "src/components/common/Layout.js"],
+  "include": ["src/**/*.tsx", "src/components/layout.tsx"],
   "exclude": ["node_modules"]
 }
