@@ -11,6 +11,7 @@ import styled from '@emotion/styled'
 import { Link } from 'gatsby'
 import Menu from './HeaderComponent/Menu'
 import { DarkmodeContext } from '../../contexts/DarkmodeProvider'
+import SNSMenu from './HeaderComponent/SNSMenu'
 
 const HeaderBlock = styled.header`
   width: 100%;
@@ -279,6 +280,7 @@ const Header = () => {
           </svg>
         </HeaderMenuButton>
       </HeaderButtonContainer>
+      <SNSMenu />
     </HeaderBlock>
   )
 }

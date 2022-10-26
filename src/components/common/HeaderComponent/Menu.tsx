@@ -11,7 +11,7 @@ const MenuBackground = styled.div`
   justify-content: center;
 
   width: calc(100vw + 2px);
-  height: calc(100vh - calc(100vh - 100%));
+  height: calc(100vh - calc(100vh - 100%) + 2px);
 
   background: linear-gradient(180deg, #1c0044 0%, #6200ee 100%);
   backdrop-filter: blur(15px);

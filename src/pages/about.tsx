@@ -7,6 +7,7 @@ import styled from '@emotion/styled'
 
 import AboutTabProvider from '../contexts/AboutTabProvider'
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
+import Characters from 'components/about/characters'
 
 const AboutBlock = styled.main`
   position: relative;
@@ -24,6 +25,9 @@ const AboutNavContainer = styled.nav`
   top: 230px;
 
   display: flex;
+
+  cursor: pointer;
+  z-index: 2;
 `
 
 const AboutNavItems = styled.div`
@@ -36,7 +40,7 @@ const AboutNavItems = styled.div`
 
   color: #000000;
 
-  margin-left: 30px;
+  margin-right: 30px;
 
   transition: 0.5s;
 
@@ -67,6 +71,7 @@ const AboutPage: FunctionComponent = function () {
             test button
           </button>
         </AboutNavContainer>
+        <Characters />
       </AboutBlock>
     </TabProvider>
   )
