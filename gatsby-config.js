@@ -24,11 +24,12 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `contents`,
+        name: `resources`,
         path: `${__dirname}/src/resources`,
       },
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-transformer-json`,
   ],
 }

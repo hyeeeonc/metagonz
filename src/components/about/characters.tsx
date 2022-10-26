@@ -1,6 +1,12 @@
-import React, { FunctionComponent } from 'react'
+import React, {
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import styled from '@emotion/styled'
-import { Link } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
+import { AudioContext } from '../../contexts/AudioProvider'
 
 const CharacterBlock = styled.main`
   position: relative;
@@ -85,21 +91,80 @@ const CharacterImage = styled.img`
   right: 50px;
 `
 
+type CharacterType = {
+  node: {
+    name: string
+    main_job: string
+    second_job: string
+    music_style: string
+    nationality: string
+    age: number
+    hight: number
+    weight: number
+    mbti: string
+    likes: string
+    pic: {
+      publicURL: string
+    }
+    audio: {
+      publicURL: string
+    }
+  }
+}
+
+type CharacterListType = {
+  allCharacterJson: {
+    edges: CharacterType[]
+  }
+}
+
 const Characters: FunctionComponent = function () {
+  const { setAudio } = useContext(AudioContext)
+  const {
+    allCharacterJson: { edges },
+  }: CharacterListType = useStaticQuery(graphql`
+    query getCharacters {
+      allCharacterJson {
+        edges {
+          node {
+            name
+            main_job
+            second_job
+            music_style
+            nationality
+            age
+            hight
+            weight
+            mbti
+            likes
+            pic {
+              publicURL
+            }
+            audio {
+              publicURL
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  const [selected, setSelected] = useState<number>(0)
+
+  useEffect(() => {
+    setAudio(edges[selected].node.audio.publicURL)
+  }, [selected])
+
   return (
     <CharacterBlock>
-      <CharacterImage src="./static/images/charactertest.jpg" />
+      <CharacterImage src={edges[selected].node.pic.publicURL} />
 
       <CharacterSelectorContainer>
-        <CharacterSelectoritems>all</CharacterSelectoritems>
-        <CharacterSelectoritems>ara</CharacterSelectoritems>
-        <CharacterSelectoritems>sara</CharacterSelectoritems>
-        <CharacterSelectoritems>kina</CharacterSelectoritems>
-        <CharacterSelectoritems>yua</CharacterSelectoritems>
-        <CharacterSelectoritems>jua</CharacterSelectoritems>
-        <CharacterSelectoritems>dana</CharacterSelectoritems>
-        <CharacterSelectoritems>roa</CharacterSelectoritems>
-        <CharacterSelectoritems>sara</CharacterSelectoritems>
+        {edges.map(({ node }, index) => (
+          <CharacterSelectoritems onClick={() => setSelected(index)}>
+            {node.name}
+          </CharacterSelectoritems>
+        ))}
       </CharacterSelectorContainer>
 
       <CharactorInfoContainer>
@@ -116,16 +181,22 @@ const Characters: FunctionComponent = function () {
           <CharactorInfoCell>Likes</CharactorInfoCell>
         </CharactorInfoHead>
         <CharacterInfoData>
-          <CharactorInfoCell>roa</CharactorInfoCell>
-          <CharactorInfoCell>roa</CharactorInfoCell>
-          <CharactorInfoCell>roa</CharactorInfoCell>
-          <CharactorInfoCell>roa</CharactorInfoCell>
-          <CharactorInfoCell>roa</CharactorInfoCell>
-          <CharactorInfoCell>roa</CharactorInfoCell>
-          <CharactorInfoCell>roa</CharactorInfoCell>
-          <CharactorInfoCell>roa</CharactorInfoCell>
-          <CharactorInfoCell>roa</CharactorInfoCell>
-          <CharactorInfoCell>roa</CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected].node.name}</CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected].node.main_job}</CharactorInfoCell>
+          <CharactorInfoCell>
+            {edges[selected].node.second_job}
+          </CharactorInfoCell>
+          <CharactorInfoCell>
+            {edges[selected].node.music_style}
+          </CharactorInfoCell>
+          <CharactorInfoCell>
+            {edges[selected].node.nationality}
+          </CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected].node.age}</CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected].node.hight}</CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected].node.weight}</CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected].node.mbti}</CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected].node.likes}</CharactorInfoCell>
         </CharacterInfoData>
       </CharactorInfoContainer>
     </CharacterBlock>
