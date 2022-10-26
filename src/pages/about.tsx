@@ -1,12 +1,12 @@
-import React, { FunctionComponent, useContext } from 'react'
+import React, { FunctionComponent, useContext, useEffect } from 'react'
 import { AudioContext } from '../contexts/AudioProvider'
 
 import reset from '../../lib/styles/reset'
 import { Global } from '@emotion/react'
 import styled from '@emotion/styled'
 
-import Header from 'components/common/Header'
 import AboutTabProvider from '../contexts/AboutTabProvider'
+import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 
 const AboutBlock = styled.main`
   position: relative;
@@ -49,12 +49,14 @@ const AboutNavItems = styled.div`
 const AboutPage: FunctionComponent = function () {
   const TabProvider = AboutTabProvider(4)
   const { setAudio } = useContext(AudioContext)
+  const { setMode } = useContext(DarkmodeContext)
+  useEffect(() => {
+    setMode(true)
+  }, [])
 
   return (
     <TabProvider>
       <Global styles={reset} />
-      <Header headerDarkMode={true} />
-
       <AboutBlock>
         <AboutNavContainer>
           <AboutNavItems>story</AboutNavItems>

@@ -1,11 +1,16 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, {
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
 import reset from '../../lib/styles/reset'
 import charactersStyle from '../../lib/styles/charactersStyle'
 import { Global } from '@emotion/react'
 import styled from '@emotion/styled'
 
-import Header from 'components/common/Header'
+import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 
 const CharactersBlock = styled.main`
   width: 100vw;
@@ -51,7 +56,10 @@ const CharactersPage: FunctionComponent = function () {
     null,
   )
   const [makeDefault, setMakeDefault] = useState<boolean>(false)
-
+  const { setMode } = useContext(DarkmodeContext)
+  useEffect(() => {
+    setMode(true)
+  }, [])
   /**
    * 캐릭터 image에서 onClick시 발동하는 함수 / selectedCharacter 값 넣음
    * @param order 클릭한 character 받음
@@ -73,7 +81,6 @@ const CharactersPage: FunctionComponent = function () {
     <>
       <Global styles={reset} />
       <Global styles={charactersStyle} />
-      <Header headerDarkMode={true} />
 
       <CharactersBlock>
         <CharactersItemsContainer>

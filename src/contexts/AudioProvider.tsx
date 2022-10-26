@@ -1,4 +1,12 @@
-import { createContext, useState, useMemo, useRef } from 'react'
+import {
+  createContext,
+  useState,
+  useMemo,
+  useRef,
+  ComponentProps,
+  FC,
+  PropsWithChildren,
+} from 'react'
 
 type AudioContextValue = {
   src: string
@@ -10,7 +18,7 @@ export const AudioContext = createContext<AudioContextValue>(
   {} as AudioContextValue,
 )
 
-const AudioProvider = ({ children }: { children: React.ReactNode }) => {
+const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
   const [src, setSrc] = useState<string>('./static/audios/emaj01.mp3')
   const audioRef = useRef<HTMLAudioElement>(null)
 

@@ -3,6 +3,7 @@ import React, {
   useState,
   useCallback,
   useEffect,
+  useContext,
 } from 'react'
 
 import reset from '../../lib/styles/reset'
@@ -11,6 +12,7 @@ import { Global } from '@emotion/react'
 import styled from '@emotion/styled'
 
 import Header from 'components/common/Header'
+import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 
 const IndexBlock = styled.div`
   width: 100vw;
@@ -38,11 +40,16 @@ const IndexPage: FunctionComponent = function () {
   })
   const [imageSize, setimageSize] = useState<boolean>(false)
 
+  const { setMode } = useContext(DarkmodeContext)
   const handleResize = useCallback(() => {
     setWindowSize({
       width: window.innerWidth,
       height: window.innerHeight,
     })
+  }, [])
+
+  useEffect(() => {
+    setMode(false)
   }, [])
 
   useEffect(() => {
@@ -72,7 +79,6 @@ const IndexPage: FunctionComponent = function () {
     <>
       <Global styles={reset} />
       <Global styles={indexStyle} />
-      <Header headerDarkMode={false} />
 
       <IndexBlock>
         <IndexBackgroundImageContainer

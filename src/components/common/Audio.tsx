@@ -188,7 +188,7 @@ const AudioFoldingButton = styled.div`
 const Audio: FunctionComponent = function () {
   const [hover, setHover] = useState<string>('') //hover 상태 저장
   const [isFolded, setIsFolded] = useState<boolean>(false) // fold 컨트롤러
-  const { src, audioRef } = useContext(AudioContext)
+  //const { src, audioRef } = useContext(AudioContext)
 
   const foldingHandler = () => {
     if (!isFolded) setIsFolded(true)

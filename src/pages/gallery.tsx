@@ -1,20 +1,22 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useContext, useEffect } from 'react'
 
 import reset from '../../lib/styles/reset'
 import { Global } from '@emotion/react'
 import styled from '@emotion/styled'
 
-import Header from 'components/common/Header'
-
-import Audio from 'components/common/Audio'
-
 import Layout from 'components/layout'
+import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 
 const GalleryPage: FunctionComponent = function () {
+  const { setMode } = useContext(DarkmodeContext)
+
+  useEffect(() => {
+    setMode(true)
+  }, [])
+
   return (
     <Layout>
       <Global styles={reset} />
-      <Header headerDarkMode={true} />
     </Layout>
   )
 }
