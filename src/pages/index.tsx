@@ -61,7 +61,7 @@ const IndexPage: FunctionComponent = function () {
 
   useEffect(() => {
     const IndexBackgroundImageSizeRation = windowSize.width / windowSize.height
-    if (IndexBackgroundImageSizeRation > 1.5) {
+    if (IndexBackgroundImageSizeRation > 3456 / 2234) {
       setimageSize(true)
     } else {
       setimageSize(false)
@@ -79,7 +79,7 @@ const IndexPage: FunctionComponent = function () {
           style={{ alignItems: imageSize === false ? `none` : `center` }}
         >
           <IndexBackgroundImage
-            src="static/images/home.jpg"
+            src="static/images/home.png"
             style={
               imageSize === false
                 ? {

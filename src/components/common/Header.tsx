@@ -1,8 +1,9 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useState } from 'react'
 
 import styled from '@emotion/styled'
 
 import { Link } from 'gatsby'
+import Menu from './HeaderComponent/Menu'
 
 const HeaderBlock = styled.header`
   width: 100%;
@@ -77,11 +78,15 @@ const HeaderNavItemsDarkMode = styled(Link)`
   cursor: pointer;
 `
 
+//const HeaderNavItems
+
 type HeaderType = {
   headerDarkMode: boolean
 }
 
 const Header: FunctionComponent<HeaderType> = function ({ headerDarkMode }) {
+  const [menuOpenState, setMenuOpenState] = useState<number>(0)
+  //const
   /**
    * lightMode / DarkMode에 따라서 NavBar 아이템 color 변경
    */
@@ -89,8 +94,17 @@ const Header: FunctionComponent<HeaderType> = function ({ headerDarkMode }) {
     ? HeaderNavItemsDarkMode
     : HeaderNavItemsLightMode
 
+  // 메뉴 오픈 상태 정의, 0이면 비활성화. 값은 menu에서 props로 받아서 inline style 정의하는 방식으로 작동.
+  const menuOpenHandler = () => {
+    if (menuOpenState == 0) {
+      setMenuOpenState(1)
+    } else {
+      setMenuOpenState(0)
+    }
+  }
   return (
     <HeaderBlock>
+      {/* <Menu /> */}
       <HeaderLogoContainer>
         <Link to="/">
           <svg
@@ -178,15 +192,11 @@ const Header: FunctionComponent<HeaderType> = function ({ headerDarkMode }) {
         </Link>
       </HeaderLogoContainer>
       <HeaderNavContainer>
-        <HeaderNavItems to={`/about`}>ABOUT</HeaderNavItems>
+        <HeaderNavItems to={`/about`}>minting</HeaderNavItems>
 
-        <HeaderNavItems to={`/characters`}>Characters</HeaderNavItems>
+        <HeaderNavItems to={`/characters`}>gallery</HeaderNavItems>
 
-        <HeaderNavItems to={`/scenario`}>Scenari0</HeaderNavItems>
-
-        <HeaderNavItems to={`/about`}>Roadmap</HeaderNavItems>
-
-        <HeaderNavItems to={`/license`}>License</HeaderNavItems>
+        <HeaderNavItems to={`/scenario`}>My Page</HeaderNavItems>
       </HeaderNavContainer>
     </HeaderBlock>
   )

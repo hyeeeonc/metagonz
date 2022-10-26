@@ -2,6 +2,7 @@ import AudioProvider from '../contexts/AudioProvider'
 import React from 'react'
 
 import Audio from './common/Audio'
+import Footer from './common/Footer'
 
 type LayoutProps = {
   children: React.ReactNode
@@ -12,6 +13,7 @@ const Layout = ({ children }: LayoutProps) => {
     <AudioProvider>
       {children}
       <Audio />
+      <Footer />
     </AudioProvider>
   )
 }

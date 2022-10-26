@@ -11,7 +11,7 @@ export const AudioContext = createContext<AudioContextValue>(
 )
 
 const AudioProvider = ({ children }: { children: React.ReactNode }) => {
-  const [src, setSrc] = useState<string>('audios/emaj01.mp3')
+  const [src, setSrc] = useState<string>('./static/audios/emaj01.mp3')
   const audioRef = useRef<HTMLAudioElement>(null)
 
   const setAudio = (src: string) => {
