@@ -1,10 +1,4 @@
-import React, {
-  FunctionComponent,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react'
+import React, { FunctionComponent, useContext } from 'react'
 import { AudioContext } from '../contexts/AudioProvider'
 
 import reset from '../../lib/styles/reset'
@@ -54,7 +48,7 @@ const AboutNavItems = styled.div`
 
 const AboutPage: FunctionComponent = function () {
   const TabProvider = AboutTabProvider(4)
-  const { setSrc } = useContext(AudioContext)
+  const { setAudio } = useContext(AudioContext)
 
   return (
     <TabProvider>
@@ -67,7 +61,9 @@ const AboutPage: FunctionComponent = function () {
           <AboutNavItems>characters</AboutNavItems>
           <AboutNavItems>concept</AboutNavItems>
           <AboutNavItems>utility</AboutNavItems>
-          <button onClick={() => setSrc('test.mp3')}>test button</button>
+          <button onClick={() => setAudio('audios/1. ARA (Future Bass).mp3')}>
+            test button
+          </button>
         </AboutNavContainer>
       </AboutBlock>
     </TabProvider>

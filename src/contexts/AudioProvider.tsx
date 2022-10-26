@@ -1,8 +1,9 @@
-import { createContext, useState, useMemo } from 'react'
+import { createContext, useState, useMemo, useRef } from 'react'
 
 type AudioContextValue = {
   src: string
-  setSrc: React.Dispatch<React.SetStateAction<string>>
+  audioRef: React.RefObject<HTMLAudioElement>
+  setAudio: (src: string) => void
 }
 
 export const AudioContext = createContext<AudioContextValue>(
@@ -11,11 +12,25 @@ export const AudioContext = createContext<AudioContextValue>(
 
 const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [src, setSrc] = useState<string>('audios/emaj01.mp3')
+  const audioRef = useRef<HTMLAudioElement>(null)
+
+  const setAudio = (src: string) => {
+    setSrc(src)
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current.load()
+      audioRef.current.play()
+      audioRef.current.onended = () => {
+        audioRef.current?.play()
+      }
+    }
+  }
 
   const value = useMemo(
     () => ({
       src,
-      setSrc,
+      audioRef,
+      setAudio,
     }),
     [src],
   )
