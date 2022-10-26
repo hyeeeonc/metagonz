@@ -12,8 +12,8 @@ type LayoutProps = {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <AppContextProvier>
-      <Header />
       {children}
+      <Header />
       <Audio />
       <Footer />
     </AppContextProvier>

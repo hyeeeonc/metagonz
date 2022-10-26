@@ -1,6 +1,12 @@
-import React, { FunctionComponent, useContext, useState } from 'react'
+import React, {
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import styled from '@emotion/styled'
 import { AudioContext } from '../../contexts/AudioProvider'
+import { DarkmodeContext } from '../../contexts/DarkmodeProvider'
 
 const AudioBlock = styled.div`
   display: flex;
@@ -186,6 +192,11 @@ const AudioFoldingButton = styled.div`
 `
 
 const Audio: FunctionComponent = function () {
+  const { isDarkmode } = useContext(DarkmodeContext)
+  useEffect(() => {
+    console.log('hi')
+  }, [isDarkmode])
+
   const [hover, setHover] = useState<string>('') //hover 상태 저장
   const [isFolded, setIsFolded] = useState<boolean>(false) // fold 컨트롤러
   //const { src, audioRef } = useContext(AudioContext)
@@ -207,7 +218,11 @@ const Audio: FunctionComponent = function () {
         style={{
           width: isFolded ? '131px' : '330px',
           left: isFolded ? 0 : '96px',
-          background: isFolded ? 'rgba(255, 255, 255, 0.08)' : 'white',
+          background: isFolded
+            ? 'rgba(255, 255, 255, 0.08)'
+            : isDarkmode
+            ? 'linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)), #ffffff'
+            : 'white',
         }}
       >
         <AudioTitle style={{ opacity: isFolded ? 0 : 1 }}>

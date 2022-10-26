@@ -1,10 +1,4 @@
-import React, {
-  FunctionComponent,
-  useContext,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 
 import styled from '@emotion/styled'
 
@@ -22,8 +16,6 @@ const HeaderBlock = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  z-index: 10;
 `
 
 const HeaderLogoContainer = styled.div`
@@ -115,7 +107,8 @@ const HeaderMenuButton = styled.div`
 //const HeaderNavItems
 
 const Header = () => {
-  const [menuOpenState, setMenuOpenState] = useState<number>(0)
+  const [menuOpenState, setMenuOpenState] = useState<boolean>(false)
+  const [snsOpenState, setSnsOpenState] = useState<boolean>(false)
 
   const { isDarkmode } = useContext(DarkmodeContext)
 
@@ -124,13 +117,14 @@ const Header = () => {
     return isDarkmode ? HeaderNavItemsDarkMode : HeaderNavItemsLightMode
   }, [isDarkmode])
 
-  // 메뉴 오픈 상태 정의, 0이면 비활성화. 값은 menu에서 props로 받아서 inline style 정의하는 방식으로 작동.
   const menuOpenHandler = () => {
-    if (menuOpenState == 0) {
-      setMenuOpenState(1)
-    } else {
-      setMenuOpenState(0)
-    }
+    if (menuOpenState) setMenuOpenState(false)
+    else setMenuOpenState(true)
+  }
+
+  const snsOpenHandler = () => {
+    if (snsOpenState) setSnsOpenState(false)
+    else setSnsOpenState(true)
   }
   return (
     <HeaderBlock>
@@ -229,7 +223,7 @@ const Header = () => {
 
           <HeaderNavItems to={`/scenario`}>My Page</HeaderNavItems>
         </HeaderNavContainer>
-        <HeaderNavSNSButton>
+        <HeaderNavSNSButton onClick={snsOpenHandler}>
           <svg
             width="20"
             height="20"
@@ -239,21 +233,21 @@ const Header = () => {
           >
             <path
               d="M7.35156 12.6484L12.6484 7.34375"
-              stroke="white"
+              stroke={isDarkmode ? 'black' : 'white'}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
             <path
               d="M11.3272 13.9766L9.11621 16.1875C8.7679 16.5358 8.3544 16.8121 7.89931 17.0006C7.44422 17.1891 6.95646 17.2861 6.46387 17.2861C5.46905 17.2861 4.51497 16.8909 3.81153 16.1875C3.10808 15.4841 2.71289 14.53 2.71289 13.5352C2.71289 12.5403 3.10808 11.5863 3.81153 10.8828L6.02246 8.67188"
-              stroke="white"
+              stroke={isDarkmode ? 'black' : 'white'}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
             <path
               d="M13.9766 11.3281L16.1875 9.11719C16.8909 8.41375 17.2861 7.45967 17.2861 6.46485C17.2861 5.47003 16.8909 4.51595 16.1875 3.8125C15.4841 3.10906 14.53 2.71387 13.5352 2.71387C12.5403 2.71387 11.5863 3.10906 10.8828 3.8125L8.67188 6.02344"
-              stroke="white"
+              stroke={isDarkmode ? 'black' : 'white'}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -268,19 +262,63 @@ const Header = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect width="4" height="4" fill="white" />
-            <rect x="6" width="4" height="4" fill="white" />
-            <rect x="12" width="4" height="4" fill="white" />
-            <rect y="6" width="4" height="4" fill="white" />
-            <rect x="6" y="6" width="4" height="4" fill="white" />
-            <rect x="12" y="6" width="4" height="4" fill="white" />
-            <rect y="12" width="4" height="4" fill="white" />
-            <rect x="6" y="12" width="4" height="4" fill="white" />
-            <rect x="12" y="12" width="4" height="4" fill="white" />
+            <rect width="4" height="4" fill={isDarkmode ? 'black' : 'white'} />
+            <rect
+              x="6"
+              width="4"
+              height="4"
+              fill={isDarkmode ? 'black' : 'white'}
+            />
+            <rect
+              x="12"
+              width="4"
+              height="4"
+              fill={isDarkmode ? 'black' : 'white'}
+            />
+            <rect
+              y="6"
+              width="4"
+              height="4"
+              fill={isDarkmode ? 'black' : 'white'}
+            />
+            <rect
+              x="6"
+              y="6"
+              width="4"
+              height="4"
+              fill={isDarkmode ? 'black' : 'white'}
+            />
+            <rect
+              x="12"
+              y="6"
+              width="4"
+              height="4"
+              fill={isDarkmode ? 'black' : 'white'}
+            />
+            <rect
+              y="12"
+              width="4"
+              height="4"
+              fill={isDarkmode ? 'black' : 'white'}
+            />
+            <rect
+              x="6"
+              y="12"
+              width="4"
+              height="4"
+              fill={isDarkmode ? 'black' : 'white'}
+            />
+            <rect
+              x="12"
+              y="12"
+              width="4"
+              height="4"
+              fill={isDarkmode ? 'black' : 'white'}
+            />
           </svg>
         </HeaderMenuButton>
       </HeaderButtonContainer>
-      <SNSMenu />
+      <SNSMenu snsOpenState={snsOpenState} />
     </HeaderBlock>
   )
 }
