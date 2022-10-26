@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useState,
 } from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import styled from '@emotion/styled'
 import { AudioContext } from '../../contexts/AudioProvider'
 import { DarkmodeContext } from '../../contexts/DarkmodeProvider'
@@ -191,7 +192,20 @@ const AudioFoldingButton = styled.div`
   transition: 0.5s ease;
 `
 
+type ImgType = {
+  file: {
+    publicURL: string
+  }
+}
+
 const Audio: FunctionComponent = function () {
+  const audioImg: ImgType = useStaticQuery(graphql`
+    query {
+      file(name: { eq: "audio" }) {
+        publicURL
+      }
+    }
+  `)
   const { isDarkmode } = useContext(DarkmodeContext)
   useEffect(() => {
     console.log('hi')
@@ -210,7 +224,7 @@ const Audio: FunctionComponent = function () {
       <AudioCharactorContainer style={{ width: isFolded ? 0 : '' }}>
         <AudioCharactorBackground style={{ opacity: isFolded ? 0 : 1 }} />
         <AudioCharactorImageContainer
-          src="./static/images/music_image.png"
+          src={audioImg.file.publicURL}
           style={{ opacity: isFolded ? 0 : 1 }}
         />
       </AudioCharactorContainer>

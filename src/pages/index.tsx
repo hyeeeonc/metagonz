@@ -13,6 +13,7 @@ import styled from '@emotion/styled'
 
 import Header from 'components/common/Header'
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const IndexBlock = styled.div`
   width: 100vw;
@@ -29,6 +30,12 @@ const IndexBackgroundImageContainer = styled.div`
 `
 
 const IndexBackgroundImage = styled.img``
+
+type ImgType = {
+  file: {
+    publicURL: string
+  }
+}
 
 const IndexPage: FunctionComponent = function () {
   const [windowSize, setWindowSize] = useState<{
@@ -67,13 +74,21 @@ const IndexPage: FunctionComponent = function () {
   }, [])
 
   useEffect(() => {
-    const IndexBackgroundImageSizeRation = windowSize.width / windowSize.height
-    if (IndexBackgroundImageSizeRation > 3456 / 2234) {
+    const IndexBackgroundImageSizeRatio = windowSize.width / windowSize.height
+    if (IndexBackgroundImageSizeRatio > 3456 / 2234) {
       setimageSize(true)
     } else {
       setimageSize(false)
     }
   }, [windowSize])
+
+  const homeImg: ImgType = useStaticQuery(graphql`
+    query {
+      file(name: { eq: "home" }) {
+        publicURL
+      }
+    }
+  `)
 
   return (
     <>
@@ -85,7 +100,7 @@ const IndexPage: FunctionComponent = function () {
           style={{ alignItems: imageSize === false ? `none` : `center` }}
         >
           <IndexBackgroundImage
-            src="static/images/home.png"
+            src={homeImg.file.publicURL}
             style={
               imageSize === false
                 ? {

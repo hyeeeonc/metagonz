@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useState,
 } from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 
 import reset from '../../lib/styles/reset'
 import charactersStyle from '../../lib/styles/charactersStyle'
@@ -47,7 +48,6 @@ const CharactersItems = styled.div`
   justify-content: center;
   overflow: hidden;
 `
-
 const CharactersPage: FunctionComponent = function () {
   /**
    * 선택된 Character 결정하기 / null일때는 선택되지 않은 것
