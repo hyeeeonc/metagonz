@@ -117,6 +117,10 @@ const AudioContorllerPrev = styled.div`
   path {
     transition: 0.5s ease;
   }
+
+  rect {
+    transition: 0.5s ease;
+  }
 `
 
 const AudioControllerPlayPause = styled.div`
@@ -131,6 +135,10 @@ const AudioControllerPlayPause = styled.div`
   path {
     transition: 0.5s ease;
   }
+
+  reck {
+    transition: 0.5s ease;
+  }
 `
 
 const AudioControllerNext = styled.div`
@@ -143,6 +151,10 @@ const AudioControllerNext = styled.div`
   transition: 0.5s ease;
 
   path {
+    transition: 0.5s ease;
+  }
+
+  rect {
     transition: 0.5s ease;
   }
 `
@@ -225,7 +237,7 @@ const Audio: FunctionComponent = function () {
         </AudioContorllerPrev>
         <AudioControllerPlayPause
           style={{ right: isFolded ? 71 : '' }}
-          onMouseEnter={() => setHover('playnPause')}
+          onMouseEnter={() => setHover('playNPause')}
           onMouseLeave={() => setHover('')}
         >
           <svg width="16" height="18" viewBox="0 0 16 18" fill="none">

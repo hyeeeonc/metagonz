@@ -23,6 +23,11 @@ const HeaderLogoContainer = styled.div`
   cursor: pointer;
 `
 
+const HeaderButtonContainer = styled.div`
+  position: absolute;
+  right: 30px;
+`
+
 const HeaderNavContainer = styled.nav`
   position: absolute;
   right: 20px;
@@ -77,6 +82,8 @@ const HeaderNavItemsDarkMode = styled(Link)`
 
   cursor: pointer;
 `
+
+const HeaderNavSNSButton = styled.div``
 
 //const HeaderNavItems
 
