@@ -27,8 +27,10 @@ const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
     if (audioRef.current) {
       audioRef.current.pause()
       audioRef.current.load()
+      //eslint-disable-next-line
       audioRef.current.play()
       audioRef.current.onended = () => {
+        //eslint-disable-next-line
         audioRef.current?.play()
       }
     }

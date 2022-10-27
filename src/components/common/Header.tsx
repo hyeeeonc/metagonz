@@ -16,11 +16,15 @@ const HeaderBlock = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  z-index: 2;
 `
 
 const HeaderLogoContainer = styled.div`
   margin-left: 30px;
   cursor: pointer;
+
+  z-index: 2;
 `
 
 const HeaderButtonContainer = styled.div`
@@ -128,8 +132,14 @@ const Header = () => {
   }
   return (
     <HeaderBlock>
-      {/* <Menu /> */}
-      <HeaderLogoContainer>
+      <Menu menuOpenState={menuOpenState} />
+      <HeaderLogoContainer
+        onClick={() => {
+          if (menuOpenState) {
+            setMenuOpenState(false)
+          }
+        }}
+      >
         <Link to="/">
           <svg
             width="133"
@@ -217,11 +227,32 @@ const Header = () => {
       </HeaderLogoContainer>
       <HeaderButtonContainer>
         <HeaderNavContainer>
-          <HeaderNavItems to={`/about`}>minting</HeaderNavItems>
+          <HeaderNavItems
+            onClick={() => {
+              if (menuOpenState) setMenuOpenState(false)
+            }}
+            to={`/about`}
+          >
+            minting
+          </HeaderNavItems>
 
-          <HeaderNavItems to={`/characters`}>gallery</HeaderNavItems>
+          <HeaderNavItems
+            onClick={() => {
+              if (menuOpenState) setMenuOpenState(false)
+            }}
+            to={`/gallery`}
+          >
+            gallery
+          </HeaderNavItems>
 
-          <HeaderNavItems to={`/scenario`}>My Page</HeaderNavItems>
+          <HeaderNavItems
+            onClick={() => {
+              if (menuOpenState) setMenuOpenState(false)
+            }}
+            to={`/scenario`}
+          >
+            My Page
+          </HeaderNavItems>
         </HeaderNavContainer>
         <HeaderNavSNSButton onClick={snsOpenHandler}>
           <svg
@@ -254,7 +285,7 @@ const Header = () => {
             />
           </svg>
         </HeaderNavSNSButton>
-        <HeaderMenuButton>
+        <HeaderMenuButton onClick={menuOpenHandler}>
           <svg
             width="16"
             height="16"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'gatsby'
 import { DarkmodeContext } from '../../../contexts/DarkmodeProvider'
@@ -19,7 +19,7 @@ const SNSBlock = styled.nav`
   transition: z-index: 1s linear;
 `
 
-const SNSItems = styled.div`
+const SNSItems = styled(Link)`
   cursor: pointer;
 
   transform: translate(0px, -50px);
@@ -43,6 +43,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
+        to="#"
       >
         <svg
           width="23"
@@ -64,6 +65,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
+        to="#"
       >
         <svg
           width="22"
@@ -85,6 +87,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
+        to="#"
       >
         <svg
           width="21"
@@ -106,6 +109,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
+        to="#"
       >
         <svg
           width="23"
@@ -129,12 +133,13 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
+        to="#"
       >
         <svg
           width="25"
           height="14"
           viewBox="0 0 25 14"
-          fill="none"
+          fill={isDarkmode ? 'black' : 'white'}
           xmlns="http://www.w3.org/2000/svg"
         >
           <g clipPath="url(#clip0_743_1187)">
@@ -169,6 +174,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
+        to="#"
       >
         <svg
           width="20"

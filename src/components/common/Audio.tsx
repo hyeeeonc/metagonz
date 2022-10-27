@@ -1,12 +1,6 @@
-import React, {
-  FunctionComponent,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import React, { FunctionComponent, useContext, useState } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import styled from '@emotion/styled'
-import { AudioContext } from '../../contexts/AudioProvider'
 import { DarkmodeContext } from '../../contexts/DarkmodeProvider'
 
 const AudioBlock = styled.div`
@@ -18,7 +12,7 @@ const AudioBlock = styled.div`
   position: fixed;
   bottom: 57px;
   left: 30px;
-  z-index: 10;
+  z-index: 3;
 `
 
 const AudioCharactorContainer = styled.div`
@@ -207,9 +201,6 @@ const Audio: FunctionComponent = function () {
     }
   `)
   const { isDarkmode } = useContext(DarkmodeContext)
-  useEffect(() => {
-    console.log('hi')
-  }, [isDarkmode])
 
   const [hover, setHover] = useState<string>('') //hover 상태 저장
   const [isFolded, setIsFolded] = useState<boolean>(false) // fold 컨트롤러
@@ -232,10 +223,10 @@ const Audio: FunctionComponent = function () {
         style={{
           width: isFolded ? '131px' : '330px',
           left: isFolded ? 0 : '96px',
-          background: isFolded
-            ? 'rgba(255, 255, 255, 0.08)'
-            : isDarkmode
+          background: isDarkmode
             ? 'linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)), #ffffff'
+            : isFolded
+            ? 'rgba(255, 255, 255, 0.08)'
             : 'white',
         }}
       >
@@ -253,14 +244,30 @@ const Audio: FunctionComponent = function () {
           <svg width="16" height="14" viewBox="0 0 16 14" fill="none">
             <path
               d="M1.96289 7L12.1897 0.937822L12.1897 13.0622L1.96289 7Z"
-              fill={hover == 'prev' ? '#6200ee' : isFolded ? 'white' : 'black'}
+              fill={
+                hover == 'prev'
+                  ? '#6200ee'
+                  : isFolded
+                  ? isDarkmode
+                    ? 'black'
+                    : 'white'
+                  : 'black'
+              }
             />
             <rect
               x="0.599609"
               y="0.699707"
               width="1.36358"
               height="12.6"
-              fill={hover == 'prev' ? '#6200ee' : isFolded ? 'white' : 'black'}
+              fill={
+                hover == 'prev'
+                  ? '#6200ee'
+                  : isFolded
+                  ? isDarkmode
+                    ? 'black'
+                    : 'white'
+                  : 'black'
+              }
             />
           </svg>
         </AudioContorllerPrev>
@@ -273,7 +280,13 @@ const Audio: FunctionComponent = function () {
             <path
               d="M15.5996 9L0.599608 17.6603L0.599609 0.339744L15.5996 9Z"
               fill={
-                hover == 'playNPause' ? '#6200ee' : isFolded ? 'white' : 'black'
+                hover == 'playNPause'
+                  ? '#6200ee'
+                  : isFolded
+                  ? isDarkmode
+                    ? 'black'
+                    : 'white'
+                  : 'black'
               }
             />
           </svg>
@@ -286,14 +299,30 @@ const Audio: FunctionComponent = function () {
           <svg width="16" height="14" viewBox="0 0 16 14" fill="none">
             <path
               d="M14.5996 7L4.09961 13.0622L4.09961 0.937822L14.5996 7Z"
-              fill={hover == 'next' ? '#6200ee' : isFolded ? 'white' : 'black'}
+              fill={
+                hover == 'next'
+                  ? '#6200ee'
+                  : isFolded
+                  ? isDarkmode
+                    ? 'black'
+                    : 'white'
+                  : 'black'
+              }
             />
             <rect
               x="14.5996"
               y="0.700439"
               width="1.4"
               height="12.6"
-              fill={hover == 'next' ? '#6200ee' : isFolded ? 'white' : 'black'}
+              fill={
+                hover == 'next'
+                  ? '#6200ee'
+                  : isFolded
+                  ? isDarkmode
+                    ? 'black'
+                    : 'white'
+                  : 'black'
+              }
             />
           </svg>
         </AudioControllerNext>

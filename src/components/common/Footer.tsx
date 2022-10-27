@@ -1,8 +1,9 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useContext } from 'react'
 
 import styled from '@emotion/styled'
 
 import { Link } from 'gatsby'
+import { DarkmodeContext } from '../../contexts/DarkmodeProvider'
 
 const FooterBlock = styled.nav`
   position: fixed;
@@ -21,10 +22,7 @@ const FooterBlock = styled.nav`
   backdrop-filter: blur(5px);
   border-radius: 5px;
 
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
+  z-index: 3;
 `
 
 const FooterTitle = styled.div`
@@ -36,7 +34,6 @@ const FooterTitle = styled.div`
   font-weight: 700;
   font-size: 10px;
   line-height: 20px;
-  /* identical to box height, or 200% */
   text-transform: uppercase;
 
   color: #ffffff;
@@ -64,11 +61,39 @@ const FooterLinker = styled(Link)`
 `
 
 const Footer: FunctionComponent = function () {
+  const { isDarkmode } = useContext(DarkmodeContext)
+
   return (
-    <FooterBlock>
-      <FooterTitle>© METAGONZ</FooterTitle>
-      <FooterLinker to={'#'}>Privacy policy</FooterLinker>
-      <FooterLinker to={'#'}>terms of use</FooterLinker>
+    <FooterBlock
+      style={{
+        background: isDarkmode
+          ? 'linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)), rgba(255, 255, 255, 0.4)'
+          : '',
+      }}
+    >
+      <FooterTitle
+        style={{
+          color: isDarkmode ? 'black' : 'white',
+        }}
+      >
+        © METAGONZ
+      </FooterTitle>
+      <FooterLinker
+        style={{
+          color: isDarkmode ? 'black' : 'white',
+        }}
+        to={'#'}
+      >
+        Privacy policy
+      </FooterLinker>
+      <FooterLinker
+        style={{
+          color: isDarkmode ? 'black' : 'white',
+        }}
+        to={'#'}
+      >
+        terms of use
+      </FooterLinker>
     </FooterBlock>
   )
 }

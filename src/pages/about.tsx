@@ -7,7 +7,7 @@ import styled from '@emotion/styled'
 
 import AboutTabProvider from '../contexts/AboutTabProvider'
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
-import Characters from 'components/about/characters'
+import Characters from 'components/about/Characters'
 
 const AboutBlock = styled.main`
   position: relative;
