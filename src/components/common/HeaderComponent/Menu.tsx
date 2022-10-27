@@ -83,8 +83,8 @@ const MenuButtonContainer = styled.div`
 
   overflow: hidden;
 
-  transition: 0.4s linear;
-
+  //transition: 0.4s linear;
+  transition: top 0.4s linear, right 0.4s linear;
   transform: translate(50%, -50%);
 
   clip-path: polygon(
@@ -185,7 +185,9 @@ const MenuButtonBackground = styled.div`
   background: linear-gradient(0deg, #230055, #230055), #4b4b4b;
   mix-blend-mode: color;
 
-  transition: 0.4s linear;
+  //transition: all 0.4s linear;
+  transition: width 0.4s linear, height 0.4s linear;
+
   clip-path: polygon(
     50% 0,
     85.35% 14.65%,
@@ -222,7 +224,6 @@ const MenuButtonImage = styled.img`
 
   transition: 0.4s linear;
 `
-
 const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
   const { isDarkmode, setMode } = useContext(DarkmodeContext)
   const [PrevMode, setPrevMode] = useState<boolean>(false)
@@ -258,11 +259,6 @@ const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
     }
   }, [menuOpenState])
 
-  const hoverHandler = (idx: number) => {
-    switch (idx) {
-      case 0:
-    }
-  }
   return (
     <MenuBackground
       style={{

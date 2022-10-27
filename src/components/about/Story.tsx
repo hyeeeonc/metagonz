@@ -1,54 +1,129 @@
 import React, { FunctionComponent, useContext, useState } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import styled from '@emotion/styled'
-import { DarkmodeContext } from '../../contexts/DarkmodeProvider'
+import { AboutTabContext } from '../../contexts/AboutTabProvider'
 
 const StoryBlock = styled.main`
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
 
   width: 100vw;
   height: calc(100vh - calc(100vh - 100%));
 
   overflow: hidden;
+
+  transition: 0.5s ease;
 `
 
-const CharactorContentContainer = styled.div`
+const StoryContentContainer = styled.div`
   position: absolute;
   left: 30px;
-  top: 377px;
-
-  display: flex;
+  top: 311px;
 `
 
-const CharactorInfoHead = styled.div`
-  width: 88px;
-  height: 228px;
+const StoryContentNoBorder = styled.div`
+  width: 408px;
+  height: 76px;
 
-  font-weight: 700;
+  margin-bottom: 50px;
 
-  margin-right: 50px;
-`
-const CharacterInfoData = styled.div`
-  width: 88px;
-  height: 228px;
-
-  font-weight: 400;
-`
-
-const CharactorInfoCell = styled.div`
   font-family: 'SUIT';
   font-style: normal;
-
+  font-weight: 600;
   font-size: 15px;
-  line-height: 12px;
+  line-height: 19px;
 
-  margin: 10px 0;
+  color: #000000;
+`
+const StoryContentWithBorder = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 655px;
+  height: 223px;
+
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+`
+
+const StoryContentWithBorderItems = styled.div`
+  width: 593px;
+  font-family: 'SUIT';
+  font-style: normal;
+  font-weight: 700;
 
   color: #000000;
 `
 
-const CharacterImage = styled.img`
+const StoryImage = styled.img`
   position: absolute;
   top: 0;
   right: 50px;
 `
+
+const Story = () => {
+  const { tabNum, scrollHandler } = useContext(AboutTabContext)
+
+  return (
+    <StoryBlock
+      onWheel={scrollHandler}
+      style={{
+        visibility: tabNum == 1 ? 'visible' : 'hidden',
+        opacity: tabNum == 1 ? 1 : 0,
+      }}
+    >
+      <StoryContentContainer>
+        <StoryContentNoBorder>
+          When Metaverse is commercialized in the near future, one of the
+          landmarks is called the MetaOctagon Universe.
+          <br />
+          <br /> At its center is the world famous Metagonz.
+        </StoryContentNoBorder>
+        <StoryContentWithBorder>
+          <StoryContentWithBorderItems
+            style={{
+              fontWeight: 700,
+              fontSize: 20,
+              lineHeight: '25px',
+              textTransform: 'uppercase',
+            }}
+          >
+            HELLO WORLD,
+            <br />
+            WE ARE METAGONZ
+          </StoryContentWithBorderItems>
+          <StoryContentWithBorderItems
+            style={{
+              fontWeight: 300,
+              fontSize: 15,
+              lineHeight: '19px',
+              letterSpacing: '0.05em',
+            }}
+          >
+            “We love electronic dance music and we’re party lovers.”
+            <br />
+            “Wherever in the MetaOctagon universe, we will always be with you.”
+          </StoryContentWithBorderItems>
+          <StoryContentWithBorderItems
+            style={{
+              fontWeight: 600,
+              fontSize: 15,
+              lineHeight: '19px',
+            }}
+          >
+            In the virtual world, Our unrealistic dreams and desires will be
+            realized by Metagonz. They have no feelings of anxiety and sadness,
+            and they exist to convey only pleasant and positive emotions. They
+            will exist as virtual influencers in the digital world and in the
+            physical real world.
+          </StoryContentWithBorderItems>
+        </StoryContentWithBorder>
+      </StoryContentContainer>
+    </StoryBlock>
+  )
+}
+
+export default Story

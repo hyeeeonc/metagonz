@@ -7,14 +7,19 @@ import React, {
 import styled from '@emotion/styled'
 import { graphql, useStaticQuery } from 'gatsby'
 import { AudioContext } from '../../contexts/AudioProvider'
+import { AboutTabContext } from '../../contexts/AboutTabProvider'
 
 const CharacterBlock = styled.main`
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
 
   width: 100vw;
   height: calc(100vh - calc(100vh - 100%));
 
   overflow: hidden;
+
+  transition: 0.5s ease;
 `
 
 const CharacterSelectorContainer = styled.div`
@@ -119,6 +124,8 @@ type CharacterListType = {
 }
 
 const Characters: FunctionComponent = function () {
+  const { tabNum, scrollHandler } = useContext(AboutTabContext)
+
   const { setAudio } = useContext(AudioContext)
   const {
     allCharacterJson: { edges },
@@ -156,7 +163,13 @@ const Characters: FunctionComponent = function () {
   }, [selected])
 
   return (
-    <CharacterBlock>
+    <CharacterBlock
+      onWheel={scrollHandler}
+      style={{
+        visibility: tabNum == 2 ? 'visible' : 'hidden',
+        opacity: tabNum == 2 ? 1 : 0,
+      }}
+    >
       <CharacterImage src={edges[selected].node.pic.publicURL} />
 
       <CharacterSelectorContainer>

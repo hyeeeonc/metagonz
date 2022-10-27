@@ -1,14 +1,22 @@
-import React, { FunctionComponent, useContext, useEffect } from 'react'
+import React, {
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { AudioContext } from '../contexts/AudioProvider'
 
 import reset from '../../lib/styles/reset'
 import { Global } from '@emotion/react'
 import styled from '@emotion/styled'
 
-import AboutTabProvider from '../contexts/AboutTabProvider'
+import { AboutTabContext } from '../contexts/AboutTabProvider'
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 
-const AboutBlock = styled.main`
+import Characters from 'components/about/Characters'
+import Story from 'components/about/Story'
+
+const AboutBlock = styled.div`
   position: relative;
   max-width: 1728px;
   height: 100vh;
@@ -39,6 +47,8 @@ const AboutNavItems = styled.div`
 
   color: #000000;
 
+  opacity: 0.1;
+
   margin-right: 30px;
 
   transition: 0.5s;
@@ -50,28 +60,61 @@ const AboutNavItems = styled.div`
 `
 
 const AboutPage: FunctionComponent = function () {
-  const TabProvider = AboutTabProvider(4)
   const { setAudio } = useContext(AudioContext)
   const { setMode } = useContext(DarkmodeContext)
+  const { tabNum, setTabNum } = useContext(AboutTabContext)
+
+  const [hover, setHover] = useState<string>('') //hover 상태 저장
+
   useEffect(() => {
     setMode(true)
   }, [])
 
   return (
-    <TabProvider>
+    <>
       <Global styles={reset} />
       <AboutBlock>
+        <Characters />
+        <Story />
         <AboutNavContainer>
-          <AboutNavItems>story</AboutNavItems>
-          <AboutNavItems>characters</AboutNavItems>
-          <AboutNavItems>concept</AboutNavItems>
-          <AboutNavItems>utility</AboutNavItems>
+          <AboutNavItems
+            onClick={() => setTabNum(1)}
+            onMouseEnter={() => setHover('story')}
+            onMouseLeave={() => setHover('')}
+            style={{ opacity: tabNum == 1 || hover == 'story' ? 1 : 0.1 }}
+          >
+            story
+          </AboutNavItems>
+          <AboutNavItems
+            onClick={() => setTabNum(2)}
+            onMouseEnter={() => setHover('characters')}
+            onMouseLeave={() => setHover('')}
+            style={{ opacity: tabNum == 2 || hover == 'characters' ? 1 : 0.1 }}
+          >
+            characters
+          </AboutNavItems>
+          <AboutNavItems
+            onClick={() => setTabNum(3)}
+            onMouseEnter={() => setHover('concept')}
+            onMouseLeave={() => setHover('')}
+            style={{ opacity: tabNum == 3 || hover == 'concept' ? 1 : 0.1 }}
+          >
+            concept
+          </AboutNavItems>
+          <AboutNavItems
+            onClick={() => setTabNum(4)}
+            onMouseEnter={() => setHover('utility')}
+            onMouseLeave={() => setHover('')}
+            style={{ opacity: tabNum == 4 || hover == 'utility' ? 1 : 0.1 }}
+          >
+            utility
+          </AboutNavItems>
           <button onClick={() => setAudio('audios/1. ARA (Future Bass).mp3')}>
             test button
           </button>
         </AboutNavContainer>
       </AboutBlock>
-    </TabProvider>
+    </>
   )
 }
 
