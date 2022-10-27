@@ -248,7 +248,7 @@ const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
   const [octagons, setOctagons] = useState<Octagon[]>([])
   useEffect(() => {
     const news = new Octagon(638, 1251, '', '', 'news', 0)
-    const about = new Octagon(269, 1090, '', '', 'about', 1)
+    const about = new Octagon(271, 1099, '', '', 'about', 1)
     const gallery = new Octagon(531, 990, '', '', 'gallery', 2)
     const roadmap = new Octagon(116, 729, '', '', 'roadmap', 3)
     const eightshop = new Octagon(377, 621, '', '', '8shop', 4)

@@ -15,6 +15,8 @@ import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 
 import Story from 'components/about/Story'
 import Characters from 'components/about/characters'
+import Concept from 'components/about/Concept'
+import Utility from 'components/about/Utility'
 
 const AboutBlock = styled.div`
   position: relative;
@@ -76,6 +78,8 @@ const AboutPage: FunctionComponent = function () {
       <AboutBlock>
         <Characters />
         <Story />
+        <Concept />
+        <Utility />
         <AboutNavContainer>
           <AboutNavItems
             onClick={() => setTabNum(1)}
@@ -109,9 +113,6 @@ const AboutPage: FunctionComponent = function () {
           >
             utility
           </AboutNavItems>
-          <button onClick={() => setAudio('audios/1. ARA (Future Bass).mp3')}>
-            test button
-          </button>
         </AboutNavContainer>
       </AboutBlock>
     </>

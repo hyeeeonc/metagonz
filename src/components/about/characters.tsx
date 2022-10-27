@@ -14,27 +14,28 @@ const CharacterBlock = styled.main`
   top: 0;
   left: 0;
 
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - calc(100vh - 100%));
 
   overflow: hidden;
 
-  transition: 0.5s ease;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 `
 
 const CharacterSelectorContainer = styled.div`
   position: absolute;
-  left: 30px;
+  left: 15px;
   top: 311px;
 
-  width: 543px;
+  width: 550px;
   display: flex;
-  justify-content: space-between;
 `
 
 const CharacterSelectoritems = styled.div`
-  width: 27px;
+  // width: 27px;
   height: 16px;
+
+  margin: 0 15px;
 
   font-family: 'SUIT';
   font-style: normal;
@@ -51,6 +52,7 @@ const CharacterSelectoritems = styled.div`
 
   transition: 0.3s ease;
   :hover {
+    opacity: 1;
     color: #6200ee;
   }
 `
@@ -72,7 +74,7 @@ const CharactorInfoHead = styled.div`
   margin-right: 50px;
 `
 const CharacterInfoData = styled.div`
-  width: 88px;
+  width: 352px;
   height: 228px;
 
   font-weight: 400;
@@ -94,6 +96,52 @@ const CharacterImage = styled.img`
   position: absolute;
   top: 0;
   right: 50px;
+
+  display: flex;
+  align-items: center;
+`
+
+const CharacterSelectionCarouselWindow = styled.div`
+  width: 100vw;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  display: flex;
+  align-items: center;
+
+  transition: 0.5s ease;
+`
+
+const CharacterSelectionCarousel = styled.div`
+  width: 1728px;
+  display: flex;
+
+  position: absolute;
+  left: 0;
+  top: 357px;
+`
+
+const CharacterSelectionCarouselItems = styled.div`
+  width: 220px;
+  height: 450px;
+  left: 636px;
+  top: 357px;
+
+  background: #d9d9d9;
+  border-radius: 10px;
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+
+  transition: 0.3s ease;
+
+  :hover {
+    width: 270px;
+    height: 540px;
+    left: 1111px;
+    top: 312px;
+
+    background: #d9d9d9;
+    border-radius: 10px;
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+  }
 `
 
 type CharacterType = {
@@ -156,10 +204,13 @@ const Characters: FunctionComponent = function () {
     }
   `)
 
-  const [selected, setSelected] = useState<number>(0)
+  const [selected, setSelected] = useState<number>(-1)
+  useEffect(() => {
+    console.log(selected)
+  }, [selected])
 
   useEffect(() => {
-    setAudio(edges[selected].node.audio.publicURL)
+    setAudio(edges[selected]?.node.audio.publicURL)
   }, [selected])
 
   return (
@@ -170,9 +221,33 @@ const Characters: FunctionComponent = function () {
         opacity: tabNum == 2 ? 1 : 0,
       }}
     >
-      <CharacterImage src={edges[selected].node.pic.publicURL} />
+      <CharacterSelectionCarouselWindow
+        style={{
+          visibility: selected == -1 ? 'visible' : 'hidden',
+          opacity: selected == -1 ? 1 : 0,
+        }}
+      >
+        <CharacterSelectionCarousel>
+          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
+          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
+          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
+          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
+          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
+          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
+          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
+          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
+          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
+        </CharacterSelectionCarousel>
+      </CharacterSelectionCarouselWindow>
+      <CharacterImage
+        style={{ visibility: selected != -1 ? 'visible' : 'hidden' }}
+        src={edges[selected]?.node.pic.publicURL}
+      />
 
       <CharacterSelectorContainer>
+        <CharacterSelectoritems onClick={() => setSelected(-1)}>
+          all
+        </CharacterSelectoritems>
         {edges.map(({ node }, index) => (
           <CharacterSelectoritems onClick={() => setSelected(index)}>
             {node.name}
@@ -181,7 +256,11 @@ const Characters: FunctionComponent = function () {
       </CharacterSelectorContainer>
 
       <CharactorInfoContainer>
-        <CharactorInfoHead>
+        <CharactorInfoHead
+          style={{
+            visibility: selected != -1 ? 'visible' : 'hidden',
+          }}
+        >
           <CharactorInfoCell>Name</CharactorInfoCell>
           <CharactorInfoCell>Main Job</CharactorInfoCell>
           <CharactorInfoCell>2nd Job</CharactorInfoCell>
@@ -194,22 +273,24 @@ const Characters: FunctionComponent = function () {
           <CharactorInfoCell>Likes</CharactorInfoCell>
         </CharactorInfoHead>
         <CharacterInfoData>
-          <CharactorInfoCell>{edges[selected].node.name}</CharactorInfoCell>
-          <CharactorInfoCell>{edges[selected].node.main_job}</CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected]?.node.name}</CharactorInfoCell>
           <CharactorInfoCell>
-            {edges[selected].node.second_job}
+            {edges[selected]?.node.main_job}
           </CharactorInfoCell>
           <CharactorInfoCell>
-            {edges[selected].node.music_style}
+            {edges[selected]?.node.second_job}
           </CharactorInfoCell>
           <CharactorInfoCell>
-            {edges[selected].node.nationality}
+            {edges[selected]?.node.music_style}
           </CharactorInfoCell>
-          <CharactorInfoCell>{edges[selected].node.age}</CharactorInfoCell>
-          <CharactorInfoCell>{edges[selected].node.hight}</CharactorInfoCell>
-          <CharactorInfoCell>{edges[selected].node.weight}</CharactorInfoCell>
-          <CharactorInfoCell>{edges[selected].node.mbti}</CharactorInfoCell>
-          <CharactorInfoCell>{edges[selected].node.likes}</CharactorInfoCell>
+          <CharactorInfoCell>
+            {edges[selected]?.node.nationality}
+          </CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected]?.node.age}</CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected]?.node.hight}</CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected]?.node.weight}</CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected]?.node.mbti}</CharactorInfoCell>
+          <CharactorInfoCell>{edges[selected]?.node.likes}</CharactorInfoCell>
         </CharacterInfoData>
       </CharactorInfoContainer>
     </CharacterBlock>

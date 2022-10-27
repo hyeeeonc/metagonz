@@ -8,12 +8,12 @@ const StoryBlock = styled.main`
   top: 0;
   left: 0;
 
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - calc(100vh - 100%));
 
   overflow: hidden;
 
-  transition: 0.5s ease;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 `
 
 const StoryContentContainer = styled.div`
