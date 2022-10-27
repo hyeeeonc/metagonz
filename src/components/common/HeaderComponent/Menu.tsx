@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
-import { Link } from 'gatsby'
 import { DarkmodeContext } from '../../../contexts/DarkmodeProvider'
+import Octagon from '../../../models/Octagon'
 
 const MenuBackground = styled.div`
   position: fixed;
@@ -83,7 +83,9 @@ const MenuButtonContainer = styled.div`
 
   overflow: hidden;
 
-  transition: 0.2s ease;
+  transition: 0.4s linear;
+
+  transform: translate(50%, -50%);
 
   clip-path: polygon(
     50% 0,
@@ -112,6 +114,7 @@ const MenuButtonContainer = styled.div`
   }
 
   :hover {
+    transform: translate(50%, -315px);
     width: 370px;
     height: 500px;
 
@@ -137,6 +140,9 @@ const MenuButtonContainer = styled.div`
   }
 
   :hover .background {
+    left: 185px;
+    bottom: 185px;
+
     width: 370px;
     height: 370px;
 
@@ -144,6 +150,9 @@ const MenuButtonContainer = styled.div`
   }
 
   :hover .img {
+    left: 0;
+    top: 0;
+
     opacity: 1;
     backdrop-filter: none;
 
@@ -153,8 +162,9 @@ const MenuButtonContainer = styled.div`
 
 const MenuButtonBackground = styled.div`
   position: absolute;
-  left: 0;
-  bottom: 0;
+  left: 150px;
+  bottom: 150px;
+  transform: translate(-50%, 50%);
 
   display: flex;
   align-items: center;
@@ -175,8 +185,7 @@ const MenuButtonBackground = styled.div`
   background: linear-gradient(0deg, #230055, #230055), #4b4b4b;
   mix-blend-mode: color;
 
-  transition: 0.2s ease;
-
+  transition: 0.4s linear;
   clip-path: polygon(
     50% 0,
     85.35% 14.65%,
@@ -211,13 +220,33 @@ const MenuButtonImage = styled.img`
 
   filter: grayscale(70%);
 
-  transition: 0.2s ease;
+  transition: 0.4s linear;
 `
 
 const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
   const { isDarkmode, setMode } = useContext(DarkmodeContext)
   const [PrevMode, setPrevMode] = useState<boolean>(false)
   const [eachPos, setEachPos] = useState<{ x: number; y: number }[]>([])
+  const [octagons, setOctagons] = useState<Octagon[]>([])
+  useEffect(() => {
+    const news = new Octagon(638, 1251, '', '', 'news', 0)
+    const about = new Octagon(269, 1090, '', '', 'about', 1)
+    const gallery = new Octagon(531, 990, '', '', 'gallery', 2)
+    const roadmap = new Octagon(116, 729, '', '', 'roadmap', 3)
+    const eightshop = new Octagon(377, 621, '', '', '8shop', 4)
+    const commu = new Octagon(638, 729, '', '', 'commu', 5)
+    const more = new Octagon(269, 360, '', '', 'more', 6)
+    const submit = new Octagon(377, 99, '', '', 'submit', 7)
+    news.setAdj([null, gallery, null, null, null, null, null, null])
+    about.setAdj([null, null, null, gallery, null, null, null, null])
+    gallery.setAdj([null, null, commu, null, null, news, null, about])
+    roadmap.setAdj([null, null, null, eightshop, null, null, null, null])
+    eightshop.setAdj([null, more, null, null, commu, null, null, roadmap])
+    commu.setAdj([eightshop, null, null, null, null, null, gallery, null])
+    more.setAdj([null, null, submit, null, null, eightshop, null, null])
+    submit.setAdj([null, null, null, null, null, null, more, null])
+    setOctagons([news, about, gallery, roadmap, eightshop, commu, more, submit])
+  }, [])
 
   // 기존 화면의 mode를 확인하고, 현재 메뉴가 다크모드니 이에 따라 변경하기.
   useEffect(() => {
@@ -301,109 +330,28 @@ const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
       {/* background Design */}
 
       <MenuBlock>
-        <MenuButtonContainer
-          className="container"
-          style={{
-            top: 488,
-            right: 1101,
-          }}
-        >
-          <MenuButtonBackground className="background">
-            news
-          </MenuButtonBackground>
-          <MenuButtonImage className="img" src="./images/ara_tall.png" />
-        </MenuButtonContainer>
-
-        <MenuButtonContainer
-          className="container"
-          style={{
-            top: 119,
-            right: 940,
-          }}
-        >
-          <MenuButtonBackground className="background">
-            about
-          </MenuButtonBackground>
-          <MenuButtonImage className="img" src="./images/ara_tall.png" />
-        </MenuButtonContainer>
-
-        <MenuButtonContainer
-          className="container"
-          style={{
-            top: 381,
-            right: 840,
-          }}
-        >
-          <MenuButtonBackground className="background">
-            gallery
-          </MenuButtonBackground>
-          <MenuButtonImage className="img" src="./images/ara_tall.png" />
-        </MenuButtonContainer>
-
-        <MenuButtonContainer
-          className="container"
-          style={{
-            top: -34,
-            right: 579,
-          }}
-        >
-          <MenuButtonBackground className="background">
-            roadmap
-          </MenuButtonBackground>
-          <MenuButtonImage className="img" src="./images/ara_tall.png" />
-        </MenuButtonContainer>
-
-        <MenuButtonContainer
-          className="container"
-          style={{
-            top: 227,
-            right: 471,
-          }}
-        >
-          <MenuButtonBackground className="background">
-            8 shop
-          </MenuButtonBackground>
-          <MenuButtonImage className="img" src="./images/ara_tall.png" />
-        </MenuButtonContainer>
-
-        <MenuButtonContainer
-          className="container"
-          style={{
-            top: 488,
-            right: 579,
-          }}
-        >
-          <MenuButtonBackground className="background">
-            community
-          </MenuButtonBackground>
-          <MenuButtonImage className="img" src="./images/ara_tall.png" />
-        </MenuButtonContainer>
-
-        <MenuButtonContainer
-          className="container"
-          style={{
-            top: 119,
-            right: 210,
-          }}
-        >
-          <MenuButtonBackground className="background">
-            more
-          </MenuButtonBackground>
-          <MenuButtonImage className="img" src="./images/ara_tall.png" />
-        </MenuButtonContainer>
-
-        <MenuButtonContainer
-          className="container"
-          style={{
-            top: 227,
-            right: -51,
-          }}
-        >
-          <MenuButtonBackground className="background">
-            submit idea
-          </MenuButtonBackground>
-          <MenuButtonImage className="img" src="./images/ara_tall.png" />
-        </MenuButtonContainer>
+        {octagons.map((octagon, i) => (
+          <MenuButtonContainer
+            className="container"
+            style={{
+              top: octagon.y,
+              right: octagon.x,
+            }}
+            onMouseEnter={() => {
+              octagon.sizeUp()
+              setOctagons(os => [...os])
+            }}
+            onMouseLeave={() => {
+              octagon.sizeDown()
+              setOctagons(os => [...os])
+            }}
+          >
+            <MenuButtonBackground className="background">
+              {octagon.title}
+            </MenuButtonBackground>
+            <MenuButtonImage className="img" src={octagon.img} />
+          </MenuButtonContainer>
+        ))}
       </MenuBlock>
     </MenuBackground>
   )

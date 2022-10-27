@@ -7,7 +7,6 @@ import styled from '@emotion/styled'
 
 import AboutTabProvider from '../contexts/AboutTabProvider'
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
-import Characters from 'components/about/Characters'
 
 const AboutBlock = styled.main`
   position: relative;
@@ -71,7 +70,6 @@ const AboutPage: FunctionComponent = function () {
             test button
           </button>
         </AboutNavContainer>
-        <Characters />
       </AboutBlock>
     </TabProvider>
   )
