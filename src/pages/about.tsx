@@ -13,8 +13,8 @@ import styled from '@emotion/styled'
 import { AboutTabContext } from '../contexts/AboutTabProvider'
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 
-import Characters from 'components/about/Characters'
 import Story from 'components/about/Story'
+import Characters from 'components/about/characters'
 
 const AboutBlock = styled.div`
   position: relative;

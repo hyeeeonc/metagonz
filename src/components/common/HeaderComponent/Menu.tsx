@@ -83,9 +83,92 @@ const MenuButtonContainer = styled.div`
 
   overflow: hidden;
 
-  //transition: 0.4s linear;
-  transition: top 0.4s linear, right 0.4s linear;
+  transition: 0.3s ease-out;
   transform: translate(50%, -50%);
+
+  @media (max-width: 1727px) {
+    width: calc(300px * (1728px / 100vw));
+    height: calc(300px * (1728px / 100vw));
+  }
+
+  :hover {
+    width: 370px;
+    height: 500px;
+  }
+
+  :hover .imgContainer {
+    width: 370px;
+    height: 500px;
+    clip-path: polygon(
+      100% 0,
+      100% 50%,
+      85.35% 76.16%,
+      50% 87%,
+      14.65% 76.16%,
+      0% 50%,
+      0 0
+    );
+
+    -webkit-clip-path: polygon(
+      100% 0,
+      100% 50%,
+      85.35% 76.16%,
+      50% 87%,
+      14.65% 76.16%,
+      0% 50%,
+      0 0
+    );
+  }
+
+  :hover .background {
+    width: 370px;
+    height: 370px;
+
+    background: linear-gradient(
+      180deg,
+      #a35fff 20.73%,
+      rgba(161, 95, 255, 0) 100%
+    );
+  }
+
+  :hover .img {
+    left: 0;
+    top: 0;
+
+    opacity: 1;
+    backdrop-filter: none;
+
+    filter: none;
+  }
+`
+
+const MenuButtonBackground = styled.div`
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+
+  display: flex;
+  align-items: center;
+
+  font-family: 'SUIT';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 20px;
+  text-transform: uppercase;
+  color: white;
+  padding-left: 40px;
+  box-sizing: border-box;
+
+  width: 300px;
+  height: 300px;
+
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(15px);
+  mix-blend-mode: color;
+
+  transition: 0.3s ease-out;
 
   clip-path: polygon(
     50% 0,
@@ -107,86 +190,20 @@ const MenuButtonContainer = styled.div`
     0 50%,
     14.65% 14.65%
   );
-
-  @media (max-width: 1727px) {
-    width: calc(300px * (1728px / 100vw));
-    height: calc(300px * (1728px / 100vw));
-  }
-
-  :hover {
-    transform: translate(50%, -315px);
-    width: 370px;
-    height: 500px;
-
-    clip-path: polygon(
-      100% 0,
-      100% 70%,
-      85.35% 89.16%,
-      50% 100%,
-      14.65% 89.16%,
-      0% 70%,
-      0 0
-    );
-
-    -webkit-clip-path: polygon(
-      100% 0,
-      100% 70%,
-      85.35% 89.16%,
-      50% 100%,
-      14.65% 89.16%,
-      0% 70%,
-      0 0
-    );
-  }
-
-  :hover .background {
-    left: 185px;
-    bottom: 185px;
-
-    width: 370px;
-    height: 370px;
-
-    background: linear-gradient(180deg, #a35fff 0%, rgba(161, 95, 255, 0) 100%);
-  }
-
-  :hover .img {
-    left: 0;
-    top: 0;
-
-    opacity: 1;
-    backdrop-filter: none;
-
-    filter: none;
-  }
 `
 
-const MenuButtonBackground = styled.div`
+const MenuButtonImageContainer = styled.div`
   position: absolute;
-  left: 150px;
-  bottom: 150px;
-  transform: translate(-50%, 50%);
-
-  display: flex;
-  align-items: center;
-
-  font-family: 'SUIT';
-  font-style: normal;
-  font-weight: 900;
-  font-size: 16px;
-  line-height: 20px;
-  text-transform: uppercase;
-  color: white;
-  padding-left: 40px;
-  box-sizing: border-box;
+  left: -50%;
+  bottom: -50%;
 
   width: 300px;
   height: 300px;
 
-  background: linear-gradient(0deg, #230055, #230055), #4b4b4b;
-  mix-blend-mode: color;
+  overflow: hidden;
 
-  //transition: all 0.4s linear;
-  transition: width 0.4s linear, height 0.4s linear;
+  transition: 0.3s ease-out;
+  transform: translate(50%, -50%);
 
   clip-path: polygon(
     50% 0,
@@ -222,7 +239,7 @@ const MenuButtonImage = styled.img`
 
   filter: grayscale(70%);
 
-  transition: 0.4s linear;
+  transition: 0.3s ease-out;
 `
 const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
   const { isDarkmode, setMode } = useContext(DarkmodeContext)
@@ -345,7 +362,9 @@ const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
             <MenuButtonBackground className="background">
               {octagon.title}
             </MenuButtonBackground>
-            <MenuButtonImage className="img" src={octagon.img} />
+            <MenuButtonImageContainer className="imgContainer">
+              <MenuButtonImage className="img" src={octagon.img} />
+            </MenuButtonImageContainer>
           </MenuButtonContainer>
         ))}
       </MenuBlock>
