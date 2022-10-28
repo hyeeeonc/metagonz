@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 
 import styled from '@emotion/styled'
 
@@ -120,8 +120,12 @@ const Header = () => {
   const [menuOpenState, setMenuOpenState] = useState<boolean>(false)
   const [snsOpenState, setSnsOpenState] = useState<boolean>(false)
   const [hover, setHover] = useState<string>('')
+  const { isDarkmode, setMode } = useContext(DarkmodeContext)
+  const [prevMode, setPrevMode] = useState<boolean>(isDarkmode)
 
-  const { isDarkmode } = useContext(DarkmodeContext)
+  useEffect(() => {
+    console.log(isDarkmode)
+  }, [isDarkmode])
 
   // LightMode / DarkMode에 따라서 NavBar 아이템 color 변경
   const HeaderNavItems = useMemo(() => {
@@ -129,8 +133,14 @@ const Header = () => {
   }, [isDarkmode])
 
   const menuOpenHandler = () => {
-    if (menuOpenState) setMenuOpenState(false)
-    else setMenuOpenState(true)
+      if (menuOpenState) {
+          setMenuOpenState(false)
+          setMode(prevMode)
+      } else {
+          setMenuOpenState(true)
+          setPrevMode(isDarkmode)
+          setMode(false)
+      }
   }
 
   const snsOpenHandler = () => {

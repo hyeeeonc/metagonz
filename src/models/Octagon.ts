@@ -25,41 +25,41 @@ export default class Octagon {
 
     if (index === 3) {
       this.sizeUp = () => {
-        this.y += 70
+        this.y += 35
         this.adj.forEach((o, i) => {
           o?.move(
             -Math.sin((Math.PI / 4) * i + Math.PI / 8) * 35,
-            -Math.cos((Math.PI / 4) * i + Math.PI / 8) * 35 + 70,
+            -Math.cos((Math.PI / 4) * i + Math.PI / 8) * 35 + 35,
             i,
           )
         })
       }
       this.sizeDown = () => {
-        this.y -= 70
+        this.y -= 35
         this.adj.forEach((o, i) => {
           o?.move(
             Math.sin((Math.PI / 4) * i + Math.PI / 8) * 35,
-            Math.cos((Math.PI / 4) * i + Math.PI / 8) * 35 - 70,
+            Math.cos((Math.PI / 4) * i + Math.PI / 8) * 35 - 35,
             i,
           )
         })
       }
     } else if (index === 7) {
       this.sizeUp = () => {
-        this.x += 70
+        this.x += 35
         this.adj.forEach((o, i) => {
           o?.move(
-            -Math.sin((Math.PI / 4) * i + Math.PI / 8) * 35 + 70,
+            -Math.sin((Math.PI / 4) * i + Math.PI / 8) * 35 + 35,
             -Math.cos((Math.PI / 4) * i + Math.PI / 8) * 35,
             i,
           )
         })
       }
       this.sizeDown = () => {
-        this.x -= 70
+        this.x -= 35
         this.adj.forEach((o, i) => {
           o?.move(
-            Math.sin((Math.PI / 4) * i + Math.PI / 8) * 35 - 70,
+            Math.sin((Math.PI / 4) * i + Math.PI / 8) * 35 - 35,
             Math.cos((Math.PI / 4) * i + Math.PI / 8) * 35,
             i,
           )

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { DarkmodeContext } from '../../../contexts/DarkmodeProvider'
 import Octagon from '../../../models/Octagon'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const MenuBackground = styled.div`
   position: fixed;
@@ -262,13 +263,11 @@ const MenuButtonImage = styled.img`
 
   transition: 0.3s ease-out;
 `
+
 const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
-  const { isDarkmode, setMode } = useContext(DarkmodeContext)
-  const [PrevMode, setPrevMode] = useState<boolean>(false)
-  const [eachPos, setEachPos] = useState<{ x: number; y: number }[]>([])
   const [octagons, setOctagons] = useState<Octagon[]>([])
   useEffect(() => {
-    const news = new Octagon(638, 1251, './images/01 Ara.png', '', 'news', 0)
+    const news = new Octagon(638, 1251, './images/ara.png', '', 'news', 0)
     const about = new Octagon(271, 1099, '', '', 'about', 1)
     const gallery = new Octagon(531, 990, '', '', 'gallery', 2)
     const roadmap = new Octagon(116, 729, '', '', 'roadmap', 3)
@@ -286,16 +285,6 @@ const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
     submit.setAdj([null, null, null, null, null, null, more, null])
     setOctagons([news, about, gallery, roadmap, eightshop, commu, more, submit])
   }, [])
-
-  // 기존 화면의 mode를 확인하고, 현재 메뉴가 다크모드니 이에 따라 변경하기.
-  useEffect(() => {
-    if (menuOpenState) {
-      setPrevMode(isDarkmode)
-      setMode(false)
-    } else {
-      setMode(PrevMode)
-    }
-  }, [menuOpenState])
 
   return (
     <MenuBackground

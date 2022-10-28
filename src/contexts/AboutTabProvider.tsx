@@ -42,10 +42,10 @@ const AboutTabProvider =
     }, [tabNum])
 
     const prevTab = useCallback(() => {
-      if (tabNum <= size) return
+      if (tabNum <= 1) return
       setTabNum(tabNum - 1)
       setScrollable(false)
-      setTimeout(() => setScrollable(true), 500)
+      setTimeout(() => setScrollable(true), 501)
     }, [tabNum])
 
     const scrollHandler = useCallback(
