@@ -110,7 +110,7 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
   const [conceptTab, setConceptTap] = useState<string>('3d')
   const [imgIdx, setImgIdx] = useState<number>(1)
-  const [_, getImageSrc] = use3DCharacter()
+  const [images, getImageSrc] = use3DCharacter()
 
   return (
     <ConceptBlock
@@ -121,16 +121,24 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
         zIndex: tabNum != 3 ? 0 : 1,
       }}
     >
-      <ConceptImage
-        style={{
-          visibility: conceptTab == '3d' ? 'visible' : 'hidden',
-          opacity: conceptTab == '3d' ? 1 : 0,
-          transform: `scale(${0.6 + imgIdx * 0.01}) translate(${
-            (-120 * imgIdx) / 100
-          }px, ${(400 * imgIdx) / 100}px)`,
-        }}
-        src={getImageSrc(imgIdx)}
-      />
+      {images.map(({ node }) => (
+        <ConceptImage
+          style={{
+            visibility: conceptTab == '3d' ? 'visible' : 'hidden',
+            display:
+              node.childImageSharp.fluid.originalName ===
+              `360_${`${imgIdx}`.padStart(4, '0')}.png`
+                ? 'block'
+                : 'none',
+            opacity: conceptTab == '3d' ? 1 : 0,
+            transform: `scale(${0.6 + imgIdx * 0.01}) translate(${
+              (-120 * imgIdx) / 100
+            }px, ${(400 * imgIdx) / 100}px)`,
+          }}
+          src={node.childImageSharp.fluid.src}
+        />
+      ))}
+
       <ConceptContentContainer>
         <ConceptContentNoBorder>
           Metagonz has been developed by experts in various fields based on
