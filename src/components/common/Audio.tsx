@@ -1,4 +1,9 @@
-import React, { FunctionComponent, useContext, useState } from 'react'
+import React, {
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import styled from '@emotion/styled'
 import { DarkmodeContext } from '../../contexts/DarkmodeProvider'
@@ -209,7 +214,9 @@ const Audio: FunctionComponent = function () {
 
   const [hover, setHover] = useState<string>('') //hover 상태 저장
   const [isFolded, setIsFolded] = useState<boolean>(false) // fold 컨트롤러
-  const { src, audioRef } = useContext(AudioContext)
+  const { src, audioRef, isPlaying, playAudio, pauseAudio } =
+    useContext(AudioContext)
+  //const audioRefinLocal = useRef<HTMLAudioElement>(null)
 
   const foldingHandler = () => {
     if (!isFolded) setIsFolded(true)
@@ -281,6 +288,10 @@ const Audio: FunctionComponent = function () {
           </svg>
         </AudioContorllerPrev>
         <AudioControllerPlayPause
+          onClick={() => {
+            if (isPlaying) pauseAudio()
+            else playAudio()
+          }}
           style={{ right: isFolded ? 71 : '' }}
           onMouseEnter={() => setHover('playNPause')}
           onMouseLeave={() => setHover('')}

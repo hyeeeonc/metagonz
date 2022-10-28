@@ -118,6 +118,7 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
       style={{
         visibility: tabNum == 3 ? 'visible' : 'hidden',
         opacity: tabNum == 3 ? 1 : 0,
+        zIndex: tabNum != 3 ? 0 : 1,
       }}
     >
       <ConceptImage

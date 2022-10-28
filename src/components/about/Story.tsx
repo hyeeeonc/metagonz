@@ -77,6 +77,7 @@ const Story = ({ edges }: { edges: CharacterType[] }) => {
       style={{
         visibility: tabNum == 1 ? 'visible' : 'hidden',
         opacity: tabNum == 1 ? 1 : 0,
+        zIndex: tabNum != 1 ? 0 : 1,
       }}
     >
       {/* <StoryImage src={edges[0].node.pic.publicURL} /> */}

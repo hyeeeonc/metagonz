@@ -15,19 +15,19 @@ type AudioContextValue = {
   audioRef: React.RefObject<HTMLAudioElement>
   setAudio: (src: string) => void
   isPlaying: boolean
+  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>
   playAudio: () => void
   pauseAudio: () => void
   setDefaultAudio: () => void
   title: string
   setTitle: React.Dispatch<React.SetStateAction<string>>
 }
-
 export const AudioContext = createContext<AudioContextValue>(
   {} as AudioContextValue,
 )
 
 const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
-  const [src, setSrc] = useState<string>('./static/audios/emaj01.mp3')
+  const [src, setSrc] = useState<string>('./audios/main.mp3')
   const [title, setTitle] = useState<string>('Default Audio')
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
@@ -45,25 +45,32 @@ const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
 
   const setAudio = (src: string) => {
     setSrc(src)
+    setIsPlaying(true)
     if (audioRef.current) {
       audioRef.current.pause()
       audioRef.current.load()
+      // eslint-disable-next-line
       audioRef.current.play()
       audioRef.current.onended = () => {
+        // eslint-disable-next-line
         audioRef.current?.play()
       }
     }
+    console.log(isPlaying)
   }
 
   const playAudio = useCallback(() => {
     if (!isPlaying) {
+      // eslint-disable-next-line
       audioRef.current?.play()
+      setIsPlaying(true)
     }
   }, [isPlaying])
 
   const pauseAudio = useCallback(() => {
     if (isPlaying) {
       audioRef.current?.pause()
+      setIsPlaying(false)
     }
   }, [isPlaying])
 
@@ -82,8 +89,9 @@ const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
       setDefaultAudio,
       title,
       setTitle,
+      setIsPlaying,
     }),
-    [src, audioRef],
+    [src, audioRef, isPlaying, title],
   )
 
   return <AudioContext.Provider value={value}>{children}</AudioContext.Provider>

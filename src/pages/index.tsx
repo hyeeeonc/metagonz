@@ -10,10 +10,9 @@ import reset from '../../lib/styles/reset'
 import indexStyle from '../../lib/styles/indexStyle'
 import { Global } from '@emotion/react'
 import styled from '@emotion/styled'
-
-import Header from 'components/common/Header'
-import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 import { graphql, useStaticQuery } from 'gatsby'
+
+import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 
 const IndexBlock = styled.div`
   width: 100vw;
@@ -29,7 +28,7 @@ const IndexBackgroundImageContainer = styled.div`
   align-items: center;
 `
 
-const IndexBackgroundImage = styled.img``
+const IndexBackgroundImage = styled.video``
 
 type ImgType = {
   file: {
@@ -82,9 +81,9 @@ const IndexPage: FunctionComponent = function () {
     }
   }, [windowSize])
 
-  const homeImg: ImgType = useStaticQuery(graphql`
+  const homeVideo: ImgType = useStaticQuery(graphql`
     query {
-      file(name: { eq: "home" }) {
+      file(relativePath: { eq: "videos/home.mp4" }) {
         publicURL
       }
     }
@@ -100,7 +99,9 @@ const IndexPage: FunctionComponent = function () {
           style={{ alignItems: imageSize === false ? `none` : `center` }}
         >
           <IndexBackgroundImage
-            src={homeImg.file.publicURL}
+            autoPlay
+            muted
+            loop
             style={
               imageSize === false
                 ? {
@@ -109,7 +110,9 @@ const IndexPage: FunctionComponent = function () {
                   }
                 : { width: '100vw', height: 'auto' }
             }
-          />
+          >
+            <source src={homeVideo.file.publicURL} type="video/mp4" />
+          </IndexBackgroundImage>
         </IndexBackgroundImageContainer>
       </IndexBlock>
     </>

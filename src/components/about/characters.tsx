@@ -5,7 +5,6 @@ import React, {
   useState,
 } from 'react'
 import styled from '@emotion/styled'
-import { graphql, useStaticQuery } from 'gatsby'
 import { AudioContext } from '../../contexts/AudioProvider'
 import { AboutTabContext } from '../../contexts/AboutTabProvider'
 import { CharacterType } from 'pages/about'
@@ -95,33 +94,51 @@ const CharactorInfoCell = styled.div`
 
 const CharacterImage = styled.img`
   position: absolute;
-  top: 0;
-  right: 50px;
+  top: -300px;
+  right: -250px;
+
+  height: 4000px;
 
   display: flex;
   align-items: center;
 `
 
 const CharacterSelectionCarouselWindow = styled.div`
+  position: absolute;
+  left: 0;
+  top: 357px;
+
   width: 100vw;
-  height: 470px;
+  height: 550px;
   overflow-y: hidden;
   overflow-x: scroll;
   display: flex;
   align-items: center;
 
-  transition: 0.5s ease;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
 
-  position: absolute;
-  left: 0;
-  top: 357px;
+  ::-webkit-scrollbar-thumb {
+    height: 10px;
+    background: black; /* 스크롤바의 색상 */
+
+    border-radius: 31px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: white;
+  }
+
+  // transition: 0.5s ease;
 `
 
 const CharacterSelectionCarousel = styled.div`
-  width: 1728px;
+  width: 3000px;
   display: flex;
+  align-items: center;
 
-  overflow: hidden;
+  // overflow: hidden;
 `
 
 const CharacterSelectionCarouselItems = styled.div`
@@ -129,6 +146,8 @@ const CharacterSelectionCarouselItems = styled.div`
   height: 450px;
   left: 636px;
   top: 357px;
+
+  margin: 0 5px;
 
   background: #d9d9d9;
   border-radius: 10px;
@@ -146,16 +165,6 @@ const CharacterSelectionCarouselItems = styled.div`
     border-radius: 10px;
     transform: matrix(-1, 0, 0, 1, 0, 0);
   }
-`
-
-const CharacterImageSizeController = styled.div`
-  position: absolute;
-  right: 30px;
-  botton: 72px;
-`
-
-const CharacterImageSizeControllerIcon = styled.svg`
-  position: absolute;
 `
 
 const Characters = ({ edges }: { edges: CharacterType[] }) => {
@@ -177,16 +186,17 @@ const Characters = ({ edges }: { edges: CharacterType[] }) => {
       style={{
         visibility: tabNum == 2 ? 'visible' : 'hidden',
         opacity: tabNum == 2 ? 1 : 0,
+        zIndex: tabNum != 2 ? 0 : 1,
       }}
     >
       <CharacterSelectionCarouselWindow
         style={{
           visibility: selected == -1 ? 'visible' : 'hidden',
           opacity: selected == -1 ? 1 : 0,
+          zIndex: selected == -1 ? 3 : 0,
         }}
       >
         <CharacterSelectionCarousel>
-          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
           <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
           <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
           <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>

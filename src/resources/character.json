@@ -27,7 +27,7 @@
     "likes": "Live streaming on twitch while drawing digital art. Reading comic books and visiting Art Fair. Playing LoL.",
     "pic": "images/characters/02 Sara.png",
     "pic_tall": "images/ara_tall.png",
-    "audio": "audios/characters/1ara.mp3"
+    "audio": "audios/characters/2sara.mp3"
   },
   {
     "name": "YUA",
@@ -42,7 +42,7 @@
     "likes": "Live VR streaming on youtube while playing extreme sports. Playing with cat and treating churu. Watching a korean mukbang on youtube.",
     "pic": "images/characters/03 Yua.png",
     "pic_tall": "images/ara_tall.png",
-    "audio": "./audios/characters/1ara.mp3"
+    "audio": "./audios/characters/3yua.mp3"
   },
   {
     "name": "JUA",
@@ -57,7 +57,7 @@
     "likes": "Drinking whiskey with mint chocolate walnut ice cream when watching classic Sci-Fi and romantic movies. Trolling in Hyper FPS games.",
     "pic": "images/characters/04 Jua.png",
     "pic_tall": "images/ara_tall.png",
-    "audio": "./audios/characters/1ara.mp3"
+    "audio": "./audios/characters/4jua.mp3"
   },
   {
     "name": "DANA",
@@ -72,7 +72,7 @@
     "likes": "Going yoga, running and weight traning everyday. Yacht sailing. Organic vegetable gardening.",
     "pic": "images/characters/05 Dana.png",
     "pic_tall": "images/ara_tall.png",
-    "audio": "./audios/characters/1ara.mp3"
+    "audio": "./audios/characters/5dana.mp3"
   },
   {
     "name": "ROA",
@@ -87,7 +87,7 @@
     "likes": "Posting K-Pop dance challenges on Tiktok. Riding a longboard along the beach with my doggy. Surfing in the rain.",
     "pic": "images/characters/06 Roa.png",
     "pic_tall": "images/ara_tall.png",
-    "audio": "./audios/characters/1ara.mp3"
+    "audio": "./audios/characters/6roa.mp3"
   },
   {
     "name": "SIA",
@@ -102,7 +102,7 @@
     "likes": "Shopping for new collections or hot fashion items. Chatting online with friends. Joining an environmental movement. Helping abused or abandoned animals.",
     "pic": "images/characters/07 Sia.png",
     "pic_tall": "images/ara_tall.png",
-    "audio": "./audios/characters/1ara.mp3"
+    "audio": "./audios/characters/7sia.mp3"
   },
   {
     "name": "SANA",
@@ -117,6 +117,6 @@
     "likes": "Daydreaming and taking a nap at the pool. Going for surfing, scuba diving, sea fishing and sky diving.  ",
     "pic": "images/characters/08 Sana.png",
     "pic_tall": "images/ara_tall.png",
-    "audio": "./audios/characters/1ara.mp3"
+    "audio": "./audios/characters/8sana.mp3"
   }
 ]

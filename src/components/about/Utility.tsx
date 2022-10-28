@@ -56,6 +56,7 @@ const Utility = ({ edges }: { edges: CharacterType[] }) => {
       style={{
         visibility: tabNum == 4 ? 'visible' : 'hidden',
         opacity: tabNum == 4 ? 1 : 0,
+        zIndex: tabNum != 4 ? 0 : 1,
       }}
     >
       <UtilityContentContainer>

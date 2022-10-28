@@ -9,7 +9,6 @@ const IndexPage: FunctionComponent = function () {
   return (
     <>
       <Global styles={reset} />
-      <Header headerDarkMode={true} />
     </>
   )
 }
