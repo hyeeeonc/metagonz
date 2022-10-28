@@ -282,28 +282,28 @@ const Menu = ({
   const [octagons, setOctagons] = useState<Octagon[]>([])
   const images: MenuImgType = useStaticQuery(graphql`
     query {
-      news: file(relativePath: { eq: "images/characters/06 Dana.png" }) {
+      news: file(relativePath: { eq: "images/characters/05 Dana.png" }) {
         publicURL
       }
-      about: file(relativePath: { eq: "images/characters/03 Kina.png" }) {
+      about: file(relativePath: { eq: "images/characters/08 Sana.png" }) {
         publicURL
       }
       gallery: file(relativePath: { eq: "images/characters/02 Sara.png" }) {
         publicURL
       }
-      roadmap: file(relativePath: { eq: "images/characters/07 Roa.png" }) {
+      roadmap: file(relativePath: { eq: "images/characters/06 Roa.png" }) {
         publicURL
       }
-      eightshop: file(relativePath: { eq: "images/characters/04 Yua.png" }) {
+      eightshop: file(relativePath: { eq: "images/characters/03 Yua.png" }) {
         publicURL
       }
       community: file(relativePath: { eq: "images/characters/01 Ara.png" }) {
         publicURL
       }
-      more: file(relativePath: { eq: "images/characters/08 Sia.png" }) {
+      more: file(relativePath: { eq: "images/characters/07 Sia.png" }) {
         publicURL
       }
-      submit: file(relativePath: { eq: "images/characters/05 Jua.png" }) {
+      submit: file(relativePath: { eq: "images/characters/04 Jua.png" }) {
         publicURL
       }
     }

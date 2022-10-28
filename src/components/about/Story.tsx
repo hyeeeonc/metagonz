@@ -59,10 +59,13 @@ const StoryContentWithBorderItems = styled.div`
   color: #000000;
 `
 
-const StoryImage = styled.img`
+const StoryImageContainer = styled.div`
   position: absolute;
+
   top: 0;
-  right: 50px;
+  right: 0px;
+  width: 1000px;
+  height: calc(100vh - calc(100vh - 100%));
 `
 
 const Story = ({ edges }: { edges: CharacterType[] }) => {
@@ -76,6 +79,36 @@ const Story = ({ edges }: { edges: CharacterType[] }) => {
         opacity: tabNum == 1 ? 1 : 0,
       }}
     >
+      {/* <StoryImage src={edges[0].node.pic.publicURL} /> */}
+      <StoryImageContainer>
+        <img
+          src={edges[0].node.pic.publicURL}
+          style={{
+            position: 'absolute',
+            left: '-300px',
+            top: -120,
+            height: 2200,
+          }}
+        />
+        <img
+          src={edges[1].node.pic.publicURL}
+          style={{
+            position: 'absolute',
+            left: '100px',
+            top: -80,
+            height: 2200,
+          }}
+        />
+        <img
+          src={edges[2].node.pic.publicURL}
+          style={{
+            position: 'absolute',
+            left: '300px',
+            top: -100,
+            height: 2200,
+          }}
+        />
+      </StoryImageContainer>
       <StoryContentContainer>
         <StoryContentNoBorder>
           When Metaverse is commercialized in the near future, one of the

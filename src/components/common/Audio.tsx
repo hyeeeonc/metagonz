@@ -216,7 +216,7 @@ const Audio: FunctionComponent = function () {
   }
   return (
     <AudioBlock>
-      <AudioObject src="" loop />
+      {/* <AudioObject src="" loop /> */}
 
       <AudioCharactorContainer style={{ width: isFolded ? 0 : '' }}>
         <AudioCharactorBackground style={{ opacity: isFolded ? 0 : 1 }} />
