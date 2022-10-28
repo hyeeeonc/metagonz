@@ -115,6 +115,8 @@ const CharacterSelectionCarousel = styled.div`
   width: 1728px;
   display: flex;
 
+  overflow: hidden;
+
   position: absolute;
   left: 0;
   top: 357px;
@@ -142,6 +144,12 @@ const CharacterSelectionCarouselItems = styled.div`
     border-radius: 10px;
     transform: matrix(-1, 0, 0, 1, 0, 0);
   }
+`
+
+const CharacterImageSizeController = styled.div`
+  position: absolute;
+  right: 30px;
+  botton: 72px;
 `
 
 type CharacterType = {

@@ -97,8 +97,11 @@ const MenuButtonContainer = styled.div`
   }
 
   :hover .imgContainer {
-    width: 370px;
-    height: 500px;
+    // width: 370px;
+    // height: 500px;
+    left: 0;
+    bottom: 0;
+
     clip-path: polygon(
       100% 0,
       100% 50%,
@@ -194,43 +197,61 @@ const MenuButtonBackground = styled.div`
 
 const MenuButtonImageContainer = styled.div`
   position: absolute;
-  left: -50%;
-  bottom: -50%;
+  left: -35px;
+  bottom: -65px;
 
-  width: 300px;
-  height: 300px;
+  width: 370px;
+  height: 500px;
 
   overflow: hidden;
 
   transition: 0.3s ease-out;
-  transform: translate(50%, -50%);
 
   clip-path: polygon(
-    50% 0,
-    85.35% 14.65%,
+    100% 0,
     100% 50%,
-    85.35% 85.35%,
-    50% 100%,
-    14.65% 85.35%,
-    0 50%,
-    14.65% 14.65%
+    85.35% 76.16%,
+    50% 87%,
+    14.65% 76.16%,
+    0% 50%,
+    0 0
   );
+
   -webkit-clip-path: polygon(
-    50% 0,
-    85.35% 14.65%,
+    100% 0,
     100% 50%,
-    85.35% 85.35%,
-    50% 100%,
-    14.65% 85.35%,
-    0 50%,
-    14.65% 14.65%
+    85.35% 76.16%,
+    50% 87%,
+    14.65% 76.16%,
+    0% 50%,
+    0 0
   );
+  // clip-path: polygon(
+  //   50% 0,
+  //   85.35% 14.65%,
+  //   100% 50%,
+  //   85.35% 85.35%,
+  //   50% 100%,
+  //   14.65% 85.35%,
+  //   0 50%,
+  //   14.65% 14.65%
+  // );
+  // -webkit-clip-path: polygon(
+  //   50% 0,
+  //   85.35% 14.65%,
+  //   100% 50%,
+  //   85.35% 85.35%,
+  //   50% 100%,
+  //   14.65% 85.35%,
+  //   0 50%,
+  //   14.65% 14.65%
+  // );
 `
 
 const MenuButtonImage = styled.img`
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 20px;
+  top: 100px;
 
   width: 367.43px;
   height: 1000px;
@@ -247,7 +268,7 @@ const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
   const [eachPos, setEachPos] = useState<{ x: number; y: number }[]>([])
   const [octagons, setOctagons] = useState<Octagon[]>([])
   useEffect(() => {
-    const news = new Octagon(638, 1251, '', '', 'news', 0)
+    const news = new Octagon(638, 1251, './images/01 Ara.png', '', 'news', 0)
     const about = new Octagon(271, 1099, '', '', 'about', 1)
     const gallery = new Octagon(531, 990, '', '', 'gallery', 2)
     const roadmap = new Octagon(116, 729, '', '', 'roadmap', 3)

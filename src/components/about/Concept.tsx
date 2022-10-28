@@ -71,7 +71,7 @@ const ConceptContentButton = styled.div`
 
   width: 130px;
   height: 42px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid black;
   border-radius: 5px;
   box-sizing: border-box;
   margin-right: 5px;
@@ -82,6 +82,10 @@ const ConceptContentButton = styled.div`
   font-size: 15px;
   line-height: 19px;
   text-transform: uppercase;
+
+  opacity: 0.2;
+
+  transition: 0.2s ease;
 
   color: #000000;
 `
@@ -94,6 +98,7 @@ const StoryImage = styled.img`
 
 const Concept = () => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
+  const [hover, setHover] = useState<string>('3d')
 
   return (
     <ConceptBlock
@@ -112,8 +117,22 @@ const Concept = () => {
           designers, stylists and blockchain developers.
         </ConceptContentNoBorder>
         <ConceptContentButtonContainer>
-          <ConceptContentButton>3D</ConceptContentButton>
-          <ConceptContentButton>nft</ConceptContentButton>
+          <ConceptContentButton
+            onClick={() => setHover('3d')}
+            style={{
+              opacity: hover == '3d' ? 1 : 0.2,
+            }}
+          >
+            3D
+          </ConceptContentButton>
+          <ConceptContentButton
+            onClick={() => setHover('nft')}
+            style={{
+              opacity: hover == 'nft' ? 1 : 0.2,
+            }}
+          >
+            nft
+          </ConceptContentButton>
         </ConceptContentButtonContainer>
         <ConceptContentWithBorder>
           A total of 8,888 limited edition Metagonz NFTs are released based on a
