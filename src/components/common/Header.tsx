@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 
 import styled from '@emotion/styled'
 
@@ -132,16 +138,23 @@ const Header = () => {
     return isDarkmode ? HeaderNavItemsDarkMode : HeaderNavItemsLightMode
   }, [isDarkmode])
 
-  const menuOpenHandler = () => {
-      if (menuOpenState) {
-          setMenuOpenState(false)
-          setMode(prevMode)
-      } else {
-          setMenuOpenState(true)
-          setPrevMode(isDarkmode)
-          setMode(false)
-      }
-  }
+  const menuOpenHandler = useCallback(() => {
+    if (menuOpenState) {
+      setMenuOpenState(false)
+      setMode(prevMode)
+    } else {
+      setMenuOpenState(true)
+      setPrevMode(isDarkmode)
+      setMode(false)
+    }
+  }, [menuOpenState, isDarkmode, prevMode])
+
+  const linkHandler = useCallback(() => {
+    if (menuOpenState) {
+      setMenuOpenState(false)
+      setMode(prevMode)
+    }
+  }, [menuOpenState, prevMode])
 
   const snsOpenHandler = () => {
     if (snsOpenState) setSnsOpenState(false)
@@ -151,11 +164,7 @@ const Header = () => {
     <HeaderBlock>
       <Menu menuOpenState={menuOpenState} />
       <HeaderLogoContainer
-        onClick={() => {
-          if (menuOpenState) {
-            setMenuOpenState(false)
-          }
-        }}
+        onClick={linkHandler}
         onMouseEnter={() => setHover('logo')}
         onMouseLeave={() => setHover('')}
       >
@@ -292,30 +301,15 @@ const Header = () => {
       </HeaderLogoContainer>
       <HeaderButtonContainer>
         <HeaderNavContainer>
-          <HeaderNavItems
-            onClick={() => {
-              if (menuOpenState) setMenuOpenState(false)
-            }}
-            to={`/about`}
-          >
+          <HeaderNavItems onClick={linkHandler} to={`/about`}>
             minting
           </HeaderNavItems>
 
-          <HeaderNavItems
-            onClick={() => {
-              if (menuOpenState) setMenuOpenState(false)
-            }}
-            to={`/gallery`}
-          >
+          <HeaderNavItems onClick={linkHandler} to={`/gallery`}>
             gallery
           </HeaderNavItems>
 
-          <HeaderNavItems
-            onClick={() => {
-              if (menuOpenState) setMenuOpenState(false)
-            }}
-            to={`/scenario`}
-          >
+          <HeaderNavItems onClick={linkHandler} to={`/scenario`}>
             My Page
           </HeaderNavItems>
         </HeaderNavContainer>

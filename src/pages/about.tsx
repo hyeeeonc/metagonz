@@ -17,6 +17,8 @@ import Story from 'components/about/Story'
 import Characters from 'components/about/characters'
 import Concept from 'components/about/Concept'
 import Utility from 'components/about/Utility'
+import { graphql, useStaticQuery } from 'gatsby'
+import { use3DCharacter } from 'hooks/use3DCharacter'
 
 const AboutBlock = styled.div`
   position: relative;

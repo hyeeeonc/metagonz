@@ -263,18 +263,100 @@ const MenuButtonImage = styled.img`
 
   transition: 0.3s ease-out;
 `
+type MenuImgType = {
+  news: {
+    publicURL: string
+  }
+  about: {
+    publicURL: string
+  }
+  gallery: {
+    publicURL: string
+  }
+  roadmap: {
+    publicURL: string
+  }
+  eightshop: {
+    publicURL: string
+  }
+  commu: {
+    publicURL: string
+  }
+  more: {
+    publicURL: string
+  }
+  submit: {
+    publicURL: string
+  }
+}
 
 const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
   const [octagons, setOctagons] = useState<Octagon[]>([])
+  const images: MenuImgType = useStaticQuery(graphql`
+    query {
+      news: file(relativePath: { eq: "images/ara_tall.png" }) {
+        publicURL
+      }
+      about: file(relativePath: { eq: "images/ara_tall.png" }) {
+        publicURL
+      }
+      gallery: file(relativePath: { eq: "images/ara_tall.png" }) {
+        publicURL
+      }
+      roadmap: file(relativePath: { eq: "images/ara_tall.png" }) {
+        publicURL
+      }
+      eightshop: file(relativePath: { eq: "images/ara_tall.png" }) {
+        publicURL
+      }
+      commu: file(relativePath: { eq: "images/ara_tall.png" }) {
+        publicURL
+      }
+      more: file(relativePath: { eq: "images/ara_tall.png" }) {
+        publicURL
+      }
+      submit: file(relativePath: { eq: "images/ara_tall.png" }) {
+        publicURL
+      }
+    }
+  `)
   useEffect(() => {
-    const news = new Octagon(638, 1251, './images/ara.png', '', 'news', 0)
-    const about = new Octagon(271, 1099, '', '', 'about', 1)
-    const gallery = new Octagon(531, 990, '', '', 'gallery', 2)
-    const roadmap = new Octagon(116, 729, '', '', 'roadmap', 3)
-    const eightshop = new Octagon(377, 621, '', '', '8shop', 4)
-    const commu = new Octagon(638, 729, '', '', 'commu', 5)
-    const more = new Octagon(269, 360, '', '', 'more', 6)
-    const submit = new Octagon(377, 99, '', '', 'submit', 7)
+    const news = new Octagon(638, 1251, images.news.publicURL, '', 'news', 0)
+    const about = new Octagon(271, 1099, images.about.publicURL, '', 'about', 1)
+    const gallery = new Octagon(
+      531,
+      990,
+      images.gallery.publicURL,
+      '',
+      'gallery',
+      2,
+    )
+    const roadmap = new Octagon(
+      116,
+      729,
+      images.roadmap.publicURL,
+      '',
+      'roadmap',
+      3,
+    )
+    const eightshop = new Octagon(
+      377,
+      621,
+      images.eightshop.publicURL,
+      '',
+      '8shop',
+      4,
+    )
+    const commu = new Octagon(638, 729, images.commu.publicURL, '', 'commu', 5)
+    const more = new Octagon(269, 360, images.more.publicURL, '', 'more', 6)
+    const submit = new Octagon(
+      377,
+      99,
+      images.submit.publicURL,
+      '',
+      'submit',
+      7,
+    )
     news.setAdj([null, gallery, null, null, null, null, null, null])
     about.setAdj([null, null, null, gallery, null, null, null, null])
     gallery.setAdj([null, null, commu, null, null, news, null, about])
