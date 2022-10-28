@@ -1,7 +1,9 @@
-import React, { FunctionComponent, useContext, useState } from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import React, { useContext, useState } from 'react'
 import styled from '@emotion/styled'
 import { AboutTabContext } from '../../contexts/AboutTabProvider'
+import DragBar from './aboutElement/DragBar'
+
+import { use3DCharacter } from 'hooks/use3DCharacter'
 
 const ConceptBlock = styled.main`
   position: absolute;
@@ -90,15 +92,19 @@ const ConceptContentButton = styled.div`
   color: #000000;
 `
 
-const StoryImage = styled.img`
+const ConceptImage = styled.img`
   position: absolute;
   top: 0;
   right: 50px;
+
+  // background: black;
 `
 
 const Concept = () => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
-  const [hover, setHover] = useState<string>('3d')
+  const [conceptTab, setConceptTap] = useState<string>('3d')
+  const [imgIdx, setImgIdx] = useState<number>(1)
+  const [edges, getImageSrc] = use3DCharacter()
 
   return (
     <ConceptBlock
@@ -108,6 +114,13 @@ const Concept = () => {
         opacity: tabNum == 3 ? 1 : 0,
       }}
     >
+      <ConceptImage
+        style={{
+          visibility: conceptTab == '3d' ? 'visible' : 'hidden',
+          opacity: conceptTab == '3d' ? 1 : 0,
+        }}
+        src={getImageSrc(imgIdx)}
+      />
       <ConceptContentContainer>
         <ConceptContentNoBorder>
           Metagonz has been developed by experts in various fields based on
@@ -118,17 +131,17 @@ const Concept = () => {
         </ConceptContentNoBorder>
         <ConceptContentButtonContainer>
           <ConceptContentButton
-            onClick={() => setHover('3d')}
+            onClick={() => setConceptTap('3d')}
             style={{
-              opacity: hover == '3d' ? 1 : 0.2,
+              opacity: conceptTab == '3d' ? 1 : 0.2,
             }}
           >
             3D
           </ConceptContentButton>
           <ConceptContentButton
-            onClick={() => setHover('nft')}
+            onClick={() => setConceptTap('nft')}
             style={{
-              opacity: hover == 'nft' ? 1 : 0.2,
+              opacity: conceptTab == 'nft' ? 1 : 0.2,
             }}
           >
             nft
@@ -145,6 +158,12 @@ const Concept = () => {
           MetaOctagon Universe.
         </ConceptContentWithBorder>
       </ConceptContentContainer>
+
+      <DragBar
+        page="concept"
+        setImgIdx={setImgIdx}
+        isOn={conceptTab == '3d' ? true : false}
+      />
     </ConceptBlock>
   )
 }

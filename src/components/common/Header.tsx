@@ -129,10 +129,6 @@ const Header = () => {
   const { isDarkmode, setMode } = useContext(DarkmodeContext)
   const [prevMode, setPrevMode] = useState<boolean>(isDarkmode)
 
-  useEffect(() => {
-    console.log(isDarkmode)
-  }, [isDarkmode])
-
   // LightMode / DarkMode에 따라서 NavBar 아이템 color 변경
   const HeaderNavItems = useMemo(() => {
     return isDarkmode ? HeaderNavItemsDarkMode : HeaderNavItemsLightMode

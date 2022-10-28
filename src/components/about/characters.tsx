@@ -152,6 +152,10 @@ const CharacterImageSizeController = styled.div`
   botton: 72px;
 `
 
+const CharacterImageSizeControllerIcon = styled.svg`
+  position: absolute;
+`
+
 type CharacterType = {
   node: {
     name: string
