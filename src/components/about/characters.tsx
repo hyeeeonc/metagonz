@@ -104,12 +104,17 @@ const CharacterImage = styled.img`
 
 const CharacterSelectionCarouselWindow = styled.div`
   width: 100vw;
+  height: 470px;
   overflow-y: hidden;
   overflow-x: scroll;
   display: flex;
   align-items: center;
 
   transition: 0.5s ease;
+
+  position: absolute;
+  left: 0;
+  top: 357px;
 `
 
 const CharacterSelectionCarousel = styled.div`
@@ -117,10 +122,6 @@ const CharacterSelectionCarousel = styled.div`
   display: flex;
 
   overflow: hidden;
-
-  position: absolute;
-  left: 0;
-  top: 357px;
 `
 
 const CharacterSelectionCarouselItems = styled.div`

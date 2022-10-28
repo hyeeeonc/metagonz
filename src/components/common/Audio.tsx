@@ -15,6 +15,10 @@ const AudioBlock = styled.div`
   z-index: 3;
 `
 
+const AudioObject = styled.div`
+  visibility = hidden;
+`
+
 const AudioCharactorContainer = styled.div`
   position: relative;
   width: 86px;
@@ -212,6 +216,8 @@ const Audio: FunctionComponent = function () {
   }
   return (
     <AudioBlock>
+      <AudioObject src="" loop />
+
       <AudioCharactorContainer style={{ width: isFolded ? 0 : '' }}>
         <AudioCharactorBackground style={{ opacity: isFolded ? 0 : 1 }} />
         <AudioCharactorImageContainer

@@ -2,7 +2,7 @@ import React, { FunctionComponent, useContext, useState } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import styled from '@emotion/styled'
 import { AboutTabContext } from '../../contexts/AboutTabProvider'
-import {CharacterType} from 'pages/about'
+import { CharacterType } from 'pages/about'
 
 const UtilityBlock = styled.main`
   position: absolute;
@@ -47,7 +47,7 @@ const UtilityContentItemContent = styled.div`
   line-height: 19px;
 `
 
-const Utility = ({edges}:{edges: CharacterType[]}) => {
+const Utility = ({ edges }: { edges: CharacterType[] }) => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
 
   return (

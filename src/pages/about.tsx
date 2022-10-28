@@ -134,9 +134,9 @@ const AboutPage: FunctionComponent = function () {
       <Global styles={reset} />
       <AboutBlock>
         <Characters edges={edges} />
-        <Story edges={edges}/>
-        <Concept edges={edges}/>
-        <Utility edges={edges}/>
+        <Story edges={edges} />
+        <Concept edges={edges} />
+        <Utility edges={edges} />
         <AboutNavContainer>
           <AboutNavItems
             onClick={() => setTabNum(1)}
