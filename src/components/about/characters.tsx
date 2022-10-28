@@ -164,12 +164,11 @@ const Characters = ({ edges }: { edges: CharacterType[] }) => {
   const { setAudio } = useContext(AudioContext)
 
   const [selected, setSelected] = useState<number>(-1)
-  useEffect(() => {
-    console.log(selected)
-  }, [selected])
 
   useEffect(() => {
-    setAudio(edges[selected]?.node.audio.publicURL)
+    if (edges[selected]) {
+      setAudio(edges[selected].node.audio.publicURL)
+    }
   }, [selected])
 
   return (

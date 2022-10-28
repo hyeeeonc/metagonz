@@ -2,6 +2,7 @@ import React, { FunctionComponent, useContext, useState } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import styled from '@emotion/styled'
 import { DarkmodeContext } from '../../contexts/DarkmodeProvider'
+import { AudioContext } from '../../contexts/AudioProvider'
 
 const AudioBlock = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const AudioBlock = styled.div`
   z-index: 3;
 `
 
-const AudioObject = styled.div`
+const AudioObject = styled.audio`
   visibility = hidden;
 `
 
@@ -208,7 +209,7 @@ const Audio: FunctionComponent = function () {
 
   const [hover, setHover] = useState<string>('') //hover 상태 저장
   const [isFolded, setIsFolded] = useState<boolean>(false) // fold 컨트롤러
-  //const { src, audioRef } = useContext(AudioContext)
+  const { src, audioRef } = useContext(AudioContext)
 
   const foldingHandler = () => {
     if (!isFolded) setIsFolded(true)
@@ -216,7 +217,9 @@ const Audio: FunctionComponent = function () {
   }
   return (
     <AudioBlock>
-      {/* <AudioObject src="" loop /> */}
+      <AudioObject ref={audioRef} controls style={{ display: 'none' }}>
+        <source src={src} />
+      </AudioObject>
 
       <AudioCharactorContainer style={{ width: isFolded ? 0 : '' }}>
         <AudioCharactorBackground style={{ opacity: isFolded ? 0 : 1 }} />
