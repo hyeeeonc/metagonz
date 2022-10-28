@@ -158,7 +158,7 @@ const Header = () => {
   }
   return (
     <HeaderBlock>
-      <Menu menuOpenState={menuOpenState} />
+      <Menu menuOpenState={menuOpenState} setMenuOpenState={setMenuOpenState} />
       <HeaderLogoContainer
         onClick={linkHandler}
         onMouseEnter={() => setHover('logo')}
@@ -297,15 +297,15 @@ const Header = () => {
       </HeaderLogoContainer>
       <HeaderButtonContainer>
         <HeaderNavContainer>
-          <HeaderNavItems onClick={linkHandler} to={`/about`}>
+          <HeaderNavItems onClick={linkHandler} to={`/#`}>
             minting
           </HeaderNavItems>
 
-          <HeaderNavItems onClick={linkHandler} to={`/gallery`}>
+          <HeaderNavItems onClick={linkHandler} to={`/#`}>
             gallery
           </HeaderNavItems>
 
-          <HeaderNavItems onClick={linkHandler} to={`/scenario`}>
+          <HeaderNavItems onClick={linkHandler} to={`/#`}>
             My Page
           </HeaderNavItems>
         </HeaderNavContainer>

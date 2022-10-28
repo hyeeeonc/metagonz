@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { DarkmodeContext } from '../../../contexts/DarkmodeProvider'
 import Octagon from '../../../models/Octagon'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, Link, useStaticQuery } from 'gatsby'
 
 const MenuBackground = styled.div`
   position: fixed;
@@ -136,8 +136,8 @@ const MenuButtonContainer = styled.div`
   }
 
   :hover .img {
-    left: 0;
-    top: 0;
+    left: 30px;
+    top: -80px;
 
     opacity: 1;
     backdrop-filter: none;
@@ -151,19 +151,6 @@ const MenuButtonBackground = styled.div`
   left: 50%;
   bottom: 50%;
   transform: translate(-50%, 50%);
-
-  display: flex;
-  align-items: center;
-
-  font-family: 'SUIT';
-  font-style: normal;
-  font-weight: 900;
-  font-size: 16px;
-  line-height: 20px;
-  text-transform: uppercase;
-  color: white;
-  padding-left: 40px;
-  box-sizing: border-box;
 
   width: 300px;
   height: 300px;
@@ -207,7 +194,6 @@ const MenuButtonImageContainer = styled.div`
   overflow: hidden;
 
   transition: 0.3s ease-out;
-
   clip-path: polygon(
     100% 0,
     100% 50%,
@@ -219,40 +205,20 @@ const MenuButtonImageContainer = styled.div`
   );
 
   -webkit-clip-path: polygon(
-    100% 0,
-    100% 50%,
-    85.35% 76.16%,
+    92% 0,
+    92% 55%,
+    78.35% 78.16%,
     50% 87%,
-    14.65% 76.16%,
-    0% 50%,
-    0 0
+    21.65% 78.16%,
+    8% 55%,
+    8% 0
   );
-  // clip-path: polygon(
-  //   50% 0,
-  //   85.35% 14.65%,
-  //   100% 50%,
-  //   85.35% 85.35%,
-  //   50% 100%,
-  //   14.65% 85.35%,
-  //   0 50%,
-  //   14.65% 14.65%
-  // );
-  // -webkit-clip-path: polygon(
-  //   50% 0,
-  //   85.35% 14.65%,
-  //   100% 50%,
-  //   85.35% 85.35%,
-  //   50% 100%,
-  //   14.65% 85.35%,
-  //   0 50%,
-  //   14.65% 14.65%
-  // );
 `
 
 const MenuButtonImage = styled.img`
   position: absolute;
-  left: 20px;
-  top: 100px;
+  left: 50px;
+  top: 80px;
 
   width: 367.43px;
   height: 1000px;
@@ -263,6 +229,22 @@ const MenuButtonImage = styled.img`
 
   transition: 0.3s ease-out;
 `
+
+const MenuButtonTitle = styled.div`
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  font-family: 'SUIT';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 20px;
+  text-transform: uppercase;
+  color: white;
+`
+
 type MenuImgType = {
   news: {
     publicURL: string
@@ -279,7 +261,7 @@ type MenuImgType = {
   eightshop: {
     publicURL: string
   }
-  commu: {
+  community: {
     publicURL: string
   }
   more: {
@@ -290,39 +272,52 @@ type MenuImgType = {
   }
 }
 
-const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
+const Menu = ({
+  menuOpenState,
+  setMenuOpenState,
+}: {
+  menuOpenState: boolean
+  setMenuOpenState: React.Dispatch<React.SetStateAction<boolean>>
+}) => {
   const [octagons, setOctagons] = useState<Octagon[]>([])
   const images: MenuImgType = useStaticQuery(graphql`
     query {
-      news: file(relativePath: { eq: "images/ara_tall.png" }) {
+      news: file(relativePath: { eq: "images/characters/06 Dana.png" }) {
         publicURL
       }
-      about: file(relativePath: { eq: "images/ara_tall.png" }) {
+      about: file(relativePath: { eq: "images/characters/03 Kina.png" }) {
         publicURL
       }
-      gallery: file(relativePath: { eq: "images/ara_tall.png" }) {
+      gallery: file(relativePath: { eq: "images/characters/02 Sara.png" }) {
         publicURL
       }
-      roadmap: file(relativePath: { eq: "images/ara_tall.png" }) {
+      roadmap: file(relativePath: { eq: "images/characters/07 Roa.png" }) {
         publicURL
       }
-      eightshop: file(relativePath: { eq: "images/ara_tall.png" }) {
+      eightshop: file(relativePath: { eq: "images/characters/04 Yua.png" }) {
         publicURL
       }
-      commu: file(relativePath: { eq: "images/ara_tall.png" }) {
+      community: file(relativePath: { eq: "images/characters/01 Ara.png" }) {
         publicURL
       }
-      more: file(relativePath: { eq: "images/ara_tall.png" }) {
+      more: file(relativePath: { eq: "images/characters/08 Sia.png" }) {
         publicURL
       }
-      submit: file(relativePath: { eq: "images/ara_tall.png" }) {
+      submit: file(relativePath: { eq: "images/characters/05 Jua.png" }) {
         publicURL
       }
     }
   `)
   useEffect(() => {
     const news = new Octagon(638, 1251, images.news.publicURL, '', 'news', 0)
-    const about = new Octagon(271, 1099, images.about.publicURL, '', 'about', 1)
+    const about = new Octagon(
+      271,
+      1099,
+      images.about.publicURL,
+      '/about',
+      'about',
+      1,
+    )
     const gallery = new Octagon(
       531,
       990,
@@ -344,10 +339,17 @@ const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
       621,
       images.eightshop.publicURL,
       '',
-      '8shop',
+      '8 shop',
       4,
     )
-    const commu = new Octagon(638, 729, images.commu.publicURL, '', 'commu', 5)
+    const community = new Octagon(
+      638,
+      729,
+      images.community.publicURL,
+      '',
+      'community',
+      5,
+    )
     const more = new Octagon(269, 360, images.more.publicURL, '', 'more', 6)
     const submit = new Octagon(
       377,
@@ -359,13 +361,22 @@ const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
     )
     news.setAdj([null, gallery, null, null, null, null, null, null])
     about.setAdj([null, null, null, gallery, null, null, null, null])
-    gallery.setAdj([null, null, commu, null, null, news, null, about])
+    gallery.setAdj([null, null, community, null, null, news, null, about])
     roadmap.setAdj([null, null, null, eightshop, null, null, null, null])
-    eightshop.setAdj([null, more, null, null, commu, null, null, roadmap])
-    commu.setAdj([eightshop, null, null, null, null, null, gallery, null])
+    eightshop.setAdj([null, more, null, null, community, null, null, roadmap])
+    community.setAdj([eightshop, null, null, null, null, null, gallery, null])
     more.setAdj([null, null, submit, null, null, eightshop, null, null])
     submit.setAdj([null, null, null, null, null, null, more, null])
-    setOctagons([news, about, gallery, roadmap, eightshop, commu, more, submit])
+    setOctagons([
+      news,
+      about,
+      gallery,
+      roadmap,
+      eightshop,
+      community,
+      more,
+      submit,
+    ])
   }, [])
 
   return (
@@ -436,28 +447,29 @@ const Menu = ({ menuOpenState }: { menuOpenState: boolean }) => {
 
       <MenuBlock>
         {octagons.map((octagon, i) => (
-          <MenuButtonContainer
-            className="container"
-            style={{
-              top: octagon.y,
-              right: octagon.x,
-            }}
-            onMouseEnter={() => {
-              octagon.sizeUp()
-              setOctagons(os => [...os])
-            }}
-            onMouseLeave={() => {
-              octagon.sizeDown()
-              setOctagons(os => [...os])
-            }}
-          >
-            <MenuButtonBackground className="background">
-              {octagon.title}
-            </MenuButtonBackground>
-            <MenuButtonImageContainer className="imgContainer">
-              <MenuButtonImage className="img" src={octagon.img} />
-            </MenuButtonImageContainer>
-          </MenuButtonContainer>
+          <Link to={octagon.url} onClick={() => setMenuOpenState(false)}>
+            <MenuButtonContainer
+              className="container"
+              style={{
+                top: octagon.y,
+                right: octagon.x,
+              }}
+              onMouseEnter={() => {
+                octagon.sizeUp()
+                setOctagons(os => [...os])
+              }}
+              onMouseLeave={() => {
+                octagon.sizeDown()
+                setOctagons(os => [...os])
+              }}
+            >
+              <MenuButtonBackground className="background"></MenuButtonBackground>
+              <MenuButtonImageContainer className="imgContainer">
+                <MenuButtonImage className="img" src={octagon.img} />
+              </MenuButtonImageContainer>
+              <MenuButtonTitle> {octagon.title}</MenuButtonTitle>
+            </MenuButtonContainer>
+          </Link>
         ))}
       </MenuBlock>
     </MenuBackground>

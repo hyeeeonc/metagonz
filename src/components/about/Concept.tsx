@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { AboutTabContext } from '../../contexts/AboutTabProvider'
 import DragBar from './aboutElement/DragBar'
@@ -42,6 +42,9 @@ const ConceptContentNoBorder = styled.div`
   color: #000000;
 `
 const ConceptContentWithBorder = styled.div`
+  position: absolute;
+  left: 0px;
+  top: 200px;
   width: 800px;
   height: 57px;
   padding: 0 30px;
@@ -94,17 +97,19 @@ const ConceptContentButton = styled.div`
 
 const ConceptImage = styled.img`
   position: absolute;
-  top: 0;
-  right: 50px;
+  top: -200px;
+  right: 0px;
 
   // background: black;
+
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 `
 
 const Concept = () => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
   const [conceptTab, setConceptTap] = useState<string>('3d')
   const [imgIdx, setImgIdx] = useState<number>(1)
-  const [edges, getImageSrc] = use3DCharacter()
+  const [_, getImageSrc] = use3DCharacter()
 
   return (
     <ConceptBlock
@@ -118,6 +123,9 @@ const Concept = () => {
         style={{
           visibility: conceptTab == '3d' ? 'visible' : 'hidden',
           opacity: conceptTab == '3d' ? 1 : 0,
+          transform: `scale(${0.6 + imgIdx * 0.01}) translate(${
+            (-120 * imgIdx) / 100
+          }px, ${(400 * imgIdx) / 100}px)`,
         }}
         src={getImageSrc(imgIdx)}
       />
@@ -147,7 +155,12 @@ const Concept = () => {
             nft
           </ConceptContentButton>
         </ConceptContentButtonContainer>
-        <ConceptContentWithBorder>
+        <ConceptContentWithBorder
+          style={{
+            visibility: conceptTab == '3d' ? 'visible' : 'hidden',
+            opacity: conceptTab == '3d' ? 1 : 0,
+          }}
+        >
           A total of 8,888 limited edition Metagonz NFTs are released based on a
           total of 8 characters.
           <br />
@@ -155,6 +168,18 @@ const Concept = () => {
           a member of the MetaOctagon community,
           <br />
           which plays a pivotal role in the establishment and expansion of the
+          MetaOctagon Universe.
+        </ConceptContentWithBorder>
+        <ConceptContentWithBorder
+          style={{
+            visibility: conceptTab == 'nft' ? 'visible' : 'hidden',
+            opacity: conceptTab == 'nft' ? 1 : 0,
+          }}
+        >
+          A total of 8,888 limited edition Metagonz NFTs are released based on a
+          total of 8 characters. It proves that it is a collectible item with
+          unique digital art and is a member of the MetaOctagon community, which
+          plays a pivotal role in the establishment and expansion of the
           MetaOctagon Universe.
         </ConceptContentWithBorder>
       </ConceptContentContainer>
