@@ -8,6 +8,7 @@ import styled from '@emotion/styled'
 import { graphql, useStaticQuery } from 'gatsby'
 import { AudioContext } from '../../contexts/AudioProvider'
 import { AboutTabContext } from '../../contexts/AboutTabProvider'
+import { CharacterType } from 'pages/about'
 
 const CharacterBlock = styled.main`
   position: absolute;
@@ -156,65 +157,10 @@ const CharacterImageSizeControllerIcon = styled.svg`
   position: absolute;
 `
 
-type CharacterType = {
-  node: {
-    name: string
-    main_job: string
-    second_job: string
-    music_style: string
-    nationality: string
-    age: number
-    hight: number
-    weight: number
-    mbti: string
-    likes: string
-    pic: {
-      publicURL: string
-    }
-    audio: {
-      publicURL: string
-    }
-  }
-}
-
-type CharacterListType = {
-  allCharacterJson: {
-    edges: CharacterType[]
-  }
-}
-
-const Characters: FunctionComponent = function () {
+const Characters = ({ edges }: { edges: CharacterType[] }) => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
 
   const { setAudio } = useContext(AudioContext)
-  const {
-    allCharacterJson: { edges },
-  }: CharacterListType = useStaticQuery(graphql`
-    query getCharacters {
-      allCharacterJson {
-        edges {
-          node {
-            name
-            main_job
-            second_job
-            music_style
-            nationality
-            age
-            hight
-            weight
-            mbti
-            likes
-            pic {
-              publicURL
-            }
-            audio {
-              publicURL
-            }
-          }
-        }
-      }
-    }
-  `)
 
   const [selected, setSelected] = useState<number>(-1)
   useEffect(() => {

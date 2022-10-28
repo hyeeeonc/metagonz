@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import styled from '@emotion/styled'
 
 const DragBarBlock = styled.div`
@@ -78,26 +84,34 @@ const DragBar = ({
   setImgIdx: React.Dispatch<React.SetStateAction<number>>
 }) => {
   const [dragProgress, setDragProgress] = useState<number>(1)
-  const [defaultPos, setDefaultPos] = useState<number>(0)
   const [isDrag, setIsDrag] = useState<boolean>(false)
   const barController = useRef<HTMLDivElement>(null)
 
-  const [gab, setGab] = useState<number>(0)
-  const [clientX, setClientX] = useState<number>(0)
   const [offsetX, setOffsetX] = useState<number>(0)
 
-  const offsetHandler = () => {
-    setOffsetX(barController?.current?.getBoundingClientRect().left ?? 0)
-  }
+  const offsetHandler = useCallback(() => {
+    setOffsetX(barController.current?.getBoundingClientRect().left ?? 0)
+  }, [])
 
   useEffect(() => {
-    setOffsetX(barController?.current?.getBoundingClientRect().left ?? 0)
-    console.log(offsetX)
+    setOffsetX(barController.current?.getBoundingClientRect().left ?? 0)
     window.addEventListener('resize', offsetHandler)
     return () => {
       window.removeEventListener('resize', offsetHandler)
     }
   }, [])
+
+  const mouseMoveHandler = useCallback(
+    (e: React.MouseEvent) => {
+      if (isDrag) {
+        if (e.clientX - offsetX >= 2 && e.clientX - offsetX <= 200) {
+          setDragProgress(e.clientX - offsetX)
+          setImgIdx(Math.ceil((e.clientX - offsetX) / 2))
+        }
+      }
+    },
+    [isDrag, offsetX, dragProgress],
+  )
 
   return (
     <DragBarBlock
@@ -123,17 +137,7 @@ const DragBar = ({
           strokeLinejoin="round"
         />
       </DragBarIcon>
-      <DragBarContainer
-        onMouseMove={e => {
-          if (isDrag) {
-            if (e.clientX - offsetX >= 2 && e.clientX - offsetX <= 200) {
-              setDragProgress(e.clientX - offsetX)
-              setImgIdx(Math.ceil((e.clientX - offsetX) / 2))
-            }
-            console.log(dragProgress)
-          }
-        }}
-      >
+      <DragBarContainer onMouseMove={mouseMoveHandler}>
         {page == 'concept' ? '<' : '-'}
         <DragBarBodyBackground>
           <DragBarBodyProgressBar

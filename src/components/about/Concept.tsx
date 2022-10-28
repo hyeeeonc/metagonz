@@ -4,6 +4,7 @@ import { AboutTabContext } from '../../contexts/AboutTabProvider'
 import DragBar from './aboutElement/DragBar'
 
 import { use3DCharacter } from 'hooks/use3DCharacter'
+import { CharacterType } from 'pages/about'
 
 const ConceptBlock = styled.main`
   position: absolute;
@@ -105,7 +106,7 @@ const ConceptImage = styled.img`
   transition: opacity 0.5s ease, visibility 0.5s ease;
 `
 
-const Concept = () => {
+const Concept = ({ edges }: { edges: CharacterType[] }) => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
   const [conceptTab, setConceptTap] = useState<string>('3d')
   const [imgIdx, setImgIdx] = useState<number>(1)

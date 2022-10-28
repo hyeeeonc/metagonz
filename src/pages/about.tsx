@@ -62,6 +62,32 @@ const AboutNavItems = styled.div`
   }
   flex: none;
 `
+export type CharacterType = {
+  node: {
+    name: string
+    main_job: string
+    second_job: string
+    music_style: string
+    nationality: string
+    age: number
+    hight: number
+    weight: number
+    mbti: string
+    likes: string
+    pic: {
+      publicURL: string
+    }
+    audio: {
+      publicURL: string
+    }
+  }
+}
+
+export type CharacterListType = {
+  allCharacterJson: {
+    edges: CharacterType[]
+  }
+}
 
 const AboutPage: FunctionComponent = function () {
   const { setAudio } = useContext(AudioContext)
@@ -74,14 +100,43 @@ const AboutPage: FunctionComponent = function () {
     setMode(true)
   }, [])
 
+  const {
+    allCharacterJson: { edges },
+  }: CharacterListType = useStaticQuery(graphql`
+    query getCharacters {
+      allCharacterJson {
+        edges {
+          node {
+            name
+            main_job
+            second_job
+            music_style
+            nationality
+            age
+            hight
+            weight
+            mbti
+            likes
+            pic {
+              publicURL
+            }
+            audio {
+              publicURL
+            }
+          }
+        }
+      }
+    }
+  `)
+
   return (
     <>
       <Global styles={reset} />
       <AboutBlock>
-        <Characters />
-        <Story />
-        <Concept />
-        <Utility />
+        <Characters edges={edges} />
+        <Story edges={edges}/>
+        <Concept edges={edges}/>
+        <Utility edges={edges}/>
         <AboutNavContainer>
           <AboutNavItems
             onClick={() => setTabNum(1)}

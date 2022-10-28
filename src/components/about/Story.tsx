@@ -2,6 +2,7 @@ import React, { FunctionComponent, useContext, useState } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import styled from '@emotion/styled'
 import { AboutTabContext } from '../../contexts/AboutTabProvider'
+import { CharacterType } from 'pages/about'
 
 const StoryBlock = styled.main`
   position: absolute;
@@ -64,7 +65,7 @@ const StoryImage = styled.img`
   right: 50px;
 `
 
-const Story = () => {
+const Story = ({ edges }: { edges: CharacterType[] }) => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
 
   return (
