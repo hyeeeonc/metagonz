@@ -9,6 +9,7 @@ import {
   useEffect,
   useCallback,
 } from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 
 type AudioContextValue = {
   src: string
@@ -26,11 +27,32 @@ export const AudioContext = createContext<AudioContextValue>(
   {} as AudioContextValue,
 )
 
+type AudioType = {
+  file: {
+    publicURL: string
+  }
+}
+
 const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
-  const [src, setSrc] = useState<string>('./audios/main.mp3')
+  const defaultAudio: AudioType = useStaticQuery(graphql`
+    query {
+      file(
+        relativePath: {
+          eq: "audios/Metagonz ARA feat.Pure 100% - BE A PART OF US.mp3"
+        }
+      ) {
+        publicURL
+      }
+    }
+  `)
+  const [src, setSrc] = useState<string>('')
   const [title, setTitle] = useState<string>('Default Audio')
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
+
+  // useEffect(() => {
+  //   setAudio(`${defaultAudio.file.publicURL}`)
+  // }, [])
 
   useEffect(() => {
     if (audioRef.current) {
