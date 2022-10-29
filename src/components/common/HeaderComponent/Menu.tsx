@@ -379,6 +379,13 @@ const Menu = ({
     ])
   }, [])
 
+  useEffect(() => {
+    octagons.forEach(octagon => {
+      const image = new Image()
+      image.src = octagon.img
+    })
+  }, [octagons])
+
   return (
     <MenuBackground
       style={{

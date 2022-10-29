@@ -136,6 +136,7 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
             }px, ${(400 * imgIdx) / 100}px)`,
           }}
           src={node.childImageSharp.fluid.src}
+          decoding="sync"
         />
       ))}
 
