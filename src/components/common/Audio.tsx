@@ -222,6 +222,10 @@ const Audio: FunctionComponent = function () {
     if (!isFolded) setIsFolded(true)
     else setIsFolded(false)
   }
+
+  useEffect(() => {
+    console.log(src)
+  }, [src])
   return (
     <AudioBlock>
       <AudioObject ref={audioRef} controls style={{ display: 'none' }}>

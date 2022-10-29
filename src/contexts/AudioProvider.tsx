@@ -36,11 +36,7 @@ type AudioType = {
 const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
   const defaultAudio: AudioType = useStaticQuery(graphql`
     query {
-      file(
-        relativePath: {
-          eq: "audios/Metagonz ARA feat.Pure 100% - BE A PART OF US.mp3"
-        }
-      ) {
+      file(relativePath: { eq: "audios/home.mp3" }) {
         publicURL
       }
     }
@@ -50,9 +46,11 @@ const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
-  // useEffect(() => {
-  //   setAudio(`${defaultAudio.file.publicURL}`)
-  // }, [])
+  useEffect(() => {
+    const url = defaultAudio.file.publicURL.replace(/\s/g, '%20')
+    setSrc(url)
+    audioRef.current?.load()
+  }, [])
 
   useEffect(() => {
     if (audioRef.current) {
@@ -85,14 +83,12 @@ const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
     if (!isPlaying) {
       // eslint-disable-next-line
       audioRef.current?.play()
-      setIsPlaying(true)
     }
   }, [isPlaying])
 
   const pauseAudio = useCallback(() => {
     if (isPlaying) {
       audioRef.current?.pause()
-      setIsPlaying(false)
     }
   }, [isPlaying])
 
