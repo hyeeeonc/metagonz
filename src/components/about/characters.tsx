@@ -8,6 +8,7 @@ import styled from '@emotion/styled'
 import { AudioContext } from '../../contexts/AudioProvider'
 import { AboutTabContext } from '../../contexts/AboutTabProvider'
 import { CharacterType } from 'pages/about'
+import DragBar from './aboutElement/DragBar'
 
 const CharacterBlock = styled.main`
   position: absolute;
@@ -19,7 +20,7 @@ const CharacterBlock = styled.main`
 
   overflow: hidden;
 
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.5s ease;
 `
 
 const CharacterSelectorContainer = styled.div`
@@ -85,7 +86,7 @@ const CharactorInfoCell = styled.div`
   font-style: normal;
 
   font-size: 15px;
-  line-height: 12px;
+  line-height: 18px;
 
   margin: 10px 0;
 
@@ -101,36 +102,37 @@ const CharacterImage = styled.img`
 
   display: flex;
   align-items: center;
+
+  @media (max-width: 1300px) {
+    right: -500px;
+  }
 `
 
 const CharacterSelectionCarouselWindow = styled.div`
   position: absolute;
   left: 0;
-  top: 357px;
+  top: 347px;
 
   width: 100vw;
-  height: 550px;
+  height: 560px;
   overflow-y: hidden;
   overflow-x: scroll;
   display: flex;
   align-items: center;
 
   ::-webkit-scrollbar {
-    width: 8px;
+    height: 8px;
   }
 
   ::-webkit-scrollbar-thumb {
-    height: 10px;
-    background: black; /* 스크롤바의 색상 */
+    background: linear-gradient(180deg, #1c0044 0%, #6200ee 100%);
 
-    border-radius: 31px;
+    border-radius: 30px;
   }
 
   ::-webkit-scrollbar-track {
     background: white;
   }
-
-  // transition: 0.5s ease;
 `
 
 const CharacterSelectionCarousel = styled.div`
@@ -138,38 +140,105 @@ const CharacterSelectionCarousel = styled.div`
   display: flex;
   align-items: center;
 
+  margin-left: -20px;
+
   // overflow: hidden;
 `
 
 const CharacterSelectionCarouselItems = styled.div`
+  position: relative;
   width: 220px;
   height: 450px;
-  left: 636px;
-  top: 357px;
 
-  margin: 0 5px;
+  margin: 0 2.5px;
 
-  background: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(180deg, #1c0044 0%, #6200ee 100%);
   border-radius: 10px;
-  transform: matrix(-1, 0, 0, 1, 0, 0);
+
+  overflow: hidden;
 
   transition: 0.3s ease;
 
   :hover {
-    width: 270px;
-    height: 540px;
-    left: 1111px;
-    top: 312px;
+    transform: scale(1.2);
+    z-index: 1;
 
-    background: #d9d9d9;
-    border-radius: 10px;
-    transform: matrix(-1, 0, 0, 1, 0, 0);
+    background: linear-gradient(180deg, #34312e 0%, #f3e2da 100%);
+  }
+
+  :hover div {
+    opacity: 0.3;
   }
 `
 
+const CharacterSelectionCarouselItemImag = styled.img`
+  width: 600px;
+  margin-top: 920px;
+
+  transition: 0.3s ease;
+
+  :hover {
+    width: 650px;
+    transform: translate(0, 85px);
+  }
+`
+
+const CharacterSelectionCarouselItemName = styled.div`
+  position: absolute;
+  left: calc(50% - 15px);
+  top: 15px;
+
+  width: 30px;
+  height: 17px;
+
+  font-family: 'SUIT';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  text-transform: uppercase;
+
+  color: #ffffff;
+
+  transition: 0.3s ease;
+
+  opacity: 0;
+`
+
+const CharactersCarouselItem = ({
+  idx,
+  marginLeft,
+  marginTop,
+  setSelected,
+  edges,
+}: {
+  idx: number
+  marginLeft: number
+  marginTop: number
+  setSelected: React.Dispatch<React.SetStateAction<number>>
+  edges: CharacterType[]
+}) => {
+  return (
+    <CharacterSelectionCarouselItems onClick={() => setSelected(idx)}>
+      <CharacterSelectionCarouselItemImag
+        src={edges[idx]?.node.pic.publicURL}
+        style={{ marginLeft: marginLeft, marginTop: marginTop }}
+      />
+      <CharacterSelectionCarouselItemName>
+        {edges[idx].node.name}
+      </CharacterSelectionCarouselItemName>
+    </CharacterSelectionCarouselItems>
+  )
+}
+
 const Characters = ({ edges }: { edges: CharacterType[] }) => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
-
+  const [imgIdx, setImgIdx] = useState<number>(1)
   const { setAudio } = useContext(AudioContext)
 
   const [selected, setSelected] = useState<number>(-1)
@@ -197,21 +266,84 @@ const Characters = ({ edges }: { edges: CharacterType[] }) => {
         }}
       >
         <CharacterSelectionCarousel>
-          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
-          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
-          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
-          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
-          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
-          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
-          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
-          <CharacterSelectionCarouselItems></CharacterSelectionCarouselItems>
+          <CharactersCarouselItem
+            idx={0}
+            marginLeft={0}
+            marginTop={920}
+            setSelected={setSelected}
+            edges={edges}
+          />
+
+          <CharactersCarouselItem
+            idx={1}
+            marginLeft={130}
+            marginTop={920}
+            setSelected={setSelected}
+            edges={edges}
+          />
+
+          <CharactersCarouselItem
+            idx={2}
+            marginLeft={-60}
+            marginTop={800}
+            setSelected={setSelected}
+            edges={edges}
+          />
+
+          <CharactersCarouselItem
+            idx={3}
+            marginLeft={-40}
+            marginTop={920}
+            setSelected={setSelected}
+            edges={edges}
+          />
+
+          <CharactersCarouselItem
+            idx={4}
+            marginLeft={110}
+            marginTop={960}
+            setSelected={setSelected}
+            edges={edges}
+          />
+
+          <CharactersCarouselItem
+            idx={5}
+            marginLeft={0}
+            marginTop={880}
+            setSelected={setSelected}
+            edges={edges}
+          />
+
+          <CharactersCarouselItem
+            idx={6}
+            marginLeft={40}
+            marginTop={900}
+            setSelected={setSelected}
+            edges={edges}
+          />
+
+          <CharactersCarouselItem
+            idx={7}
+            marginLeft={20}
+            marginTop={960}
+            setSelected={setSelected}
+            edges={edges}
+          />
         </CharacterSelectionCarousel>
       </CharacterSelectionCarouselWindow>
       <CharacterImage
-        style={{ visibility: selected != -1 ? 'visible' : 'hidden' }}
+        style={{
+          visibility: selected != -1 ? 'visible' : 'hidden',
+          marginRight:
+            selected == 1 || selected == 4 ? -200 : selected == 0 ? -100 : 0,
+          marginTop:
+            selected == 2 ? -100 : selected == 4 || selected == 7 ? 100 : 0,
+          transform: `scale(${0.5 + imgIdx * 0.005}) translate(0px, ${
+            imgIdx * 13 - 1300
+          }px)`,
+        }}
         src={edges[selected]?.node.pic.publicURL}
       />
-
       <CharacterSelectorContainer>
         <CharacterSelectoritems onClick={() => setSelected(-1)}>
           all
@@ -222,7 +354,6 @@ const Characters = ({ edges }: { edges: CharacterType[] }) => {
           </CharacterSelectoritems>
         ))}
       </CharacterSelectorContainer>
-
       <CharactorInfoContainer>
         <CharactorInfoHead
           style={{
@@ -261,6 +392,11 @@ const Characters = ({ edges }: { edges: CharacterType[] }) => {
           <CharactorInfoCell>{edges[selected]?.node.likes}</CharactorInfoCell>
         </CharacterInfoData>
       </CharactorInfoContainer>
+      <DragBar
+        page="character"
+        setImgIdx={setImgIdx}
+        isOn={selected == -1 ? false : true}
+      />
     </CharacterBlock>
   )
 }

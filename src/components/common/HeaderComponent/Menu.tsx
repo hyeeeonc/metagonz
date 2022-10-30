@@ -21,7 +21,7 @@ const MenuBackground = styled.div`
 
   overflow: hidden;
 
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.5s ease;
 `
 
 const MenuBlock = styled.div`

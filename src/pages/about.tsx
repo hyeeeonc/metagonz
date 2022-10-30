@@ -133,9 +133,9 @@ const AboutPage: FunctionComponent = function () {
     <>
       <Global styles={reset} />
       <AboutBlock>
-        <Characters edges={edges} />
         <Story edges={edges} />
         <Concept edges={edges} />
+        <Characters edges={edges} />
         <Utility edges={edges} />
         <AboutNavContainer>
           <AboutNavItems

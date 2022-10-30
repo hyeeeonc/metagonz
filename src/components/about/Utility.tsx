@@ -47,6 +47,25 @@ const UtilityContentItemContent = styled.div`
   line-height: 19px;
 `
 
+const ConceptNftImageContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 800px;
+  height: calc(100vh - calc(100vh - 100%));
+
+  transition: 0.5s ease;
+`
+
+const ConceptNftImage = styled.img`
+  position: absolute;
+  top: -70px;
+  left: -20px;
+
+  width: 800px;
+`
+
 const Utility = ({ edges }: { edges: CharacterType[] }) => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
 
@@ -59,6 +78,20 @@ const Utility = ({ edges }: { edges: CharacterType[] }) => {
         zIndex: tabNum != 4 ? 0 : 1,
       }}
     >
+      <ConceptNftImageContainer>
+        <ConceptNftImage
+          style={{ left: -340 }}
+          src={edges[4].node.pic.publicURL}
+        />
+        <ConceptNftImage
+          style={{ left: -90 }}
+          src={edges[5].node.pic.publicURL}
+        />
+        <ConceptNftImage
+          src={edges[6].node.pic.publicURL}
+          style={{ left: 220 }}
+        />
+      </ConceptNftImageContainer>
       <UtilityContentContainer>
         <UtilityContentItems>
           <UtilityContentItemTitle>Club Free Pass</UtilityContentItemTitle>

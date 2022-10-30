@@ -20,7 +20,7 @@ const use3DCharacter = (): [Node[], (index: number) => string] => {
     }
   } = useStaticQuery(graphql`
     query {
-      allFile(filter: { relativeDirectory: { eq: "images/3ds" } }) {
+      allFile(filter: { relativeDirectory: { eq: "images/3djpg" } }) {
         edges {
           node {
             childImageSharp {
@@ -40,7 +40,7 @@ const use3DCharacter = (): [Node[], (index: number) => string] => {
     const result = edges.find(
       ({ node }) =>
         node.childImageSharp.fluid.originalName ===
-        `360_${`${index}`.padStart(4, '0')}.png`,
+        `360_${`${index}`.padStart(4, '0')}.jpg`,
     )
     return result?.node.childImageSharp.fluid.src ?? ''
   }

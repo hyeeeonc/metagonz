@@ -19,6 +19,8 @@ const DragBarBlock = styled.div`
 
   width: 287px;
   height: 29px;
+
+  z-index: 5;
 `
 
 const DragBarIcon = styled.svg`
@@ -72,7 +74,7 @@ const DragBarBodyProgressController = styled.div`
   width: 10px;
   height: 10px;
 
-  // background: black;
+  z-index: 10;
 `
 const DragBar = ({
   page,
@@ -89,12 +91,15 @@ const DragBar = ({
 
   const [offsetX, setOffsetX] = useState<number>(0)
 
-  const offsetHandler = useCallback(() => {
+  const offsetHandler = () => {
     setOffsetX(barController.current?.getBoundingClientRect().left ?? 0)
-  }, [])
+  }
 
   useEffect(() => {
-    setOffsetX(barController.current?.getBoundingClientRect().left ?? 0)
+    const currentOffsetX =
+      barController.current?.getBoundingClientRect().left ?? 0
+    setOffsetX(currentOffsetX)
+    console.log(offsetX)
     window.addEventListener('resize', offsetHandler)
     return () => {
       window.removeEventListener('resize', offsetHandler)
@@ -104,7 +109,10 @@ const DragBar = ({
   const mouseMoveHandler = useCallback(
     (e: React.MouseEvent) => {
       if (isDrag) {
+        console.log(e.clientX - offsetX)
         if (e.clientX - offsetX >= 2 && e.clientX - offsetX <= 200) {
+          console.log(isDrag)
+
           setDragProgress(e.clientX - offsetX)
           setImgIdx(Math.ceil((e.clientX - offsetX) / 2))
         }
@@ -118,8 +126,12 @@ const DragBar = ({
       style={{
         display: isOn ? 'flex' : 'none',
       }}
-      onMouseUp={() => setIsDrag(false)}
-      onMouseLeave={() => setIsDrag(false)}
+      onMouseUp={() => {
+        setIsDrag(false)
+      }}
+      onMouseLeave={() => {
+        setIsDrag(false)
+      }}
     >
       <DragBarIcon width="29" height="29" viewBox="0 0 29 29" fill="none">
         <path

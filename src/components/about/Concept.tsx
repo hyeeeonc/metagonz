@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import styled from '@emotion/styled'
 import { AboutTabContext } from '../../contexts/AboutTabProvider'
 import DragBar from './aboutElement/DragBar'
@@ -16,7 +16,7 @@ const ConceptBlock = styled.main`
 
   overflow: hidden;
 
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.5s ease;
 `
 
 const ConceptContentContainer = styled.div`
@@ -96,21 +96,63 @@ const ConceptContentButton = styled.div`
   color: #000000;
 `
 
-const ConceptImage = styled.img`
+const Concept3DImageContainer = styled.div`
   position: absolute;
-  top: -200px;
+  top: 0px;
   right: 0px;
 
-  // background: black;
+  transition: opacity 0.5s ease;
+`
 
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+const ConceptNftImageContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 800px;
+  height: calc(100vh - calc(100vh - 100%));
+
+  transition: 0.5s ease;
+`
+
+const ConceptNftImage = styled.img`
+  position: absolute;
+  top: -100px;
+  left: 130px;
+
+  width: 800px;
 `
 
 const Concept = ({ edges }: { edges: CharacterType[] }) => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
   const [conceptTab, setConceptTap] = useState<string>('3d')
   const [imgIdx, setImgIdx] = useState<number>(1)
-  const [images, getImageSrc] = use3DCharacter()
+  const [_, getImageSrc] = use3DCharacter()
+  let videoImageCopy: any[] = []
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    /**
+     * videoImages array state에 canvas로 컨트롤할 images 할당하는 함수
+     */
+    const setCanvasImages = () => {
+      const videoImageCount = 100 //인터렉션에 사용되는 images 개수
+      for (let i = 1; i <= videoImageCount; i++) {
+        const imgElement = new Image()
+        imgElement.src = `${getImageSrc(i)}`
+        videoImageCopy.push(imgElement)
+      }
+    }
+
+    setCanvasImages()
+
+    // Canvas에 Image 할당
+    if (videoImageCopy[imgIdx]) {
+      canvasRef.current
+        ?.getContext('2d')
+        ?.drawImage(videoImageCopy[imgIdx], 0, 0)
+    }
+  })
 
   return (
     <ConceptBlock
@@ -121,8 +163,8 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
         zIndex: tabNum != 3 ? 0 : 1,
       }}
     >
-      {images.map(({ node }) => (
-        <ConceptImage
+      {/* {images.map(({ node }) => (
+        <Concept3DImageContainer
           style={{
             visibility: conceptTab == '3d' ? 'visible' : 'hidden',
             display:
@@ -135,10 +177,36 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
               (-120 * imgIdx) / 100
             }px, ${(400 * imgIdx) / 100}px)`,
           }}
-          src={node.childImageSharp.fluid.src}
           decoding="async"
         />
-      ))}
+      ))} */}
+      <Concept3DImageContainer>
+        <canvas
+          ref={canvasRef}
+          width="800"
+          height="1600"
+          style={{
+            visibility: conceptTab == '3d' ? 'visible' : 'hidden',
+            opacity: conceptTab == '3d' ? 1 : 0,
+            transform: `scale(${0.6 + imgIdx * 0.01}) translate(${
+              (-120 * imgIdx) / 100 + 100
+            }px, ${(650 * imgIdx) / 100 - 380}px)`,
+          }}
+        />
+      </Concept3DImageContainer>
+
+      <ConceptNftImageContainer
+        style={{
+          visibility: conceptTab == 'nft' ? 'visible' : 'hidden',
+          opacity: conceptTab == 'nft' ? 1 : 0,
+        }}
+      >
+        <ConceptNftImage
+          style={{ left: -180 }}
+          src={edges[7].node.pic.publicURL}
+        />
+        <ConceptNftImage src={edges[3].node.pic.publicURL} />
+      </ConceptNftImageContainer>
 
       <ConceptContentContainer>
         <ConceptContentNoBorder>

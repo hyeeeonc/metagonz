@@ -74,7 +74,7 @@ const IndexPage: FunctionComponent = function () {
 
   useEffect(() => {
     const IndexBackgroundImageSizeRatio = windowSize.width / windowSize.height
-    if (IndexBackgroundImageSizeRatio > 3456 / 2234) {
+    if (IndexBackgroundImageSizeRatio > 16 / 9) {
       setimageSize(true)
     } else {
       setimageSize(false)
@@ -102,6 +102,7 @@ const IndexPage: FunctionComponent = function () {
             autoPlay
             muted
             loop
+            playsInline
             style={
               imageSize === false
                 ? {
