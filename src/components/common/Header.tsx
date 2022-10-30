@@ -110,6 +110,12 @@ const HeaderNavItemsDarkMode = styled(Link)`
   color: black;
 
   cursor: pointer;
+
+  transition: 0.2s ease;
+
+  :hover {
+    color: #6200ee;
+  }
 `
 
 const HeaderNavSNSButton = styled.div`
@@ -324,7 +330,11 @@ const Header = () => {
             />
           </svg>
         </HeaderNavSNSButton>
-        <HeaderMenuButton onClick={toggleMenu}>
+        <HeaderMenuButton
+          onMouseEnter={() => setHover('menuButton')}
+          onMouseLeave={() => setHover('')}
+          onClick={toggleMenu}
+        >
           {menuOpened ? (
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path
@@ -344,60 +354,114 @@ const Header = () => {
               <rect
                 width="4"
                 height="4"
-                fill={isDarkmode ? 'black' : 'white'}
+                fill={
+                  isDarkmode
+                    ? hover == 'menuButton'
+                      ? '#6200ee'
+                      : 'black'
+                    : 'white'
+                }
               />
               <rect
                 x="6"
                 width="4"
                 height="4"
-                fill={isDarkmode ? 'black' : 'white'}
+                fill={
+                  isDarkmode
+                    ? hover == 'menuButton'
+                      ? '#6200ee'
+                      : 'black'
+                    : 'white'
+                }
               />
               <rect
                 x="12"
                 width="4"
                 height="4"
-                fill={isDarkmode ? 'black' : 'white'}
+                fill={
+                  isDarkmode
+                    ? hover == 'menuButton'
+                      ? '#6200ee'
+                      : 'black'
+                    : 'white'
+                }
               />
               <rect
                 y="6"
                 width="4"
                 height="4"
-                fill={isDarkmode ? 'black' : 'white'}
+                fill={
+                  isDarkmode
+                    ? hover == 'menuButton'
+                      ? '#6200ee'
+                      : 'black'
+                    : 'white'
+                }
               />
               <rect
                 x="6"
                 y="6"
                 width="4"
                 height="4"
-                fill={isDarkmode ? 'black' : 'white'}
+                fill={
+                  isDarkmode
+                    ? hover == 'menuButton'
+                      ? '#6200ee'
+                      : 'black'
+                    : 'white'
+                }
               />
               <rect
                 x="12"
                 y="6"
                 width="4"
                 height="4"
-                fill={isDarkmode ? 'black' : 'white'}
+                fill={
+                  isDarkmode
+                    ? hover == 'menuButton'
+                      ? '#6200ee'
+                      : 'black'
+                    : 'white'
+                }
               />
               <rect
                 y="12"
                 width="4"
                 height="4"
-                fill={isDarkmode ? 'black' : 'white'}
+                fill={
+                  isDarkmode
+                    ? hover == 'menuButton'
+                      ? '#6200ee'
+                      : 'black'
+                    : 'white'
+                }
               />
               <rect
                 x="6"
                 y="12"
                 width="4"
                 height="4"
-                fill={isDarkmode ? 'black' : 'white'}
+                fill={
+                  isDarkmode
+                    ? hover == 'menuButton'
+                      ? '#6200ee'
+                      : 'black'
+                    : 'white'
+                }
               />
               <rect
                 x="12"
                 y="12"
                 width="4"
                 height="4"
-                fill={isDarkmode ? 'black' : 'white'}
-              />{' '}
+                fill={
+                  isDarkmode
+                    ? hover == 'menuButton'
+                      ? '#6200ee'
+                      : 'black'
+                    : 'white'
+                }
+              />
             </svg>
           )}
         </HeaderMenuButton>

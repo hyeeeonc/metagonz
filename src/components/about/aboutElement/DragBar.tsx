@@ -124,7 +124,7 @@ const DragBar = ({
   return (
     <DragBarBlock
       style={{
-        display: isOn ? 'flex' : 'none',
+        visibility: isOn ? 'visible' : 'hidden',
       }}
       onMouseUp={() => {
         setIsDrag(false)
