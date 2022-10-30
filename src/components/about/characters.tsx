@@ -391,6 +391,7 @@ const Characters = ({ edges }: { edges: CharacterType[] }) => {
         page="character"
         setImgIdx={setImgIdx}
         isOn={selected == -1 ? false : true}
+        initProgress={100}
       />
     </CharacterBlock>
   )

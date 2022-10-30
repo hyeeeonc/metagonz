@@ -80,26 +80,32 @@ const DragBar = ({
   page,
   isOn,
   setImgIdx,
+  initProgress,
 }: {
   page: string
   isOn: boolean
   setImgIdx: React.Dispatch<React.SetStateAction<number>>
+  initProgress?: number
 }) => {
-  const [dragProgress, setDragProgress] = useState<number>(1)
+  const [dragProgress, setDragProgress] = useState<number>(initProgress ?? 1)
   const [isDrag, setIsDrag] = useState<boolean>(false)
   const barController = useRef<HTMLDivElement>(null)
 
   const [offsetX, setOffsetX] = useState<number>(0)
 
-  const offsetHandler = () => {
-    setOffsetX(barController.current?.getBoundingClientRect().left ?? 0)
-  }
+  const offsetHandler = useCallback(() => {
+    const currentOffsetX =
+      barController.current?.getBoundingClientRect().left ?? 0
+    setOffsetX(currentOffsetX - dragProgress)
+  }, [dragProgress])
 
   useEffect(() => {
     const currentOffsetX =
       barController.current?.getBoundingClientRect().left ?? 0
-    setOffsetX(currentOffsetX)
-    console.log(offsetX)
+    setOffsetX(currentOffsetX - dragProgress)
+
+    setImgIdx(Math.round(dragProgress / 2))
+
     window.addEventListener('resize', offsetHandler)
     return () => {
       window.removeEventListener('resize', offsetHandler)
@@ -111,8 +117,6 @@ const DragBar = ({
       if (isDrag) {
         console.log(e.clientX - offsetX)
         if (e.clientX - offsetX >= 2 && e.clientX - offsetX <= 200) {
-          console.log(isDrag)
-
           setDragProgress(e.clientX - offsetX)
           setImgIdx(Math.ceil((e.clientX - offsetX) / 2))
         }
