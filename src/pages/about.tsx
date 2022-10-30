@@ -90,7 +90,7 @@ export type CharacterListType = {
 }
 
 const AboutPage: FunctionComponent = function () {
-  const { setDefaultAudio } = useContext(AudioContext)
+  const { setDefaultAudio, isPlaying } = useContext(AudioContext)
   const { setMode } = useContext(DarkmodeContext)
   const { tabNum, setTabNum } = useContext(AboutTabContext)
 
@@ -110,7 +110,7 @@ const AboutPage: FunctionComponent = function () {
     if (tabNum !== 2) {
       setDefaultAudio()
     }
-  }, [tabNum, setDefaultAudio])
+  }, [tabNum])
 
   const {
     allCharacterJson: { edges },

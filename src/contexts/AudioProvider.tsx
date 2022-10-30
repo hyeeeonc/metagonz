@@ -53,48 +53,39 @@ const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
   }, [])
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.onpause = () => {
-        setIsPlaying(false)
+    if (isInitialLoad) {
+      setIsInitialLoad(false)
+      if (audioRef.current) {
+        audioRef.current.load()
       }
-      audioRef.current.onplay = () => {
-        setIsPlaying(true)
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    return () => {
-      if (isInitialLoad) {
-        setIsInitialLoad(false)
-        if (audioRef.current) {
-          audioRef.current.load()
-        }
-      } else {
-        if (audioRef.current) {
-          audioRef.current.pause()
-          audioRef.current.load()
-          // eslint-disable-next-line
+    } else {
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current.load()
+        // eslint-disable-next-line
+        if (isPlaying) {
           audioRef.current.play()
-          audioRef.current.onended = () => {
-            // eslint-disable-next-line
-            audioRef.current?.play()
-          }
+        }
+        audioRef.current.onended = () => {
+          // eslint-disable-next-line
+          audioRef.current?.play()
         }
       }
     }
-  }, [src, isInitialLoad])
+  }, [src])
 
   const playAudio = useCallback(() => {
     if (!isPlaying) {
       // eslint-disable-next-line
       audioRef.current?.play()
+      setIsPlaying(true)
     }
   }, [isPlaying])
 
   const pauseAudio = useCallback(() => {
     if (isPlaying) {
       audioRef.current?.pause()
+      setIsPlaying(false)
     }
   }, [isPlaying])
 
@@ -112,10 +103,6 @@ const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
     },
     [isDefaultAudio],
   )
-
-  useEffect(() => {
-    console.log(isDefaultAudio)
-  }, [isDefaultAudio])
 
   const value = useMemo(
     () => ({
