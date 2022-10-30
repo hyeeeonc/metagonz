@@ -90,7 +90,7 @@ const CharactorInfoCell = styled.div`
 
 const CharacterImage = styled.img`
   position: absolute;
-  top: -300px;
+  top: -1430px;
   right: -250px;
 
   height: 4000px;
@@ -330,12 +330,20 @@ const Characters = ({ edges }: { edges: CharacterType[] }) => {
         style={{
           visibility: selected != -1 ? 'visible' : 'hidden',
           marginRight:
-            selected == 1 || selected == 4 ? -200 : selected == 0 ? -100 : 0,
-          marginTop:
-            selected == 2 ? -100 : selected == 4 || selected == 7 ? 100 : 0,
-          transform: `scale(${0.5 + imgIdx * 0.005}) translate(0px, ${
-            imgIdx * 13 - 1300
+            selected == 1 || selected == 4 ? -100 : selected == 0 ? -100 : 0,
+          // marginTop:
+          //   selected == 2 ? -100 : selected == 4 || selected == 7 ? 100 : 0,
+          transform: `scale(${0.3 + imgIdx * 0.005}) translate(0px, ${
+            (4000 * imgIdx * 0.005 + 300) / 2
           }px)`,
+          // transform:
+          //   imgIdx > 50
+          //     ? `scale(${0.5 + imgIdx * 0.005}) translate(0px, ${
+          //         imgIdx * 13 - 1300
+          //       }px)`
+          //     : `scale(${0.2 + imgIdx * 0.011}) translate(0px, ${
+          //         imgIdx * 93 - 5300
+          //       }px)`,
         }}
         src={edges[selected]?.node.pic.publicURL}
       />
