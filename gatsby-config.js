@@ -28,13 +28,6 @@ module.exports = {
         path: `${__dirname}/src/resources`,
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `3ds`,
-        path: `${__dirname}/src/resources/images/3ds`,
-      },
-    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-json`,

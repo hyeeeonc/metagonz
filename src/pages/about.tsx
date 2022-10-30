@@ -18,7 +18,7 @@ import Characters from 'components/about/characters'
 import Concept from 'components/about/Concept'
 import Utility from 'components/about/Utility'
 import { graphql, useStaticQuery } from 'gatsby'
-import { use3DCharacter } from 'hooks/use3DCharacter'
+import { globalHistory } from '@reach/router'
 
 const AboutBlock = styled.div`
   position: relative;
@@ -90,7 +90,7 @@ export type CharacterListType = {
 }
 
 const AboutPage: FunctionComponent = function () {
-  const { setAudio } = useContext(AudioContext)
+  const { setDefaultAudio } = useContext(AudioContext)
   const { setMode } = useContext(DarkmodeContext)
   const { tabNum, setTabNum } = useContext(AboutTabContext)
 
@@ -99,6 +99,18 @@ const AboutPage: FunctionComponent = function () {
   useEffect(() => {
     setMode(true)
   }, [])
+
+  useEffect(() => {
+    return globalHistory.listen(({ action }) => {
+      if (action === 'PUSH' || action === 'POP') setDefaultAudio()
+    })
+  }, [setDefaultAudio])
+
+  useEffect(() => {
+    if (tabNum !== 2) {
+      setDefaultAudio()
+    }
+  }, [tabNum, setDefaultAudio])
 
   const {
     allCharacterJson: { edges },

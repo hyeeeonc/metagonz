@@ -14,12 +14,12 @@ import { graphql, useStaticQuery } from 'gatsby'
 type AudioContextValue = {
   src: string
   audioRef: React.RefObject<HTMLAudioElement>
-  setAudio: (src: string) => void
   isPlaying: boolean
   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>
   playAudio: () => void
   pauseAudio: () => void
   setDefaultAudio: () => void
+  setCharacterAudio: (src: string) => void
   title: string
   setTitle: React.Dispatch<React.SetStateAction<string>>
 }
@@ -45,11 +45,11 @@ const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
   const [title, setTitle] = useState<string>('Default Audio')
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
+  const [isDefaultAudio, setIsDefaultAudio] = useState<boolean>(true)
+  const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true)
 
   useEffect(() => {
-    const url = defaultAudio.file.publicURL.replace(/\s/g, '%20')
-    setSrc(url)
-    audioRef.current?.load()
+    setSrc(defaultAudio.file.publicURL)
   }, [])
 
   useEffect(() => {
@@ -63,21 +63,27 @@ const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
     }
   }, [])
 
-  const setAudio = (src: string) => {
-    setSrc(src)
-    setIsPlaying(true)
-    if (audioRef.current) {
-      audioRef.current.pause()
-      audioRef.current.load()
-      // eslint-disable-next-line
-      audioRef.current.play()
-      audioRef.current.onended = () => {
-        // eslint-disable-next-line
-        audioRef.current?.play()
+  useEffect(() => {
+    return () => {
+      if (isInitialLoad) {
+        setIsInitialLoad(false)
+        if (audioRef.current) {
+          audioRef.current.load()
+        }
+      } else {
+        if (audioRef.current) {
+          audioRef.current.pause()
+          audioRef.current.load()
+          // eslint-disable-next-line
+          audioRef.current.play()
+          audioRef.current.onended = () => {
+            // eslint-disable-next-line
+            audioRef.current?.play()
+          }
+        }
       }
     }
-    console.log(isPlaying)
-  }
+  }, [src, isInitialLoad])
 
   const playAudio = useCallback(() => {
     if (!isPlaying) {
@@ -92,24 +98,39 @@ const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
     }
   }, [isPlaying])
 
-  const setDefaultAudio = () => {
-    setAudio('./static/audios/emaj01.mp3')
-  }
+  const setDefaultAudio = useCallback(() => {
+    if (!isDefaultAudio) {
+      setSrc(defaultAudio.file.publicURL)
+      setIsDefaultAudio(true)
+    }
+  }, [isDefaultAudio])
+
+  const setCharacterAudio = useCallback(
+    (src: string) => {
+      setSrc(src)
+      setIsDefaultAudio(false)
+    },
+    [isDefaultAudio],
+  )
+
+  useEffect(() => {
+    console.log(isDefaultAudio)
+  }, [isDefaultAudio])
 
   const value = useMemo(
     () => ({
       src,
       audioRef,
-      setAudio,
       isPlaying,
+      setIsPlaying,
       playAudio,
       pauseAudio,
       setDefaultAudio,
+      setCharacterAudio,
       title,
       setTitle,
-      setIsPlaying,
     }),
-    [src, audioRef, isPlaying, title],
+    [src, isPlaying, title, isDefaultAudio],
   )
 
   return <AudioContext.Provider value={value}>{children}</AudioContext.Provider>

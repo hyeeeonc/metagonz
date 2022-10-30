@@ -1,9 +1,4 @@
-import React, {
-  FunctionComponent,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { AudioContext } from '../../contexts/AudioProvider'
 import { AboutTabContext } from '../../contexts/AboutTabProvider'
@@ -239,13 +234,13 @@ const CharactersCarouselItem = ({
 const Characters = ({ edges }: { edges: CharacterType[] }) => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
   const [imgIdx, setImgIdx] = useState<number>(1)
-  const { setAudio } = useContext(AudioContext)
+  const { setCharacterAudio } = useContext(AudioContext)
 
   const [selected, setSelected] = useState<number>(-1)
 
   useEffect(() => {
     if (edges[selected]) {
-      setAudio(edges[selected].node.audio.publicURL)
+      setCharacterAudio(edges[selected].node.audio.publicURL)
     }
   }, [selected])
 
