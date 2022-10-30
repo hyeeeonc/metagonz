@@ -90,15 +90,17 @@ export type CharacterListType = {
 }
 
 const AboutPage: FunctionComponent = function () {
-  const { setDefaultAudio, isPlaying } = useContext(AudioContext)
-  const { setMode } = useContext(DarkmodeContext)
+  const { setDefaultAudio } = useContext(AudioContext)
+  const { setMode, menuOpened } = useContext(DarkmodeContext)
   const { tabNum, setTabNum } = useContext(AboutTabContext)
 
   const [hover, setHover] = useState<string>('') //hover 상태 저장
 
   useEffect(() => {
-    setMode(true)
-  }, [])
+    if (!menuOpened) {
+      setMode(true)
+    }
+  }, [menuOpened])
 
   useEffect(() => {
     return globalHistory.listen(({ action }) => {

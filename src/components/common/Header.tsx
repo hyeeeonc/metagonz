@@ -120,37 +120,21 @@ const HeaderMenuButton = styled.div`
   cursor: pointer;
 `
 
-//const HeaderNavItems
-
 const Header = () => {
-  const [menuOpenState, setMenuOpenState] = useState<boolean>(false)
   const [snsOpenState, setSnsOpenState] = useState<boolean>(false)
   const [hover, setHover] = useState<string>('')
-  const { isDarkmode, setMode } = useContext(DarkmodeContext)
-  const [prevMode, setPrevMode] = useState<boolean>(isDarkmode)
+  const { isDarkmode, toggleMenu, menuOpened } = useContext(DarkmodeContext)
 
   // LightMode / DarkMode에 따라서 NavBar 아이템 color 변경
   const HeaderNavItems = useMemo(() => {
     return isDarkmode ? HeaderNavItemsDarkMode : HeaderNavItemsLightMode
   }, [isDarkmode])
 
-  const menuOpenHandler = useCallback(() => {
-    if (menuOpenState) {
-      setMenuOpenState(false)
-      setMode(prevMode)
-    } else {
-      setMenuOpenState(true)
-      setPrevMode(isDarkmode)
-      setMode(false)
-    }
-  }, [menuOpenState, isDarkmode, prevMode])
-
   const linkHandler = useCallback(() => {
-    if (menuOpenState) {
-      setMenuOpenState(false)
-      setMode(prevMode)
+    if (menuOpened) {
+      toggleMenu()
     }
-  }, [menuOpenState, prevMode])
+  }, [menuOpened])
 
   const snsOpenHandler = () => {
     if (snsOpenState) setSnsOpenState(false)
@@ -158,7 +142,7 @@ const Header = () => {
   }
   return (
     <HeaderBlock>
-      <Menu menuOpenState={menuOpenState} setMenuOpenState={setMenuOpenState} />
+      <Menu />
       <HeaderLogoContainer
         onClick={linkHandler}
         onMouseEnter={() => setHover('logo')}
@@ -340,8 +324,8 @@ const Header = () => {
             />
           </svg>
         </HeaderNavSNSButton>
-        <HeaderMenuButton onClick={menuOpenHandler}>
-          {menuOpenState ? (
+        <HeaderMenuButton onClick={toggleMenu}>
+          {menuOpened ? (
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path
                 d="M1 1L13 13M13 1L1 13"

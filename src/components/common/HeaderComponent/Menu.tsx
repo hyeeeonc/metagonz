@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { DarkmodeContext } from '../../../contexts/DarkmodeProvider'
 import Octagon from '../../../models/Octagon'
@@ -272,14 +272,9 @@ type MenuImgType = {
   }
 }
 
-const Menu = ({
-  menuOpenState,
-  setMenuOpenState,
-}: {
-  menuOpenState: boolean
-  setMenuOpenState: React.Dispatch<React.SetStateAction<boolean>>
-}) => {
+const Menu = () => {
   const [octagons, setOctagons] = useState<Octagon[]>([])
+  const { toggleMenu, menuOpened } = useContext(DarkmodeContext)
   const images: MenuImgType = useStaticQuery(graphql`
     query {
       news: file(relativePath: { eq: "images/characters/05 Dana.png" }) {
@@ -379,6 +374,12 @@ const Menu = ({
     ])
   }, [])
 
+  const linkHandler = useCallback(() => {
+    if (menuOpened) {
+      toggleMenu()
+    }
+  }, [menuOpened])
+
   useEffect(() => {
     octagons.forEach(octagon => {
       const image = new Image()
@@ -389,8 +390,8 @@ const Menu = ({
   return (
     <MenuBackground
       style={{
-        visibility: menuOpenState ? 'visible' : 'hidden',
-        opacity: menuOpenState ? 1 : 0,
+        visibility: menuOpened ? 'visible' : 'hidden',
+        opacity: menuOpened ? 1 : 0,
       }}
     >
       {/* background Design */}
@@ -454,7 +455,7 @@ const Menu = ({
 
       <MenuBlock>
         {octagons.map((octagon, i) => (
-          <Link to={octagon.url} onClick={() => setMenuOpenState(false)}>
+          <Link to={octagon.url} onClick={linkHandler}>
             <MenuButtonContainer
               className="container"
               style={{
