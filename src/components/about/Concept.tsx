@@ -61,6 +61,8 @@ const ConceptContentWithBorder = styled.div`
   line-height: 19px;
 
   color: #000000;
+
+  transition: 0.2s ease;
 `
 
 const ConceptContentButtonContainer = styled.div`
@@ -240,14 +242,12 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
             opacity: conceptTab == '3d' ? 1 : 0,
           }}
         >
-          A total of 8,888 limited edition Metagonz NFTs are released based on a
-          total of 8 characters.
+          Metagonz was created as an iconic avatar representing the MetaOctagon
+          Universe, and we call them Metaroids. It consists of a total of eight
+          female DJs from Asian countries, mainly Koreans.
           <br />
-          It proves that it is a collectible item with unique digital art and is
-          a member of the MetaOctagon community,
-          <br />
-          which plays a pivotal role in the establishment and expansion of the
-          MetaOctagon Universe.
+          They will always be with you in the real world and metaverse as A.I,
+          virtual human DJs, anytime anywhere.
         </ConceptContentWithBorder>
         <ConceptContentWithBorder
           style={{

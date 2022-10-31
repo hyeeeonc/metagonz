@@ -69,12 +69,14 @@ const DragBarBodyProgressController = styled.div`
   cursor: pointer;
 
   left: 2px;
-  top: -3.5px;
+  top: -13.5px;
 
-  width: 10px;
-  height: 10px;
+  width: 30px;
+  height: 30px;
 
   z-index: 10;
+
+  // border: 1px solid black;
 `
 const DragBar = ({
   page,
@@ -167,7 +169,7 @@ const DragBar = ({
               setIsDrag(true)
             }}
             style={{
-              left: `${dragProgress}px`,
+              left: `${dragProgress - 10}px`,
             }}
           />
         </DragBarBodyBackground>

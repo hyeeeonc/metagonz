@@ -80,16 +80,16 @@ const Utility = ({ edges }: { edges: CharacterType[] }) => {
     >
       <ConceptNftImageContainer>
         <ConceptNftImage
-          style={{ left: -340 }}
+          style={{ left: -320 }}
           src={edges[4].node.pic.publicURL}
         />
         <ConceptNftImage
-          style={{ left: -90 }}
+          style={{ left: -115 }}
           src={edges[5].node.pic.publicURL}
         />
         <ConceptNftImage
           src={edges[6].node.pic.publicURL}
-          style={{ left: 220 }}
+          style={{ left: 160 }}
         />
       </ConceptNftImageContainer>
       <UtilityContentContainer>

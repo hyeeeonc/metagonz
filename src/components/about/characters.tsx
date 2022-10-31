@@ -142,10 +142,10 @@ const CharacterSelectionCarousel = styled.div`
 
 const CharacterSelectionCarouselItems = styled.div`
   position: relative;
-  width: 220px;
-  height: 450px;
+  width: 215px;
+  height: 410px;
 
-  margin: 0 2.5px;
+  margin: 0 2px;
 
   display: flex;
   justify-content: center;
