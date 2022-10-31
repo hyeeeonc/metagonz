@@ -65,7 +65,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        to="#"
+        to="https://discord.gg/metaoctagon"
       >
         <svg
           width="22"
@@ -87,7 +87,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        to="#"
+        to="https://mobile.twitter.com/metagonz_og"
       >
         <svg
           width="21"
@@ -109,7 +109,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        to="#"
+        to="https://t.me/metaoctagon"
       >
         <svg
           width="23"
@@ -133,7 +133,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        to="#"
+        to="https://medium.com/metaoctagon"
       >
         <svg
           width="25"
@@ -167,14 +167,14 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           </defs>
         </svg>
       </SNSItems>
-
+      {/* metaoctagon */}
       <SNSItems
         style={{
           transition: '0.9s ease',
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        to="#"
+        to="https://metaoctagon.io/"
       >
         <svg
           width="20"
