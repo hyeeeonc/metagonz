@@ -93,6 +93,10 @@ const AudioTitle = styled.div`
 
   color: #000000;
 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
   transition: 0.5s ease;
 `
 
@@ -101,7 +105,7 @@ const AudioSinger = styled.div`
   left: 20px;
   bottom: 10px;
 
-  width: 58px;
+  width: 150px;
   height: 20px;
 
   font-family: 'SUIT';
@@ -112,6 +116,10 @@ const AudioSinger = styled.div`
   text-transform: uppercase;
 
   color: #000000;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   transition: 0.5s ease;
 `
@@ -248,10 +256,10 @@ const Audio: FunctionComponent = function () {
         }}
       >
         <AudioTitle style={{ opacity: isFolded ? 0 : 1 }}>
-          OCTAGON IS ON FIRE
+          BE A PART OF US
         </AudioTitle>
         <AudioSinger style={{ opacity: isFolded ? 0 : 1 }}>
-          METAGONZ
+          METAGONZ ARA feat.Pure 100%
         </AudioSinger>
         <AudioContorllerPrev
           style={{ right: isFolded ? 101 : '' }}

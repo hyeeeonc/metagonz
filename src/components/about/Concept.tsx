@@ -29,6 +29,17 @@ const ConceptContentContainer = styled.div`
   justify-content: space-between;
 
   height: 240px;
+
+  transition: 0.3s ease;
+  @media (max-width: 1550px) {
+    box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+  }
+
+  @media (max-height: 779px) {
+    top: 180px;
+  }
 `
 
 const ConceptContentNoBorder = styled.div`
@@ -63,6 +74,10 @@ const ConceptContentWithBorder = styled.div`
   color: #000000;
 
   transition: 0.2s ease;
+
+  @media (max-width: 1550px) {
+    left: 15px;
+  }
 `
 
 const ConceptContentButtonContainer = styled.div`
@@ -165,23 +180,6 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
         zIndex: tabNum != 3 ? 0 : 1,
       }}
     >
-      {/* {images.map(({ node }) => (
-        <Concept3DImageContainer
-          style={{
-            visibility: conceptTab == '3d' ? 'visible' : 'hidden',
-            display:
-              node.childImageSharp.fluid.originalName ===
-              `360_${`${imgIdx}`.padStart(4, '0')}.png`
-                ? 'block'
-                : 'none',
-            opacity: conceptTab == '3d' ? 1 : 0,
-            transform: `scale(${0.6 + imgIdx * 0.01}) translate(${
-              (-120 * imgIdx) / 100
-            }px, ${(400 * imgIdx) / 100}px)`,
-          }}
-          decoding="async"
-        />
-      ))} */}
       <Concept3DImageContainer>
         <canvas
           ref={canvasRef}

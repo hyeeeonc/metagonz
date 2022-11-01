@@ -18,7 +18,11 @@ const DragBarBlock = styled.div`
   flex: none;
 
   width: 287px;
+  padding: 5px;
+  border-radius: 2px 5px;
   height: 29px;
+
+  background-color: rgba(255, 255, 255, 0.6);
 
   z-index: 5;
 `
@@ -41,8 +45,8 @@ const DragBarContainer = styled.div`
 
 const DragBarBodyBackground = styled.div`
   position: absolute;
-  top: 12px;
-  right: 19px;
+  top: 17.5px;
+  right: 22px;
 
   width: 200px;
   height: 3px;

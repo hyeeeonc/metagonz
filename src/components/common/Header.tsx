@@ -287,15 +287,30 @@ const Header = () => {
       </HeaderLogoContainer>
       <HeaderButtonContainer>
         <HeaderNavContainer>
-          <HeaderNavItems onClick={linkHandler} to={`/#`}>
+          <HeaderNavItems
+            onClick={() => {
+              alert('Comming Soon')
+            }}
+            to={`/#`}
+          >
             minting
           </HeaderNavItems>
 
-          <HeaderNavItems onClick={linkHandler} to={`/#`}>
+          <HeaderNavItems
+            onClick={() => {
+              alert('Comming Soon')
+            }}
+            to={`/#`}
+          >
             gallery
           </HeaderNavItems>
 
-          <HeaderNavItems onClick={linkHandler} to={`/#`}>
+          <HeaderNavItems
+            onClick={() => {
+              alert('Comming Soon')
+            }}
+            to={`/#`}
+          >
             My Page
           </HeaderNavItems>
         </HeaderNavContainer>

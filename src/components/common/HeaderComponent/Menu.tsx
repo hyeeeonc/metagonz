@@ -220,7 +220,7 @@ const MenuButtonImage = styled.img`
   left: 50px;
   top: 80px;
 
-  width: 367.43px;
+  // width: 367.43px;
   height: 1000px;
 
   opacity: 0.6;
@@ -455,7 +455,15 @@ const Menu = () => {
 
       <MenuBlock>
         {octagons.map((octagon, i) => (
-          <Link to={octagon.url} onClick={linkHandler}>
+          <Link
+            to={octagon.url}
+            onClick={() => {
+              if (i == 1) linkHandler()
+              else {
+                alert('Comming Soon')
+              }
+            }}
+          >
             <MenuButtonContainer
               className="container"
               style={{

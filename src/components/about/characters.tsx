@@ -25,6 +25,12 @@ const CharacterSelectorContainer = styled.div`
 
   width: 550px;
   display: flex;
+
+  transition: 0.3s ease;
+
+  @media (max-height: 779px) {
+    top: 180px;
+  }
 `
 
 const CharacterSelectoritems = styled.div`
@@ -59,11 +65,21 @@ const CharactorInfoContainer = styled.div`
   top: 377px;
 
   display: flex;
+
+  transition: 0.3s ease;
+  @media (max-width: 1100px) {
+    box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+  }
+
+  @media (max-height: 779px) {
+    top: 247px;
+  }
 `
 
 const CharactorInfoHead = styled.div`
   width: 88px;
-  height: 228px;
 
   font-weight: 700;
 
@@ -71,7 +87,6 @@ const CharactorInfoHead = styled.div`
 `
 const CharacterInfoData = styled.div`
   width: 352px;
-  height: 228px;
 
   font-weight: 400;
 `
@@ -97,6 +112,8 @@ const CharacterImage = styled.img`
 
   display: flex;
   align-items: center;
+
+  transition: 0.3s ease;
 
   @media (max-width: 1300px) {
     right: -500px;
@@ -128,6 +145,19 @@ const CharacterSelectionCarouselWindow = styled.div`
   ::-webkit-scrollbar-track {
     background: white;
   }
+
+  @media (max-height: 779px) {
+    height: 480px;
+    top: 187px;
+
+    @media (min-width: 1520px) {
+      width: 1550px;
+      margin: 0 calc((100vw - 1550px) / 2);
+      @media (min-width: 1728px) {
+        margin: 0 calc((1728px - 1550px) / 2);
+      }
+    }
+  }
 `
 
 const CharacterSelectionCarousel = styled.div`
@@ -138,11 +168,17 @@ const CharacterSelectionCarousel = styled.div`
   margin-left: -20px;
 
   // overflow: hidden;
+
+  @media (max-height: 779px) {
+    @media (min-width: 1520px) {
+      margin-left: 0px;
+    }
+  }
 `
 
 const CharacterSelectionCarouselItems = styled.div`
   position: relative;
-  width: 215px;
+  width: 217px;
   height: 410px;
 
   margin: 0 2px;
@@ -168,6 +204,11 @@ const CharacterSelectionCarouselItems = styled.div`
   :hover div {
     opacity: 0.3;
   }
+
+  @media (max-height: 779px) {
+    width: 189px;
+    height: 350px;
+  }
 `
 
 const CharacterSelectionCarouselItemImag = styled.img`
@@ -179,6 +220,10 @@ const CharacterSelectionCarouselItemImag = styled.img`
   :hover {
     width: 650px;
     transform: translate(0, 85px);
+  }
+
+  @media (max-height: 779px) {
+    width: 540px;
   }
 `
 
@@ -304,7 +349,7 @@ const Characters = ({ edges }: { edges: CharacterType[] }) => {
           <CharactersCarouselItem
             idx={5}
             marginLeft={0}
-            marginTop={880}
+            marginTop={920}
             setSelected={setSelected}
             edges={edges}
           />
@@ -328,7 +373,8 @@ const Characters = ({ edges }: { edges: CharacterType[] }) => {
       </CharacterSelectionCarouselWindow>
       <CharacterImage
         style={{
-          visibility: selected != -1 ? 'visible' : 'hidden',
+          opacity: selected != -1 ? 1 : 0,
+          zIndex: selected != -1 ? 0 : -1,
           marginRight:
             selected == 1 || selected == 4 ? -100 : selected == 0 ? -100 : 0,
           // marginTop:
@@ -357,7 +403,12 @@ const Characters = ({ edges }: { edges: CharacterType[] }) => {
           </CharacterSelectoritems>
         ))}
       </CharacterSelectorContainer>
-      <CharactorInfoContainer>
+      <CharactorInfoContainer
+        style={{
+          opacity: selected != -1 ? 1 : 0,
+          zIndex: selected != -1 ? 3 : 0,
+        }}
+      >
         <CharactorInfoHead
           style={{
             visibility: selected != -1 ? 'visible' : 'hidden',

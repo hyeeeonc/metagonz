@@ -1,11 +1,12 @@
 import React, { FunctionComponent, useContext } from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 
 import styled from '@emotion/styled'
 
 import { Link } from 'gatsby'
 import { DarkmodeContext } from '../../contexts/DarkmodeProvider'
 
-const FooterBlock = styled.nav`
+const FooterBlock = styled.footer`
   position: fixed;
   bottom: 20px;
   left: 30px;
@@ -44,7 +45,7 @@ const FooterTitle = styled.div`
   flex-grow: 0;
 `
 
-const FooterLinker = styled(Link)`
+const FooterLinker = styled.a`
   text-decoration: none;
   text-transform: uppercase;
   font-family: 'SUIT';
@@ -60,8 +61,26 @@ const FooterLinker = styled(Link)`
   flex-grow: 0;
 `
 
+type docxType = {
+  policy: {
+    publicURL: string
+  }
+  use: {
+    publicURL: string
+  }
+}
 const Footer: FunctionComponent = function () {
   const { isDarkmode } = useContext(DarkmodeContext)
+  const docxSrc: docxType = useStaticQuery(graphql`
+    query {
+      policy: file(relativePath: { eq: "document/Privacy Policy.docx" }) {
+        publicURL
+      }
+      use: file(relativePath: { eq: "document/Privacy Policy.docx" }) {
+        publicURL
+      }
+    }
+  `)
 
   return (
     <FooterBlock
@@ -82,7 +101,8 @@ const Footer: FunctionComponent = function () {
         style={{
           color: isDarkmode ? 'black' : 'white',
         }}
-        to={'#'}
+        href={docxSrc.policy.publicURL}
+        download="Privacy Policy.docx"
       >
         Privacy policy
       </FooterLinker>
@@ -90,7 +110,8 @@ const Footer: FunctionComponent = function () {
         style={{
           color: isDarkmode ? 'black' : 'white',
         }}
-        to={'#'}
+        href={docxSrc.use.publicURL}
+        download="1.7.7 TERMS OF USE.docx"
       >
         terms of use
       </FooterLinker>

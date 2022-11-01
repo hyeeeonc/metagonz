@@ -21,6 +21,17 @@ const StoryContentContainer = styled.div`
   position: absolute;
   left: 30px;
   top: 311px;
+
+  transition: 0.3s ease;
+  @media (max-width: 1690px) {
+    box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+  }
+
+  @media (max-height: 779px) {
+    top: 180px;
+  }
 `
 
 const StoryContentNoBorder = styled.div`

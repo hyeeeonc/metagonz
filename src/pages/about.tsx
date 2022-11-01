@@ -39,6 +39,12 @@ const AboutNavContainer = styled.nav`
 
   cursor: pointer;
   z-index: 2;
+
+  transition: top 0.3s;
+
+  @media (max-height: 779px) {
+    top: 100px;
+  }
 `
 
 const AboutNavItems = styled.div`
