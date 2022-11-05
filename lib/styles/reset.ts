@@ -130,6 +130,10 @@ const reset = css`
 
   body {
     overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 `
 

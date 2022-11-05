@@ -19,6 +19,7 @@ import Concept from 'components/about/Concept'
 import Utility from 'components/about/Utility'
 import { graphql, useStaticQuery } from 'gatsby'
 import { globalHistory } from '@reach/router'
+import HeadTag from 'components/common/HeadTag'
 
 const AboutBlock = styled.div`
   position: relative;
@@ -151,6 +152,7 @@ const AboutPage: FunctionComponent = function () {
 
   return (
     <>
+      <HeadTag />
       <Global styles={reset} />
       <AboutBlock>
         <Story edges={edges} />

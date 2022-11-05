@@ -138,7 +138,6 @@ const CharacterSelectionCarouselWindow = styled.div`
 
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #1c0044 0%, #6200ee 100%);
-
     border-radius: 30px;
   }
 

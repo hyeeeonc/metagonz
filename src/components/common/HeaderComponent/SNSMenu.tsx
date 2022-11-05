@@ -14,7 +14,7 @@ const SNSBlock = styled.nav`
   align-items: center;
 
   width: 25px;
-  height: 177px;
+  height: 148px;
 
   transition: z-index: 1s linear;
 `
@@ -44,6 +44,9 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
         to="#"
+        onClick={() => {
+          alert('will be released after minting')
+        }}
       >
         <svg
           width="23"
@@ -61,11 +64,12 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
       {/* discord */}
       <SNSItems
         style={{
-          transition: '0.4s ease',
+          transition: '0.45s ease',
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
         to="https://discord.gg/metaoctagon"
+        target="_blank"
       >
         <svg
           width="22"
@@ -83,11 +87,12 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
       {/* twitter */}
       <SNSItems
         style={{
-          transition: '0.5s ease',
+          transition: '0.55s ease',
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
         to="https://mobile.twitter.com/metagonz_og"
+        target="_blank"
       >
         <svg
           width="21"
@@ -103,7 +108,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
         </svg>
       </SNSItems>
       {/* telegram */}
-      <SNSItems
+      {/* <SNSItems
         style={{
           transition: '0.6s ease',
           opacity: snsOpenState ? 1 : 0,
@@ -125,7 +130,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
             fill={isDarkmode ? 'black' : 'white'}
           />
         </svg>
-      </SNSItems>
+      </SNSItems> */}
       {/* midium */}
       <SNSItems
         style={{
@@ -134,6 +139,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
         to="https://medium.com/metaoctagon"
+        target="_blank"
       >
         <svg
           width="25"
@@ -175,6 +181,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
         to="https://metaoctagon.io/"
+        target="_blank"
       >
         <svg
           width="20"

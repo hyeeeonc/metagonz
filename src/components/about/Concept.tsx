@@ -223,7 +223,7 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
               opacity: conceptTab == '3d' ? 1 : 0.2,
             }}
           >
-            3D
+            METAROID
           </ConceptContentButton>
           <ConceptContentButton
             onClick={() => setConceptTap('nft')}

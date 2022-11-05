@@ -37,7 +37,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <AppContextProvier>
-      {/* <Helmet>
+      <Helmet>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -51,18 +51,16 @@ const Layout = ({ children }: LayoutProps) => {
         />
 
         <meta name="author" content="MetaPlayer" />
-        <link rel="canonical" href="https://metagonz.io" /> */}
+        <link rel="canonical" href="https://metagonz.io" />
 
-      {/* <!-- Favicon --> */}
-      {/* <link
+        <link
           rel="shortcut icon"
           href={favicon.file.publicURL}
           type="image/x-icon"
         />
-        <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" /> */}
+        <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
 
-      {/* <!— open graph —> */}
-      {/* <meta property="og:type" content="website" />
+        <meta property="og:type" content="website" />
         <meta property="og:title" content="METAGONZ" />
         <meta property="og:url" content="https://metagonz.io" />
         <meta property="og:site_name" content="METAGONZ" />
@@ -73,8 +71,7 @@ const Layout = ({ children }: LayoutProps) => {
         <meta property="og:image:type" content="image/png" />
         <meta property="og:description" content="METAGONZ BE A PART OF US" />
 
-        {/* <!— twitter card —> */}
-      {/* <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="METAGONZ" />
         <meta name="twitter:url" content="https://metagonz.io" />
         <meta
@@ -86,7 +83,7 @@ const Layout = ({ children }: LayoutProps) => {
         <title>METAGONZ</title>
         <link rel="stylesheet" href="./style.css" />
         <link rel="stylesheet" href="./default.css" />
-      </Helmet> */}
+      </Helmet>
       {isPc && (
         <>
           {children}
