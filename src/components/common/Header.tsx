@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import React, { useCallback, useContext, useMemo, useState } from 'react'
 
 import styled from '@emotion/styled'
 
@@ -13,6 +7,7 @@ import Menu from './HeaderComponent/Menu'
 import { DarkmodeContext } from '../../contexts/DarkmodeProvider'
 import SNSMenu from './HeaderComponent/SNSMenu'
 import MobileNav from './HeaderComponent/MobileNav'
+import { useMediaQuery } from 'react-responsive'
 
 const HeaderBlock = styled.header`
   width: 100%;
@@ -130,6 +125,10 @@ const HeaderNavItemsDarkMode = styled(Link)`
 
 const HeaderMobileNavButton = styled.nav`
   cursor: pointer;
+  display: none;
+  @media (max-width: 767px) {
+    display: block;
+  }
 `
 
 const HeaderNavSNSButton = styled.div`
@@ -176,6 +175,12 @@ const HeaderMobileBackground = styled.div`
 `
 
 const Header = () => {
+  const isPc = useMediaQuery({
+    query: '(min-width:768px)',
+  })
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  })
   const [snsOpenState, setSnsOpenState] = useState<boolean>(false)
   const [mobileNavOpenState, setMobileNavOpenState] = useState<boolean>(false)
   const [hover, setHover] = useState<string>('')
@@ -228,7 +233,7 @@ const Header = () => {
         onMouseLeave={() => setHover('')}
       >
         <Link to="/">
-          {hover != 'logo' ? (
+          {hover != 'logo' || isMobile ? (
             <svg
               width="133"
               height="20"

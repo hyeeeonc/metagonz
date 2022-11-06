@@ -56,7 +56,7 @@ const MobileIndexChar = styled.img`
   top: 20px;
   left: calc((100vw - 700px) / 2);
   width: 700px;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.5s ease-out;
 `
 
 const IndexBackgroundImage = styled.video``
@@ -165,14 +165,14 @@ const IndexPage: FunctionComponent = function () {
             return idx
           }
         })
-      }, 500)
+      }, 700)
     }, 5000)
 
     const toggleOpacity: NodeJS.Timer = setInterval(() => {
       setImgOpacity(0)
       setTimeout(() => {
         setImgOpacity(1)
-      }, 500)
+      }, 700)
     }, 5000)
 
     return () => {

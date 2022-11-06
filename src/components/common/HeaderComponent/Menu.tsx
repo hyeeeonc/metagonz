@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import { DarkmodeContext } from '../../../contexts/DarkmodeProvider'
 import Octagon from '../../../models/Octagon'
 import { graphql, Link, useStaticQuery } from 'gatsby'
+import { useMediaQuery } from 'react-responsive'
 
 const MenuBackground = styled.div`
   position: fixed;
@@ -22,6 +23,11 @@ const MenuBackground = styled.div`
   overflow: hidden;
 
   transition: opacity 0.5s ease;
+
+  @media (max-width: 767px) {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
 `
 
 const MenuBlock = styled.div`
@@ -92,57 +98,64 @@ const MenuButtonContainer = styled.div`
     height: calc(300px * (1728px / 100vw));
   }
 
-  :hover {
-    width: 370px;
-    height: 500px;
+  @media (hover: hover) {
+    :hover {
+      width: 370px;
+      height: 500px;
+    }
+
+    :hover .imgContainer {
+      // width: 370px;
+      // height: 500px;
+      left: 0;
+      bottom: 0;
+
+      clip-path: polygon(
+        100% 0,
+        100% 50%,
+        85.35% 76.16%,
+        50% 87%,
+        14.65% 76.16%,
+        0% 50%,
+        0 0
+      );
+
+      -webkit-clip-path: polygon(
+        100% 0,
+        100% 50%,
+        85.35% 76.16%,
+        50% 87%,
+        14.65% 76.16%,
+        0% 50%,
+        0 0
+      );
+    }
+
+    :hover .background {
+      width: 370px;
+      height: 370px;
+
+      background: linear-gradient(
+        180deg,
+        #a35fff 20.73%,
+        rgba(161, 95, 255, 0) 100%
+      );
+    }
+
+    :hover .img {
+      left: 30px;
+      top: -80px;
+
+      opacity: 1;
+      backdrop-filter: none;
+
+      filter: none;
+    }
   }
 
-  :hover .imgContainer {
-    // width: 370px;
-    // height: 500px;
-    left: 0;
-    bottom: 0;
-
-    clip-path: polygon(
-      100% 0,
-      100% 50%,
-      85.35% 76.16%,
-      50% 87%,
-      14.65% 76.16%,
-      0% 50%,
-      0 0
-    );
-
-    -webkit-clip-path: polygon(
-      100% 0,
-      100% 50%,
-      85.35% 76.16%,
-      50% 87%,
-      14.65% 76.16%,
-      0% 50%,
-      0 0
-    );
-  }
-
-  :hover .background {
-    width: 370px;
-    height: 370px;
-
-    background: linear-gradient(
-      180deg,
-      #a35fff 20.73%,
-      rgba(161, 95, 255, 0) 100%
-    );
-  }
-
-  :hover .img {
-    left: 30px;
-    top: -80px;
-
-    opacity: 1;
-    backdrop-filter: none;
-
-    filter: none;
+  @media (max-width: 767px) {
+    width: 160px;
+    height: 160px;
   }
 `
 
@@ -181,6 +194,11 @@ const MenuButtonBackground = styled.div`
     0 50%,
     14.65% 14.65%
   );
+
+  @media (max-width: 767px) {
+    width: 160px;
+    height: 160px;
+  }
 `
 
 const MenuButtonImageContainer = styled.div`
@@ -213,6 +231,34 @@ const MenuButtonImageContainer = styled.div`
     8% 55%,
     8% 0
   );
+
+  @media (max-width: 767px) {
+    left: 0px;
+    bottom: 0px;
+    width: 160px;
+    height: 160px;
+
+    clip-path: polygon(
+      50% 0,
+      85.35% 14.65%,
+      100% 50%,
+      85.35% 85.35%,
+      50% 100%,
+      14.65% 85.35%,
+      0 50%,
+      14.65% 14.65%
+    );
+    -webkit-clip-path: polygon(
+      50% 0,
+      85.35% 14.65%,
+      100% 50%,
+      85.35% 85.35%,
+      50% 100%,
+      14.65% 85.35%,
+      0 50%,
+      14.65% 14.65%
+    );
+  }
 `
 
 const MenuButtonImage = styled.img`
@@ -228,6 +274,12 @@ const MenuButtonImage = styled.img`
   filter: grayscale(70%);
 
   transition: 0.3s ease-out;
+
+  @media (max-width: 767px) {
+    left: 10px;
+    top: -30px;
+    height: 500px;
+  }
 `
 
 const MenuButtonTitle = styled.div`
@@ -243,6 +295,13 @@ const MenuButtonTitle = styled.div`
   line-height: 20px;
   text-transform: uppercase;
   color: white;
+
+  @media (max-width: 767px) {
+    left: 15px;
+
+    font-size: 10px;
+    line-height: 12px;
+  }
 `
 
 type MenuImgType = {
@@ -272,7 +331,53 @@ type MenuImgType = {
   }
 }
 
+const MenuMobileButtons = ({
+  top,
+  right,
+  imgSrc,
+  title,
+}: {
+  top: number
+  right: number
+  imgSrc: string
+  title: string
+}) => {
+  return (
+    <Link
+      to="#"
+      // to={octagon.url}
+      // onClick={() => {
+      //   if (i == 1) linkHandler()
+      //   else {
+      //     alert('Comming Soon')
+      //   }
+      // }}
+    >
+      <MenuButtonContainer
+        className="container"
+        style={{
+          top: top,
+          right: `calc(50vw + ${right}px)`,
+        }}
+      >
+        <MenuButtonBackground className="background"></MenuButtonBackground>
+        <MenuButtonImageContainer className="imgContainer">
+          <MenuButtonImage className="img" src={imgSrc} />
+        </MenuButtonImageContainer>
+        <MenuButtonTitle> {title}</MenuButtonTitle>
+      </MenuButtonContainer>
+    </Link>
+  )
+}
+
 const Menu = () => {
+  const isPc = useMediaQuery({
+    query: '(min-width:768px)',
+  })
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  })
+
   const [octagons, setOctagons] = useState<Octagon[]>([])
   const { toggleMenu, menuOpened } = useContext(DarkmodeContext)
   const images: MenuImgType = useStaticQuery(graphql`
@@ -394,100 +499,121 @@ const Menu = () => {
         opacity: menuOpened ? 1 : 0,
       }}
     >
-      {/* background Design */}
-      <MenuBackgroundOcatgonNoGradient
-        style={{
-          width: 100,
-          height: 100,
-          top: 280,
-          left: -51,
-        }}
-      />
-      <MenuBackgroundOcatgonWithGradient
-        style={{
-          width: 150,
-          height: 150,
-          top: 223,
-          left: 49,
-        }}
-      />
-      <MenuBackgroundOcatgonNoGradient
-        style={{
-          width: 300,
-          height: 300,
-          top: -49,
-          left: 290,
-        }}
-      />
-      <MenuBackgroundOcatgonWithGradient
-        style={{
-          width: 230,
-          height: 230,
-          top: 205,
-          left: 819,
-        }}
-      />
-      <MenuBackgroundOcatgonNoGradient
-        style={{
-          width: 300,
-          height: 300,
-          top: 584,
-          right: 31,
-        }}
-      />
-      <MenuBackgroundOcatgonNoGradient
-        style={{
-          width: 230,
-          height: 230,
-          top: 712,
-          right: 730,
-        }}
-      />
-      <MenuBackgroundOcatgonWithGradient
-        style={{
-          width: 230,
-          height: 230,
-          top: 794,
-          right: 532,
-        }}
-      />
-      {/* background Design */}
+      {isPc && (
+        <>
+          {/* background Design */}
+          <MenuBackgroundOcatgonNoGradient
+            style={{
+              width: 100,
+              height: 100,
+              top: 280,
+              left: -51,
+            }}
+          />
+          <MenuBackgroundOcatgonWithGradient
+            style={{
+              width: 150,
+              height: 150,
+              top: 223,
+              left: 49,
+            }}
+          />
+          <MenuBackgroundOcatgonNoGradient
+            style={{
+              width: 300,
+              height: 300,
+              top: -49,
+              left: 290,
+            }}
+          />
+          <MenuBackgroundOcatgonWithGradient
+            style={{
+              width: 230,
+              height: 230,
+              top: 205,
+              left: 819,
+            }}
+          />
+          <MenuBackgroundOcatgonNoGradient
+            style={{
+              width: 300,
+              height: 300,
+              top: 584,
+              right: 31,
+            }}
+          />
+          <MenuBackgroundOcatgonNoGradient
+            style={{
+              width: 230,
+              height: 230,
+              top: 712,
+              right: 730,
+            }}
+          />
+          <MenuBackgroundOcatgonWithGradient
+            style={{
+              width: 230,
+              height: 230,
+              top: 794,
+              right: 532,
+            }}
+          />
+          {/* background Design */}
 
-      <MenuBlock>
-        {octagons.map((octagon, i) => (
+          <MenuBlock>
+            {octagons.map((octagon, i) => (
+              <Link
+                to={octagon.url}
+                onClick={() => {
+                  if (i == 1) linkHandler()
+                  else {
+                    alert('Comming Soon')
+                  }
+                }}
+              >
+                <MenuButtonContainer
+                  className="container"
+                  style={{
+                    top: octagon.y,
+                    right: octagon.x,
+                  }}
+                  onMouseEnter={() => {
+                    octagon.sizeUp()
+                    setOctagons(os => [...os])
+                  }}
+                  onMouseLeave={() => {
+                    octagon.sizeDown()
+                    setOctagons(os => [...os])
+                  }}
+                >
+                  <MenuButtonBackground className="background"></MenuButtonBackground>
+                  <MenuButtonImageContainer className="imgContainer">
+                    <MenuButtonImage className="img" src={octagon.img} />
+                  </MenuButtonImageContainer>
+                  <MenuButtonTitle> {octagon.title}</MenuButtonTitle>
+                </MenuButtonContainer>
+              </Link>
+            ))}
+          </MenuBlock>
+        </>
+      )}
+      {isMobile && (
+        <>
           <Link
-            to={octagon.url}
+            to="#"
             onClick={() => {
-              if (i == 1) linkHandler()
-              else {
-                alert('Comming Soon')
-              }
+              alert('Comming Soon')
             }}
           >
-            <MenuButtonContainer
-              className="container"
-              style={{
-                top: octagon.y,
-                right: octagon.x,
-              }}
-              onMouseEnter={() => {
-                octagon.sizeUp()
-                setOctagons(os => [...os])
-              }}
-              onMouseLeave={() => {
-                octagon.sizeDown()
-                setOctagons(os => [...os])
-              }}
-            >
-              <MenuButtonBackground className="background"></MenuButtonBackground>
-              <MenuButtonImageContainer className="imgContainer">
-                <MenuButtonImage className="img" src={octagon.img} />
-              </MenuButtonImageContainer>
-              <MenuButtonTitle> {octagon.title}</MenuButtonTitle>
-            </MenuButtonContainer>
+            <MenuMobileButtons
+              top={160}
+              right={24}
+              imgSrc={octagons[3].img}
+              title="roadmap"
+            />
           </Link>
-        ))}
-      </MenuBlock>
+        </>
+      )}
     </MenuBackground>
   )
 }
