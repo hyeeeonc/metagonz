@@ -81,8 +81,6 @@ const Layout = ({ children }: LayoutProps) => {
         <meta name="twitter:description" content="METAGONZ BE A PART OF US" />
 
         <title>METAGONZ</title>
-        <link rel="stylesheet" href="./style.css" />
-        <link rel="stylesheet" href="./default.css" />
       </Helmet>
       {isPc && (
         <>

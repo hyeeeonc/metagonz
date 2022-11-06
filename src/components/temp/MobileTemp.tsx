@@ -71,12 +71,7 @@ const MobileTempText = styled.div`
 
 type Node = {
   node: {
-    childImageSharp: {
-      fluid: {
-        originalName: string
-        src: string
-      }
-    }
+    publicURL: string
   }
 }
 
@@ -99,12 +94,7 @@ const MobileTemp = () => {
       allFile(filter: { relativeDirectory: { eq: "images/characters" } }) {
         edges {
           node {
-            childImageSharp {
-              fluid {
-                originalName
-                src
-              }
-            }
+            publicURL
           }
         }
       }
@@ -151,9 +141,7 @@ const MobileTemp = () => {
         style={{
           opacity: imgOpacity,
         }}
-        src={
-          mobileImages.allFile.edges[selectedImg].node.childImageSharp.fluid.src
-        }
+        src={mobileImages.allFile.edges[selectedImg].node.publicURL}
       />
       <MobileLogoContainer>
         <svg
