@@ -140,7 +140,10 @@ const IndexPage: FunctionComponent = function () {
       background: file(relativePath: { eq: "images/tempback.jpg" }) {
         publicURL
       }
-      allFile(filter: { relativeDirectory: { eq: "images/characters" } }) {
+      allFile(
+        filter: { relativeDirectory: { eq: "images/characters" } }
+        sort: { order: ASC, fields: name }
+      ) {
         edges {
           node {
             publicURL
