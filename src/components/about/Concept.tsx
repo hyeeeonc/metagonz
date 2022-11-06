@@ -194,7 +194,7 @@ const Concept3DImageContainer = styled.div`
 
 const ConceptNftImageContainer = styled.div`
   position: absolute;
-  top: 0;
+  top: 80px;
   right: 0;
 
   width: 800px;

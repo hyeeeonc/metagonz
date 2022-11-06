@@ -32,7 +32,7 @@ const AboutBlock = styled.div`
 `
 
 const AboutPageIndicator = styled.div`
-  position: absolute;
+  position: fixed;
   width: 56px;
   height: 32px;
   left: 30px;
