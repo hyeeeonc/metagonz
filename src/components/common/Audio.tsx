@@ -19,6 +19,11 @@ const AudioBlock = styled.div`
   bottom: 57px;
   left: 30px;
   z-index: 3;
+
+  @media (max-width: 767px) {
+    left: 10px;
+    height: 70px;
+  }
 `
 
 const AudioObject = styled.audio`
@@ -33,6 +38,11 @@ const AudioCharactorContainer = styled.div`
   margin-left: 5px;
 
   transition: width 0.5s ease;
+
+  @media (max-width: 767px) {
+    width: 60px;
+    height: 70px;
+  }
 `
 
 const AudioCharactorBackground = styled.div`
@@ -48,7 +58,12 @@ const AudioCharactorBackground = styled.div`
   background: linear-gradient(180deg, #fda4ff 0%, #ffffff 100%);
   border-radius: 5px;
 
-  transition: opacity 0.3s ease;
+  transition: 0.5s ease;
+
+  @media (max-width: 767px) {
+    width: 60px;
+    height: 40px;
+  }
 `
 
 const AudioCharactorImageContainer = styled.img`
@@ -58,6 +73,11 @@ const AudioCharactorImageContainer = styled.img`
   height: 100px;
 
   transition: opacity 0.3s ease;
+
+  @media (max-width: 767px) {
+    width: 53px;
+    height: 70px;
+  }
 `
 
 const AudioPlayer = styled.div`
@@ -74,6 +94,12 @@ const AudioPlayer = styled.div`
   flex: none;
 
   transition: 0.5s ease;
+
+  @media (max-width: 767px) {
+    left: 65px;
+    width: 245px;
+    height: 40px;
+  }
 `
 
 const AudioTitle = styled.div`
@@ -98,6 +124,14 @@ const AudioTitle = styled.div`
   white-space: nowrap;
 
   transition: 0.5s ease;
+  @media (max-width: 767px) {
+    left: 10px;
+    top: 5px;
+
+    font-size: 10px;
+    line-height: 18px;
+    width: 118px;
+  }
 `
 
 const AudioSinger = styled.div`
@@ -122,6 +156,13 @@ const AudioSinger = styled.div`
   white-space: nowrap;
 
   transition: 0.5s ease;
+
+  @media (max-width: 767px) {
+    left: 10px;
+    bottom: 0px;
+    line-height: 15px;
+    width: 118px;
+  }
 `
 
 const AudioContorllerPrev = styled.div`
@@ -139,6 +180,11 @@ const AudioContorllerPrev = styled.div`
 
   rect {
     transition: 0.5s ease;
+  }
+
+  @media (max-width: 767px) {
+    top: 14px;
+    right: 90px;
   }
 `
 
@@ -158,6 +204,11 @@ const AudioControllerPlayPause = styled.div`
   reck {
     transition: 0.5s ease;
   }
+
+  @media (max-width: 767px) {
+    top: 12px;
+    right: 64px;
+  }
 `
 
 const AudioControllerNext = styled.div`
@@ -175,6 +226,11 @@ const AudioControllerNext = styled.div`
 
   rect {
     transition: 0.5s ease;
+  }
+
+  @media (max-width: 767px) {
+    top: 14px;
+    right: 41px;
   }
 `
 
@@ -202,6 +258,13 @@ const AudioFoldingButton = styled.div`
   cursor: pointer;
 
   transition: 0.5s ease;
+
+  @media (max-width: 767px) {
+    top: 13px;
+    right: 10px;
+
+    box-sizing: border-box;
+  }
 `
 
 type ImgType = {
@@ -222,6 +285,7 @@ const Audio: FunctionComponent = function () {
 
   const [hover, setHover] = useState<string>('') //hover 상태 저장
   const [isFolded, setIsFolded] = useState<boolean>(false) // fold 컨트롤러
+  const [mobileView, setMobileView] = useState<boolean>(false)
   const { src, audioRef, isPlaying, playAudio, pauseAudio } =
     useContext(AudioContext)
   //const audioRefinLocal = useRef<HTMLAudioElement>(null)
@@ -230,6 +294,20 @@ const Audio: FunctionComponent = function () {
     if (!isFolded) setIsFolded(true)
     else setIsFolded(false)
   }
+
+  const handleResize = () => {
+    if (window.innerWidth <= 767) {
+      setMobileView(true)
+    } else setMobileView(false)
+  }
+
+  useEffect(() => {
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   return (
     <AudioBlock>
@@ -246,8 +324,8 @@ const Audio: FunctionComponent = function () {
       </AudioCharactorContainer>
       <AudioPlayer
         style={{
-          width: isFolded ? '131px' : '330px',
-          left: isFolded ? 0 : '96px',
+          width: isFolded ? '131px' : mobileView ? '245px' : '330px',
+          left: isFolded ? 0 : mobileView ? '70px' : '96px',
           background: isDarkmode
             ? 'linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)), #ffffff'
             : isFolded

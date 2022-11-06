@@ -24,6 +24,16 @@ const FooterBlock = styled.footer`
   border-radius: 5px;
 
   z-index: 3;
+
+  @media (max-width: 767px) {
+    left: 10px;
+
+    padding: 4px 10px;
+
+    width: 295px;
+    height: 28px;
+    box-sizing: border-box;
+  }
 `
 
 const FooterTitle = styled.div`
