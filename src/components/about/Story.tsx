@@ -17,11 +17,13 @@ const StoryBlock = styled.main`
   transition: opacity 0.5s ease, visibility 0.5s ease;
 
   @media (max-width: 767px) {
-    top: 268px;
+    top: 218px;
     left: 0px;
 
     width: calc(100vw);
-    height: calc(100vh - calc(100vh - 100%) - 268px);
+    height: calc(100vh - calc(100vh - 100%) - 218px);
+    padding-top: 50px;
+    box-sizing: border-box;
 
     overflow-y: scroll;
 
@@ -39,7 +41,7 @@ const StoryContentContainer = styled.div`
   left: 30px;
   top: 311px;
 
-  transition: 0.3s ease;
+  transition: opacity 0.3s ease;
   @media (max-width: 1690px) {
     box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
     background-color: rgba(255, 255, 255, 0.6);
@@ -147,9 +149,9 @@ const Story = ({
 
   return (
     <StoryBlock
-      onWheel={() => {
+      onWheel={e => {
         if (!isMobile) {
-          scrollHandler
+          scrollHandler(e)
         }
       }}
       style={{

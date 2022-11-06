@@ -17,11 +17,13 @@ const UtilityBlock = styled.main`
   transition: opacity 0.5s ease, visibility 0.5s ease;
 
   @media (max-width: 767px) {
-    top: 268px;
+    top: 218px;
     left: 0px;
 
     width: calc(100vw);
-    height: calc(100vh - calc(100vh - 100%) - 268px);
+    height: calc(100vh - calc(100vh - 100%) - 218px);
+    padding-top: 50px;
+    box-sizing: border-box;
 
     overflow-y: scroll;
 
@@ -45,7 +47,7 @@ const UtilityContentContainer = styled.div`
 
   height: 418px;
 
-  transition: 0.3s ease;
+  transition: opacity 0.3s ease;
   @media (max-width: 1550px) {
     box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
     background-color: rgba(255, 255, 255, 0.6);
@@ -123,12 +125,20 @@ const UtilityMobileImageContainer = styled.div`
   }
 `
 
-const Utility = ({ edges }: { edges: CharacterType[] }) => {
+const Utility = ({
+  edges,
+  isMobile,
+}: {
+  edges: CharacterType[]
+  isMobile: boolean
+}) => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
 
   return (
     <UtilityBlock
-      onWheel={scrollHandler}
+      onWheel={e => {
+        if (!isMobile) scrollHandler(e)
+      }}
       style={{
         visibility: tabNum == 4 ? 'visible' : 'hidden',
         opacity: tabNum == 4 ? 1 : 0,

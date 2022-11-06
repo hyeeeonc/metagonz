@@ -31,6 +31,31 @@ const AboutBlock = styled.div`
   }
 `
 
+const AboutPageIndicator = styled.div`
+  position: absolute;
+  width: 56px;
+  height: 32px;
+  left: 30px;
+  top: 76px;
+
+  font-family: 'SUIT';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 32px;
+  text-transform: uppercase;
+
+  color: #000000;
+
+  @media (max-height: 779px) {
+    top: 56px;
+  }
+  @media (max-width: 767px) {
+    left: 20px;
+    top: 110px;
+  }
+`
+
 const AboutNavContainer = styled.nav`
   position: absolute;
   left: 30px;
@@ -69,8 +94,10 @@ const AboutNavItems = styled.div`
 
   transition: 0.5s;
 
-  :hover {
-    color: #6200ee;
+  @media (min-width: 767px) {
+    :hover {
+      color: #6200ee;
+    }
   }
   flex: none;
 
@@ -214,6 +241,7 @@ const AboutPage: FunctionComponent = function () {
             utility
           </AboutNavItems>
         </AboutNavContainer>
+        <AboutPageIndicator>about</AboutPageIndicator>
       </AboutBlock>
     </>
   )

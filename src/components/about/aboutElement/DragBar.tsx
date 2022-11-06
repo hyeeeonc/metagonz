@@ -26,11 +26,33 @@ const DragBarBlock = styled.div`
   border-radius: 8px;
 
   z-index: 5;
+
+  @media (max-width: 767px) {
+    position: absolute;
+    bottom: none;
+    top: 400px;
+    left: calc(50vw - 119px);
+
+    width: 238px;
+    height: 58px;
+
+    padding: 0;
+    border-radius: 0;
+    border: 0;
+    box-sizing: border-box;
+    background-color: transparent;
+  }
 `
 
 const DragBarIcon = styled.svg`
   width: 29px;
   height: 28px;
+
+  @media (max-width: 767px) {
+    position: absolute;
+    top: 0;
+    left: calc(50% - 14px);
+  }
 `
 
 const DragBarContainer = styled.div`
@@ -42,6 +64,11 @@ const DragBarContainer = styled.div`
   height: 40px;
 
   color: black;
+  @media (max-width: 767px) {
+    position: absolute;
+    bottom: -20px;
+    left: 0x;
+  }
 `
 
 const DragBarBodyBackground = styled.div`

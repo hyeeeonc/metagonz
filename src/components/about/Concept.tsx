@@ -17,6 +17,25 @@ const ConceptBlock = styled.main`
   overflow: hidden;
 
   transition: opacity 0.5s ease;
+
+  @media (max-width: 767px) {
+    top: 218px;
+    left: 0px;
+
+    width: calc(100vw);
+    height: calc(100vh - calc(100vh - 100%) - 218px);
+    padding-top: 50px;
+    box-sizing: border-box;
+
+    overflow-y: scroll;
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    ::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
+  }
 `
 
 const ConceptContentContainer = styled.div`
@@ -30,7 +49,7 @@ const ConceptContentContainer = styled.div`
 
   height: 240px;
 
-  transition: 0.3s ease;
+  transition: opacity 0.3s ease;
   @media (max-width: 1550px) {
     box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
     background-color: rgba(255, 255, 255, 0.6);
@@ -39,6 +58,19 @@ const ConceptContentContainer = styled.div`
 
   @media (max-height: 779px) {
     top: 180px;
+  }
+
+  @media (max-width: 767px) {
+    position: static;
+
+    display: block;
+
+    width: calc(100vw - 40px);
+    height: auto;
+    margin-left: 20px;
+    box-shadow: none;
+    background-color: none;
+    padding: 0;
   }
 `
 
@@ -52,6 +84,12 @@ const ConceptContentNoBorder = styled.div`
   line-height: 19px;
 
   color: #000000;
+
+  @media (max-width: 767px) {
+    height: auto;
+    font-size: 13px;
+    line-height: 16px;
+  }
 `
 const ConceptContentWithBorder = styled.div`
   position: absolute;
@@ -78,12 +116,30 @@ const ConceptContentWithBorder = styled.div`
   @media (max-width: 1550px) {
     left: 15px;
   }
+
+  @media (max-width: 767px) {
+    position: static;
+
+    padding: 0;
+    border: none;
+    width: auto;
+    height: auto;
+    font-size: 13px;
+    line-height: 16px;
+  }
 `
 
 const ConceptContentButtonContainer = styled.div`
   position: absolute;
   top: 120px;
   display: flex;
+
+  @media (max-width: 767px) {
+    position: static;
+
+    margin-top: 60px;
+    margin-bottom: 20px;
+  }
 `
 
 const ConceptContentButton = styled.div`
@@ -111,6 +167,14 @@ const ConceptContentButton = styled.div`
   transition: 0.2s ease;
 
   color: #000000;
+
+  @media (max-width: 767px) {
+    width: 120px;
+    height: 35px;
+
+    font-size: 13px;
+    line-height: 16px;
+  }
 `
 
 const Concept3DImageContainer = styled.div`
@@ -136,18 +200,39 @@ const ConceptNftImageContainer = styled.div`
   width: 800px;
   height: calc(100vh - calc(100vh - 100%));
 
-  transition: 0.5s ease;
+  transition: opacity 0.5s ease;
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
 const ConceptNftImage = styled.img`
   position: absolute;
   top: -100px;
-  left: 130px;
-
   width: 800px;
+
+  @media (max-width: 767px) {
+    width: 500px;
+    top: 0px;
+  }
 `
 
-const Concept = ({ edges }: { edges: CharacterType[] }) => {
+const ConceptMobileNftImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  margin-top: -40px;
+  @media (min-width: 768px) {
+    display: none;
+  }
+`
+
+const Concept = ({
+  edges,
+  isMobile,
+}: {
+  edges: CharacterType[]
+  isMobile: boolean
+}) => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
   const [conceptTab, setConceptTap] = useState<string>('3d')
   const [imgIdx, setImgIdx] = useState<number>(1)
@@ -180,14 +265,18 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
 
   return (
     <ConceptBlock
-      onWheel={scrollHandler}
+      onWheel={e => {
+        if (!isMobile) {
+          scrollHandler(e)
+        }
+      }}
       style={{
         visibility: tabNum == 3 ? 'visible' : 'hidden',
         opacity: tabNum == 3 ? 1 : 0,
         zIndex: tabNum != 3 ? 0 : 1,
       }}
     >
-      <Concept3DImageContainer>
+      {/* <Concept3DImageContainer>
         <canvas
           ref={canvasRef}
           width="650"
@@ -199,7 +288,7 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
             }px, ${(1050 * imgIdx) / 100 - 900}px)`,
           }}
         />
-      </Concept3DImageContainer>
+      </Concept3DImageContainer> */}
 
       <ConceptNftImageContainer
         style={{
@@ -211,7 +300,10 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
           style={{ left: -180 }}
           src={edges[7].node.pic.publicURL}
         />
-        <ConceptNftImage src={edges[3].node.pic.publicURL} />
+        <ConceptNftImage
+          style={{ left: 100 }}
+          src={edges[3].node.pic.publicURL}
+        />
       </ConceptNftImageContainer>
 
       <ConceptContentContainer>
@@ -242,7 +334,7 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
         </ConceptContentButtonContainer>
         <ConceptContentWithBorder
           style={{
-            visibility: conceptTab == '3d' ? 'visible' : 'hidden',
+            display: conceptTab == '3d' ? 'block' : 'none',
             opacity: conceptTab == '3d' ? 1 : 0,
           }}
         >
@@ -255,7 +347,7 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
         </ConceptContentWithBorder>
         <ConceptContentWithBorder
           style={{
-            visibility: conceptTab == 'nft' ? 'visible' : 'hidden',
+            display: conceptTab == 'nft' ? 'block' : 'none',
             opacity: conceptTab == 'nft' ? 1 : 0,
           }}
         >
@@ -265,6 +357,22 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
           plays a pivotal role in the establishment and expansion of the
           MetaOctagon Universe.
         </ConceptContentWithBorder>
+
+        <ConceptMobileNftImageContainer
+          style={{
+            visibility: conceptTab == 'nft' ? 'visible' : 'hidden',
+            opacity: conceptTab == 'nft' ? 1 : 0,
+          }}
+        >
+          <ConceptNftImage
+            style={{ left: -150 }}
+            src={edges[7].node.pic.publicURL}
+          />
+          <ConceptNftImage
+            style={{ right: -130 }}
+            src={edges[3].node.pic.publicURL}
+          />
+        </ConceptMobileNftImageContainer>
       </ConceptContentContainer>
 
       <DragBar
