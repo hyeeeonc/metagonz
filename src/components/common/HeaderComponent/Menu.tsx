@@ -10,12 +10,6 @@ const MenuBackground = styled.div`
   right: -1px;
   top: -1px;
 
-  @media (min-width: 1430px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   width: calc(100vw + 2px);
   height: calc(100vh - calc(100vh - 100%) + 2px);
 
@@ -24,6 +18,14 @@ const MenuBackground = styled.div`
 
   overflow-x: scroll;
   overflow-y: hidden;
+
+  @media (min-width: 1430px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+  }
 
   @media (max-width: 767px) {
     overflow-x: hidden;
