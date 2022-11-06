@@ -154,7 +154,7 @@ const IndexPage: FunctionComponent = function () {
   `)
 
   //for mobile
-  const [selectedImg, setSelectedImg] = useState<number>(4)
+  const [selectedImg, setSelectedImg] = useState<number>(0)
   const [imgOpacity, setImgOpacity] = useState<number>(1)
   useEffect(() => {
     const imgCount = assets.allFile.edges.length
@@ -220,15 +220,15 @@ const IndexPage: FunctionComponent = function () {
             <MobileIndexChar
               style={{
                 opacity: imgOpacity,
-                top: selectedImg == 3 ? -50 : 20,
+                top: selectedImg == 2 ? -50 : 20,
                 transform:
-                  selectedImg == 2
+                  selectedImg == 1
                     ? `translate(50px, 0)`
-                    : selectedImg == 3
+                    : selectedImg == 2
                     ? `translate(-38px, 0)`
-                    : selectedImg == 6
+                    : selectedImg == 4
                     ? `translate(58px, 0)`
-                    : selectedImg == 7
+                    : selectedImg == 3
                     ? `translate(-28px, 0)`
                     : '',
               }}

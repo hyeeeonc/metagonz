@@ -10,9 +10,11 @@ const MenuBackground = styled.div`
   right: -1px;
   top: -1px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @media (min-width: 1430px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   width: calc(100vw + 2px);
   height: calc(100vh - calc(100vh - 100%) + 2px);
@@ -20,28 +22,31 @@ const MenuBackground = styled.div`
   background: linear-gradient(180deg, #1c0044 0%, #6200ee 100%);
   backdrop-filter: blur(15px);
 
-  overflow: hidden;
-
-  transition: opacity 0.5s ease;
+  overflow-x: scroll;
+  overflow-y: hidden;
 
   @media (max-width: 767px) {
     overflow-x: hidden;
     overflow-y: scroll;
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    ::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
   }
 `
 
 const MenuBlock = styled.div`
   position: relative;
 
-  width: 1728px;
+  width: 1430px;
   height: 980px;
-
-  @media (max-width: 1727px) {
-    width: 100vw;
-  }
-
+  margin-top: calc((100vh - 980px) / 2);
   @media (max-height: 979px) {
     height: calc(100vh - calc(100vh - 100%));
+    margin-top: 0;
   }
 `
 

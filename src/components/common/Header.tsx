@@ -169,7 +169,7 @@ const HeaderMobileBackground = styled.div`
   );
   backdrop-filter: blur(5px);
 
-  transition: 0.5s ease;
+  transition: opacity 0.5s ease;
 
   @media (min-width: 768px) {
     display: none;
@@ -226,6 +226,7 @@ const Header = () => {
       <HeaderMobileBackground
         style={{
           opacity: mobileBackground ? 1 : 0,
+          visibility: mobileBackground ? 'visible' : 'hidden',
         }}
       />
       <Menu />
