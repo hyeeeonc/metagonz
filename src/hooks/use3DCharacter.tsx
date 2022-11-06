@@ -27,9 +27,9 @@ const use3DCharacter = (): [Node[], (index: number) => string] => {
 
   const getImageSrc = (index: number): string => {
     if (index <= 0 || index > 100) return ''
-    const result = edges.find(
-      ({ node }) =>
-        node.publicURL === `360_0001${`${index - 1}`.padStart(3, '0')}.jpg`,
+
+    const result = edges.find(({ node }) =>
+      node.publicURL.includes(`360_0001${`${index - 1}`.padStart(3, '0')}.jpg`),
     )
     return result?.node.publicURL ?? ''
   }
