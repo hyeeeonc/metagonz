@@ -19,6 +19,17 @@ const MenuBackground = styled.div`
   overflow-x: scroll;
   overflow-y: hidden;
 
+  ::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1c0044;
+    border-radius: 30px;
+  }
+
+  transition: opacity 0.5s ease;
+
   @media (min-width: 1430px) {
     display: flex;
     align-items: center;
@@ -27,7 +38,7 @@ const MenuBackground = styled.div`
     overflow: hidden;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 499px) {
     overflow-x: hidden;
     overflow-y: scroll;
 
@@ -105,7 +116,7 @@ const MenuButtonContainer = styled.div`
     height: calc(300px * (1728px / 100vw));
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 500px) {
     :hover {
       width: 370px;
       height: 500px;
@@ -160,7 +171,7 @@ const MenuButtonContainer = styled.div`
     }
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 499px) {
     width: 160px;
     height: 160px;
 
@@ -204,7 +215,7 @@ const MenuButtonBackground = styled.div`
     14.65% 14.65%
   );
 
-  @media (max-width: 767px) {
+  @media (max-width: 499px) {
     width: 160px;
     height: 160px;
   }
@@ -241,7 +252,7 @@ const MenuButtonImageContainer = styled.div`
     8% 0
   );
 
-  @media (max-width: 767px) {
+  @media (max-width: 499px) {
     left: 0px;
     bottom: 0px;
     width: 160px;
@@ -284,7 +295,7 @@ const MenuButtonImage = styled.img`
 
   transition: 0.3s ease-out;
 
-  @media (max-width: 767px) {
+  @media (max-width: 499px) {
     left: 10px;
     top: -30px;
     height: 500px;
@@ -305,7 +316,7 @@ const MenuButtonTitle = styled.div`
   text-transform: uppercase;
   color: white;
 
-  @media (max-width: 767px) {
+  @media (max-width: 499px) {
     left: 15px;
 
     font-size: 10px;
@@ -379,10 +390,10 @@ const MenuMobileButtons = ({
 
 const Menu = () => {
   const isPc = useMediaQuery({
-    query: '(min-width:768px)',
+    query: '(min-width:500px)',
   })
   const isMobile = useMediaQuery({
-    query: '(max-width:767px)',
+    query: '(max-width:499px)',
   })
 
   const [octagons, setOctagons] = useState<Octagon[]>([])

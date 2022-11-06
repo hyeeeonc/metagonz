@@ -19,6 +19,7 @@ import Concept from 'components/about/Concept'
 import Utility from 'components/about/Utility'
 import { graphql, useStaticQuery } from 'gatsby'
 import { globalHistory } from '@reach/router'
+import { useMediaQuery } from 'react-responsive'
 
 const AboutBlock = styled.div`
   position: relative;
@@ -45,6 +46,11 @@ const AboutNavContainer = styled.nav`
   @media (max-height: 779px) {
     top: 100px;
   }
+
+  @media (max-width: 767px) {
+    top: 192px;
+    left: 20px;
+  }
 `
 
 const AboutNavItems = styled.div`
@@ -67,6 +73,20 @@ const AboutNavItems = styled.div`
     color: #6200ee;
   }
   flex: none;
+
+  @media (max-width: 767px) {
+    font-size: 20px;
+    line-height: 25px;
+
+    margin-right: 20px;
+  }
+
+  @media (max-width: 499px) {
+    font-size: 13px;
+    line-height: 16px;
+
+    margin-right: 15px;
+  }
 `
 export type CharacterType = {
   node: {
@@ -96,6 +116,9 @@ export type CharacterListType = {
 }
 
 const AboutPage: FunctionComponent = function () {
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  })
   const { setDefaultAudio } = useContext(AudioContext)
   const { setMode, menuOpened } = useContext(DarkmodeContext)
   const { tabNum, setTabNum } = useContext(AboutTabContext)
@@ -153,10 +176,10 @@ const AboutPage: FunctionComponent = function () {
     <>
       <Global styles={reset} />
       <AboutBlock>
-        <Story edges={edges} />
-        <Concept edges={edges} />
-        <Characters edges={edges} />
-        <Utility edges={edges} />
+        <Story isMobile={isMobile} edges={edges} />
+        <Concept isMobile={isMobile} edges={edges} />
+        <Characters isMobile={isMobile} edges={edges} />
+        <Utility isMobile={isMobile} edges={edges} />
         <AboutNavContainer>
           <AboutNavItems
             onClick={() => setTabNum(1)}

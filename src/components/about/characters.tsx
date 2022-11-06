@@ -145,15 +145,17 @@ const CharacterSelectionCarouselWindow = styled.div`
     background: white;
   }
 
-  @media (max-height: 779px) {
-    height: 480px;
-    top: 187px;
+  @media (max-height: 910px) {
+    height: 440px;
 
-    @media (min-width: 1520px) {
-      width: 1550px;
-      margin: 0 calc((100vw - 1550px) / 2);
-      @media (min-width: 1728px) {
-        margin: 0 calc((1728px - 1550px) / 2);
+    @media (max-height: 779px) {
+      top: 187px;
+      @media (min-width: 1520px) {
+        width: 1550px;
+        margin: 0 calc((100vw - 1550px) / 2);
+        @media (min-width: 1728px) {
+          margin: 0 calc((1728px - 1550px) / 2);
+        }
       }
     }
   }
@@ -168,7 +170,7 @@ const CharacterSelectionCarousel = styled.div`
 
   // overflow: hidden;
 
-  @media (max-height: 779px) {
+  @media (max-height: 910px) {
     @media (min-width: 1520px) {
       margin-left: 0px;
     }
@@ -197,14 +199,16 @@ const CharacterSelectionCarouselItems = styled.div`
     transform: scale(1.2);
     z-index: 1;
 
-    background: linear-gradient(180deg, #34312e 0%, #f3e2da 100%);
+    :nth-of-type(1) {
+      background: linear-gradient(180deg, #b72c63 0%, #eedede 100%);
+    }
   }
 
   :hover div {
     opacity: 0.3;
   }
 
-  @media (max-height: 779px) {
+  @media (max-height: 910px) {
     width: 189px;
     height: 350px;
   }
@@ -221,7 +225,7 @@ const CharacterSelectionCarouselItemImag = styled.img`
     transform: translate(0, 85px);
   }
 
-  @media (max-height: 779px) {
+  @media (max-height: 910px) {
     width: 540px;
   }
 `

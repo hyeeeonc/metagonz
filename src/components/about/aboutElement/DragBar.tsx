@@ -23,6 +23,7 @@ const DragBarBlock = styled.div`
   height: 29px;
 
   background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
 
   z-index: 5;
 `

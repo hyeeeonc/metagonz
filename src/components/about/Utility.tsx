@@ -15,6 +15,23 @@ const UtilityBlock = styled.main`
   overflow: hidden;
 
   transition: opacity 0.5s ease, visibility 0.5s ease;
+
+  @media (max-width: 767px) {
+    top: 268px;
+    left: 0px;
+
+    width: calc(100vw);
+    height: calc(100vh - calc(100vh - 100%) - 268px);
+
+    overflow-y: scroll;
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    ::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
+  }
 `
 
 const UtilityContentContainer = styled.div`
@@ -38,9 +55,23 @@ const UtilityContentContainer = styled.div`
   @media (max-height: 779px) {
     top: 160px;
   }
+
+  @media (max-width: 767px) {
+    position: static;
+    width: calc(100vw - 40px);
+    height: auto;
+    margin-left: 20px;
+    box-shadow: none;
+    background-color: none;
+    padding: 0;
+  }
 `
 
-const UtilityContentItems = styled.div``
+const UtilityContentItems = styled.div`
+  @media (max-width: 767px) {
+    margin-bottom: 30px;
+  }
+`
 
 const UtilityContentItemTitle = styled.div`
   font-family: 'SUIT';
@@ -58,7 +89,7 @@ const UtilityContentItemContent = styled.div`
   line-height: 19px;
 `
 
-const ConceptNftImageContainer = styled.div`
+const UtilityNftImageContainer = styled.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -67,14 +98,29 @@ const ConceptNftImageContainer = styled.div`
   height: calc(100vh - calc(100vh - 100%));
 
   transition: 0.5s ease;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
-const ConceptNftImage = styled.img`
+const UtilityNftImage = styled.img`
   position: absolute;
-  top: -70px;
-  left: -20px;
 
   width: 800px;
+
+  @media (max-width: 767px) {
+    width: 380px;
+  }
+`
+
+const UtilityMobileImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  margin-top: -50px;
+  @media (min-width: 768px) {
+    display: none;
+  }
 `
 
 const Utility = ({ edges }: { edges: CharacterType[] }) => {
@@ -89,20 +135,20 @@ const Utility = ({ edges }: { edges: CharacterType[] }) => {
         zIndex: tabNum != 4 ? 0 : 1,
       }}
     >
-      <ConceptNftImageContainer>
-        <ConceptNftImage
+      <UtilityNftImageContainer>
+        <UtilityNftImage
           style={{ left: -320 }}
           src={edges[4].node.pic.publicURL}
         />
-        <ConceptNftImage
+        <UtilityNftImage
           style={{ left: -115 }}
           src={edges[5].node.pic.publicURL}
         />
-        <ConceptNftImage
+        <UtilityNftImage
           src={edges[6].node.pic.publicURL}
           style={{ left: 160 }}
         />
-      </ConceptNftImageContainer>
+      </UtilityNftImageContainer>
       <UtilityContentContainer>
         <UtilityContentItems>
           <UtilityContentItemTitle>Club Free Pass</UtilityContentItemTitle>
@@ -168,6 +214,20 @@ const Utility = ({ edges }: { edges: CharacterType[] }) => {
           </UtilityContentItemContent>
         </UtilityContentItems>
       </UtilityContentContainer>
+      <UtilityMobileImageContainer>
+        <UtilityNftImage
+          style={{ left: -60 }}
+          src={edges[4].node.pic.publicURL}
+        />
+        <UtilityNftImage
+          style={{ left: 'calc(50vw - 190px)' }}
+          src={edges[5].node.pic.publicURL}
+        />
+        <UtilityNftImage
+          src={edges[6].node.pic.publicURL}
+          style={{ right: -100 }}
+        />
+      </UtilityMobileImageContainer>
     </UtilityBlock>
   )
 }

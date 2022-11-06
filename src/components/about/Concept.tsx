@@ -119,6 +119,13 @@ const Concept3DImageContainer = styled.div`
   right: 0px;
 
   transition: opacity 0.5s ease;
+
+  canvas {
+    image-rendering: -webkit-optimize-contrast;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-perspective: 1;
+  }
 `
 
 const ConceptNftImageContainer = styled.div`
@@ -183,14 +190,13 @@ const Concept = ({ edges }: { edges: CharacterType[] }) => {
       <Concept3DImageContainer>
         <canvas
           ref={canvasRef}
-          width="800"
-          height="1600"
+          width="650"
+          height="1900"
           style={{
-            visibility: conceptTab == '3d' ? 'visible' : 'hidden',
             opacity: conceptTab == '3d' ? 1 : 0,
-            transform: `scale(${0.6 + imgIdx * 0.01}) translate(${
-              (-120 * imgIdx) / 100 + 100
-            }px, ${(650 * imgIdx) / 100 - 380}px)`,
+            transform: `scale(${0.42 + imgIdx * 0.007}) translate(${
+              (-120 * imgIdx) / 100 + 80
+            }px, ${(1050 * imgIdx) / 100 - 900}px)`,
           }}
         />
       </Concept3DImageContainer>

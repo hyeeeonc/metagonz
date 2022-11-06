@@ -15,6 +15,23 @@ const StoryBlock = styled.main`
   overflow: hidden;
 
   transition: opacity 0.5s ease, visibility 0.5s ease;
+
+  @media (max-width: 767px) {
+    top: 268px;
+    left: 0px;
+
+    width: calc(100vw);
+    height: calc(100vh - calc(100vh - 100%) - 268px);
+
+    overflow-y: scroll;
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    ::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
+  }
 `
 
 const StoryContentContainer = styled.div`
@@ -32,6 +49,15 @@ const StoryContentContainer = styled.div`
   @media (max-height: 779px) {
     top: 180px;
   }
+
+  @media (max-width: 767px) {
+    position: static;
+    width: calc(100vw - 40px);
+    margin-left: 20px;
+    box-shadow: none;
+    background-color: none;
+    padding: 0;
+  }
 `
 
 const StoryContentNoBorder = styled.div`
@@ -47,6 +73,12 @@ const StoryContentNoBorder = styled.div`
   line-height: 19px;
 
   color: #000000;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: auto;
+    margin-bottom: 60px;
+  }
 `
 const StoryContentWithBorder = styled.div`
   display: flex;
@@ -59,6 +91,13 @@ const StoryContentWithBorder = styled.div`
 
   border-left: 1px solid black;
   border-right: 1px solid black;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: auto;
+
+    border: none;
+  }
 `
 
 const StoryContentWithBorderItems = styled.div`
@@ -68,6 +107,11 @@ const StoryContentWithBorderItems = styled.div`
   font-weight: 700;
 
   color: #000000;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    margin-bottom: 30px;
+  }
 `
 
 const StoryImageContainer = styled.div`
@@ -77,14 +121,37 @@ const StoryImageContainer = styled.div`
   right: 0px;
   width: 1000px;
   height: calc(100vh - calc(100vh - 100%));
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
-const Story = ({ edges }: { edges: CharacterType[] }) => {
+const StoryMobileImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  margin-top: -50px;
+  @media (min-width: 768px) {
+    display: none;
+  }
+`
+
+const Story = ({
+  edges,
+  isMobile,
+}: {
+  edges: CharacterType[]
+  isMobile: boolean
+}) => {
   const { tabNum, scrollHandler } = useContext(AboutTabContext)
 
   return (
     <StoryBlock
-      onWheel={scrollHandler}
+      onWheel={() => {
+        if (!isMobile) {
+          scrollHandler
+        }
+      }}
       style={{
         visibility: tabNum == 1 ? 'visible' : 'hidden',
         opacity: tabNum == 1 ? 1 : 0,
@@ -168,6 +235,32 @@ const Story = ({ edges }: { edges: CharacterType[] }) => {
           </StoryContentWithBorderItems>
         </StoryContentWithBorder>
       </StoryContentContainer>
+      <StoryMobileImageContainer>
+        <img
+          src={edges[0].node.pic.publicURL}
+          style={{
+            position: 'absolute',
+            left: '-100px',
+            height: 1000,
+          }}
+        />
+        <img
+          src={edges[1].node.pic.publicURL}
+          style={{
+            position: 'absolute',
+            left: 'calc(50vw - 150px)',
+            height: 1000,
+          }}
+        />
+        <img
+          src={edges[2].node.pic.publicURL}
+          style={{
+            position: 'absolute',
+            right: '-50px',
+            height: 1000,
+          }}
+        />
+      </StoryMobileImageContainer>
     </StoryBlock>
   )
 }
