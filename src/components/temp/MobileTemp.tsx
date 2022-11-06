@@ -45,6 +45,7 @@ const MobileTempChar = styled.img`
   position: absolute;
   left: calc((100vw - 1000px) / 2);
   width: 1000px;
+  transition: 0.3 ease;
 `
 
 const MobileTempText = styled.div`
@@ -68,31 +69,92 @@ const MobileTempText = styled.div`
   color: white;
 `
 
-type ImgType = {
-  file: {
+type Node = {
+  node: {
+    childImageSharp: {
+      fluid: {
+        originalName: string
+        src: string
+      }
+    }
+  }
+}
+
+type MobileImgType = {
+  background: {
     publicURL: string
   }
-  char: {
-    publicURL: string
+
+  allFile: {
+    edges: Node[]
   }
 }
 
 const MobileTemp = () => {
-  const homeImg: ImgType = useStaticQuery(graphql`
+  const mobileImages: MobileImgType = useStaticQuery(graphql`
     query {
-      file: file(relativePath: { eq: "images/tempback.jpg" }) {
+      background: file(relativePath: { eq: "images/tempback.jpg" }) {
         publicURL
       }
-      char: file(relativePath: { eq: "images/characters/01 Ara.png" }) {
-        publicURL
+      allFile(filter: { relativeDirectory: { eq: "images/characters" } }) {
+        edges {
+          node {
+            childImageSharp {
+              fluid {
+                originalName
+                src
+              }
+            }
+          }
+        }
       }
     }
   `)
+
+  const [selectedImg, setSelectedImg] = useState<number>(0)
+  const [imgOpacity, setImgOpacity] = useState<number>(1)
+  useEffect(() => {
+    const imgCount = mobileImages.allFile.edges.length
+    const changeChar: NodeJS.Timer = setInterval(() => {
+      setTimeout(() => {
+        setSelectedImg(before => {
+          while (true) {
+            const idx = Math.floor(imgCount * Math.random())
+            if (before === idx) continue
+            return idx
+          }
+        })
+      }, 500)
+    }, 5000)
+
+    const toggleOpacity: NodeJS.Timer = setInterval(() => {
+      setImgOpacity(0)
+      setTimeout(() => {
+        setImgOpacity(1)
+      }, 500)
+    }, 5000)
+
+    return () => {
+      clearInterval(changeChar)
+      clearInterval(toggleOpacity)
+    }
+  }, [])
+
+  useEffect(() => {
+    console.log(`opacity: ${imgOpacity}`)
+  }, [imgOpacity])
   return (
     <MobileTempBlock>
       <Global styles={reset} />
-      <MobileTempImage src={homeImg.file.publicURL} />
-      <MobileTempChar src={homeImg.char.publicURL} />
+      <MobileTempImage src={mobileImages.background.publicURL} />
+      <MobileTempChar
+        style={{
+          opacity: imgOpacity,
+        }}
+        src={
+          mobileImages.allFile.edges[selectedImg].node.childImageSharp.fluid.src
+        }
+      />
       <MobileLogoContainer>
         <svg
           width="133"
@@ -177,7 +239,6 @@ const MobileTemp = () => {
           </g>
         </svg>
       </MobileLogoContainer>
-      <MobileTempText> use PC or bigger screen</MobileTempText>
     </MobileTempBlock>
   )
 }
