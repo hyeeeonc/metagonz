@@ -26,7 +26,7 @@ const SNSBlock = styled.nav`
   }
 `
 
-const SNSItems = styled(Link)`
+const SNSItems = styled.a`
   cursor: pointer;
 
   transform: translate(0px, -50px);
@@ -50,7 +50,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        to="#"
+        href="#"
         onClick={() => {
           alert('will be released after minting')
         }}
@@ -75,7 +75,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        to="https://discord.gg/metaoctagon"
+        href="https://discord.gg/metaoctagon"
         target="_blank"
       >
         <svg
@@ -98,7 +98,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        to="https://mobile.twitter.com/metagonz_og"
+        href="https://mobile.twitter.com/metagonz_og"
         target="_blank"
       >
         <svg
@@ -121,7 +121,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        to="https://t.me/metaoctagon"
+        href="https://t.me/metaoctagon"
       >
         <svg
           width="23"
@@ -145,7 +145,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        to="https://medium.com/metaoctagon"
+        href="https://medium.com/metaoctagon"
         target="_blank"
       >
         <svg
@@ -187,7 +187,7 @@ const SNSMenu = ({ snsOpenState }: { snsOpenState: boolean }) => {
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        to="https://metaoctagon.io/"
+        href="https://metaoctagon.io/"
         target="_blank"
       >
         <svg

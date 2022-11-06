@@ -154,11 +154,13 @@ const HeaderMenuButton = styled.div`
 
 const HeaderMobileBackground = styled.div`
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: -1px;
+  left: -1px;
 
-  width: 100vw;
-  height: calc(100vh - calc(100vh - 100%));
+  width: calc(100vw + 1px);
+  height: calc(100vh - calc(100vh - 100%) + 1px);
+
+  overflow: hidden;
 
   background: linear-gradient(
     180deg,
@@ -400,8 +402,13 @@ const Header = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect width="22" height="1" fill="white" />
-            <rect y="7" width="22" height="1" fill="white" />
+            <rect width="22" height="1" fill={isDarkmode ? 'black' : 'white'} />
+            <rect
+              y="7"
+              width="22"
+              height="1"
+              fill={isDarkmode ? 'black' : 'white'}
+            />
           </svg>
         </HeaderMobileNavButton>
         <HeaderNavSNSButton onClick={snsOpenHandler}>

@@ -98,7 +98,7 @@ const MenuButtonContainer = styled.div`
     height: calc(300px * (1728px / 100vw));
   }
 
-  @media (hover: hover) {
+  @media (min-width: 768px) {
     :hover {
       width: 370px;
       height: 500px;
@@ -156,6 +156,8 @@ const MenuButtonContainer = styled.div`
   @media (max-width: 767px) {
     width: 160px;
     height: 160px;
+
+    transition: none;
   }
 `
 
@@ -304,6 +306,15 @@ const MenuButtonTitle = styled.div`
   }
 `
 
+const MenuMobileSpacer = styled.div`
+  position: absolute;
+  top: 791px;
+  left: 0;
+
+  width: 100vw;
+  height: 60px;
+`
+
 type MenuImgType = {
   news: {
     publicURL: string
@@ -343,30 +354,19 @@ const MenuMobileButtons = ({
   title: string
 }) => {
   return (
-    <Link
-      to="#"
-      // to={octagon.url}
-      // onClick={() => {
-      //   if (i == 1) linkHandler()
-      //   else {
-      //     alert('Comming Soon')
-      //   }
-      // }}
+    <MenuButtonContainer
+      className="container"
+      style={{
+        top: top,
+        right: `calc(50vw + ${right}px)`,
+      }}
     >
-      <MenuButtonContainer
-        className="container"
-        style={{
-          top: top,
-          right: `calc(50vw + ${right}px)`,
-        }}
-      >
-        <MenuButtonBackground className="background"></MenuButtonBackground>
-        <MenuButtonImageContainer className="imgContainer">
-          <MenuButtonImage className="img" src={imgSrc} />
-        </MenuButtonImageContainer>
-        <MenuButtonTitle> {title}</MenuButtonTitle>
-      </MenuButtonContainer>
-    </Link>
+      <MenuButtonBackground className="background"></MenuButtonBackground>
+      <MenuButtonImageContainer className="imgContainer">
+        <MenuButtonImage className="img" src={imgSrc} />
+      </MenuButtonImageContainer>
+      <MenuButtonTitle> {title}</MenuButtonTitle>
+    </MenuButtonContainer>
   )
 }
 
@@ -608,10 +608,89 @@ const Menu = () => {
             <MenuMobileButtons
               top={160}
               right={24}
-              imgSrc={octagons[3].img}
+              imgSrc={images.roadmap.publicURL}
               title="roadmap"
             />
           </Link>
+          <Link
+            to="#"
+            onClick={() => {
+              alert('Comming Soon')
+            }}
+          >
+            <MenuMobileButtons
+              top={355}
+              right={105}
+              imgSrc={images.gallery.publicURL}
+              title="gallery"
+            />
+          </Link>
+          <Link
+            to="/about"
+            onClick={() => {
+              linkHandler()
+            }}
+          >
+            <MenuMobileButtons
+              top={298}
+              right={-33}
+              imgSrc={images.about.publicURL}
+              title="about"
+            />
+          </Link>
+          <Link
+            to="#"
+            onClick={() => {
+              alert('Comming Soon')
+            }}
+          >
+            <MenuMobileButtons
+              top={241}
+              right={-171}
+              imgSrc={images.more.publicURL}
+              title="more"
+            />
+          </Link>
+          <Link
+            to="#"
+            onClick={() => {
+              alert('Comming Soon')
+            }}
+          >
+            <MenuMobileButtons
+              top={493}
+              right={48}
+              imgSrc={images.news.publicURL}
+              title="news"
+            />
+          </Link>
+          <Link
+            to="#"
+            onClick={() => {
+              alert('Comming Soon')
+            }}
+          >
+            <MenuMobileButtons
+              top={631}
+              right={-9}
+              imgSrc={images.community.publicURL}
+              title="community"
+            />
+          </Link>
+          <Link
+            to="#"
+            onClick={() => {
+              alert('Comming Soon')
+            }}
+          >
+            <MenuMobileButtons
+              top={574}
+              right={-148}
+              imgSrc={images.submit.publicURL}
+              title="submit"
+            />
+          </Link>
+          <MenuMobileSpacer />
         </>
       )}
     </MenuBackground>
