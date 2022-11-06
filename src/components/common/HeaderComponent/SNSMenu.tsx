@@ -17,6 +17,13 @@ const SNSBlock = styled.nav`
   height: 148px;
 
   transition: z-index: 1s linear;
+
+  @media(max-width: 767px) {
+    top: 70px;
+    right: 67px;
+
+    height: 150px;
+  }
 `
 
 const SNSItems = styled(Link)`

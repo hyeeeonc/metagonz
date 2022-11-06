@@ -1,13 +1,11 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { useMediaQuery } from 'react-responsive'
 import { graphql, useStaticQuery } from 'gatsby'
 
 import Audio from './common/Audio'
 import Footer from './common/Footer'
 import Header from './common/Header'
 import AppContextProvier from '../contexts/AppContextProvider'
-import MobileTemp from './temp/MobileTemp'
 
 type LayoutProps = {
   children: React.ReactNode
@@ -20,13 +18,6 @@ type faviconType = {
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  const isPc = useMediaQuery({
-    query: '(min-width:768px)',
-  })
-  const isMobile = useMediaQuery({
-    query: '(max-width:767px)',
-  })
-
   const favicon: faviconType = useStaticQuery(graphql`
     query {
       file(relativePath: { eq: "images/favicon.ico" }) {
@@ -82,19 +73,11 @@ const Layout = ({ children }: LayoutProps) => {
 
         <title>METAGONZ</title>
       </Helmet>
-      {isPc && (
-        <>
-          {children}
-          <Header />
-          <Audio />
-          <Footer />
-        </>
-      )}
-      {isMobile && (
-        <>
-          <MobileTemp />
-        </>
-      )}
+
+      {children}
+      <Header />
+      <Audio />
+      <Footer />
     </AppContextProvier>
   )
 }

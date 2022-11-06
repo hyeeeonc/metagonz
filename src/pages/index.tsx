@@ -13,6 +13,7 @@ import styled from '@emotion/styled'
 import { graphql, useStaticQuery } from 'gatsby'
 
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
+import { useMediaQuery } from 'react-responsive'
 
 const IndexBlock = styled.div`
   width: 100vw;
@@ -28,15 +29,65 @@ const IndexBackgroundImageContainer = styled.div`
   align-items: center;
 `
 
+const MobileIndexBlock = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: calc(100vh - calc(100vh - 100%));
+
+  overflow: hidden;
+`
+
+const MobileIndexImage = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: calc(100vh - calc(100vh - 100%));
+
+  overflow: hidden;
+`
+
+const MobileIndexChar = styled.img`
+  position: absolute;
+  top: 20px;
+  left: calc((100vw - 700px) / 2);
+  width: 700px;
+  transition: opacity 0.3s ease;
+`
+
 const IndexBackgroundImage = styled.video``
 
-type ImgType = {
-  file: {
+type Node = {
+  node: {
     publicURL: string
   }
 }
 
+type ImgType = {
+  video: {
+    publicURL: string
+  }
+  background: {
+    publicURL: string
+  }
+
+  allFile: {
+    edges: Node[]
+  }
+}
+
 const IndexPage: FunctionComponent = function () {
+  const isPc = useMediaQuery({
+    query: '(min-width:768px)',
+  })
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  })
+
   const [windowSize, setWindowSize] = useState<{
     width: number
     height: number
@@ -81,41 +132,108 @@ const IndexPage: FunctionComponent = function () {
     }
   }, [windowSize])
 
-  const homeVideo: ImgType = useStaticQuery(graphql`
+  const assets: ImgType = useStaticQuery(graphql`
     query {
-      file(relativePath: { eq: "videos/home.mp4" }) {
+      video: file(relativePath: { eq: "videos/home.mp4" }) {
         publicURL
+      }
+      background: file(relativePath: { eq: "images/tempback.jpg" }) {
+        publicURL
+      }
+      allFile(filter: { relativeDirectory: { eq: "images/characters" } }) {
+        edges {
+          node {
+            publicURL
+          }
+        }
       }
     }
   `)
+
+  //for mobile
+  const [selectedImg, setSelectedImg] = useState<number>(4)
+  const [imgOpacity, setImgOpacity] = useState<number>(1)
+  useEffect(() => {
+    const imgCount = assets.allFile.edges.length
+    const changeChar: NodeJS.Timer = setInterval(() => {
+      setTimeout(() => {
+        setSelectedImg(before => {
+          // eslint-disable-next-line
+          while (true) {
+            const idx = Math.floor(imgCount * Math.random())
+            if (before === idx) continue
+            return idx
+          }
+        })
+      }, 500)
+    }, 5000)
+
+    const toggleOpacity: NodeJS.Timer = setInterval(() => {
+      setImgOpacity(0)
+      setTimeout(() => {
+        setImgOpacity(1)
+      }, 500)
+    }, 5000)
+
+    return () => {
+      clearInterval(changeChar)
+      clearInterval(toggleOpacity)
+    }
+  }, [])
 
   return (
     <>
       <Global styles={reset} />
       <Global styles={indexStyle} />
-
-      <IndexBlock>
-        <IndexBackgroundImageContainer
-          style={{ alignItems: imageSize === false ? `none` : `center` }}
-        >
-          <IndexBackgroundImage
-            autoPlay
-            muted
-            loop
-            playsInline
-            style={
-              imageSize === false
-                ? {
-                    height: '100vh',
-                    width: 'auto',
-                  }
-                : { width: '100vw', height: 'auto' }
-            }
+      {isPc && (
+        <IndexBlock>
+          <IndexBackgroundImageContainer
+            style={{ alignItems: imageSize === false ? `none` : `center` }}
           >
-            <source src={homeVideo.file.publicURL} type="video/mp4" />
-          </IndexBackgroundImage>
-        </IndexBackgroundImageContainer>
-      </IndexBlock>
+            <IndexBackgroundImage
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={
+                imageSize === false
+                  ? {
+                      height: '100vh',
+                      width: 'auto',
+                    }
+                  : { width: '100vw', height: 'auto' }
+              }
+            >
+              <source src={assets.video.publicURL} type="video/mp4" />
+            </IndexBackgroundImage>
+          </IndexBackgroundImageContainer>
+        </IndexBlock>
+      )}
+      {isMobile && (
+        <>
+          <MobileIndexBlock>
+            <Global styles={reset} />
+            <MobileIndexImage src={assets.background.publicURL} />
+            <MobileIndexChar
+              style={{
+                opacity: imgOpacity,
+                top: selectedImg == 3 ? -50 : 20,
+                transform:
+                  selectedImg == 2
+                    ? `translate(50px, 0)`
+                    : selectedImg == 3
+                    ? `translate(-38px, 0)`
+                    : selectedImg == 6
+                    ? `translate(58px, 0)`
+                    : selectedImg == 7
+                    ? `translate(-28px, 0)`
+                    : '',
+              }}
+              src={assets.allFile.edges[selectedImg].node.publicURL}
+            />
+          </MobileIndexBlock>
+        </>
+      )}
     </>
   )
 }

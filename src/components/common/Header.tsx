@@ -12,6 +12,7 @@ import { Link } from 'gatsby'
 import Menu from './HeaderComponent/Menu'
 import { DarkmodeContext } from '../../contexts/DarkmodeProvider'
 import SNSMenu from './HeaderComponent/SNSMenu'
+import MobileNav from './HeaderComponent/MobileNav'
 
 const HeaderBlock = styled.header`
   width: 100%;
@@ -34,6 +35,7 @@ const HeaderLogoContainer = styled.div`
   width: 132.98px;
   height: 40px;
   margin-left: 30px;
+  margin-top: -12px;
   cursor: pointer;
 
   z-index: 2;
@@ -50,6 +52,10 @@ const HeaderButtonContainer = styled.div`
 
   width: 378px;
   height: 42px;
+
+  @media (max-width: 767px) {
+    width: 106px;
+  }
 `
 
 const HeaderNavContainer = styled.nav`
@@ -58,6 +64,10 @@ const HeaderNavContainer = styled.nav`
   justify-content: space-between;
 
   width: 282px;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
 const HeaderNavItemsLightMode = styled(Link)`
@@ -118,18 +128,59 @@ const HeaderNavItemsDarkMode = styled(Link)`
   }
 `
 
+const HeaderMobileNavButton = styled.nav`
+  cursor: pointer;
+`
+
 const HeaderNavSNSButton = styled.div`
   cursor: pointer;
+
+  @media (max-width: 767px) {
+    path {
+      stroke-width: 1.2;
+    }
+  }
 `
 
 const HeaderMenuButton = styled.div`
   cursor: pointer;
+
+  @media (max-width: 767px) {
+    rect {
+      width: 2px;
+      height: 2px;
+    }
+  }
+`
+
+const HeaderMobileBackground = styled.div`
+  position: fixed;
+  top: 0px;
+  left: 0px;
+
+  width: 100vw;
+  height: calc(100vh - calc(100vh - 100%));
+
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  backdrop-filter: blur(5px);
+
+  transition: 0.5s ease;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
 `
 
 const Header = () => {
   const [snsOpenState, setSnsOpenState] = useState<boolean>(false)
+  const [mobileNavOpenState, setMobileNavOpenState] = useState<boolean>(false)
   const [hover, setHover] = useState<string>('')
   const { isDarkmode, toggleMenu, menuOpened } = useContext(DarkmodeContext)
+  const [mobileBackground, setMobileBackground] = useState<boolean>(false)
 
   // LightMode / DarkMode에 따라서 NavBar 아이템 color 변경
   const HeaderNavItems = useMemo(() => {
@@ -142,12 +193,34 @@ const Header = () => {
     }
   }, [menuOpened])
 
+  const mobileBackgroundHandler = () => {
+    if (mobileBackground) setMobileBackground(false)
+    else setMobileBackground(true)
+  }
+
   const snsOpenHandler = () => {
+    if (mobileNavOpenState) setMobileNavOpenState(false)
+    else mobileBackgroundHandler()
+
     if (snsOpenState) setSnsOpenState(false)
     else setSnsOpenState(true)
   }
+
+  const mobileNavOpenHandler = () => {
+    if (snsOpenState) setSnsOpenState(false)
+    else mobileBackgroundHandler()
+
+    if (mobileNavOpenState) setMobileNavOpenState(false)
+    else setMobileNavOpenState(true)
+  }
+
   return (
     <HeaderBlock>
+      <HeaderMobileBackground
+        style={{
+          opacity: mobileBackground ? 1 : 0,
+        }}
+      />
       <Menu />
       <HeaderLogoContainer
         onClick={linkHandler}
@@ -291,7 +364,7 @@ const Header = () => {
             onClick={() => {
               alert('Comming Soon')
             }}
-            to={`/#`}
+            to={`#`}
           >
             minting
           </HeaderNavItems>
@@ -300,7 +373,7 @@ const Header = () => {
             onClick={() => {
               alert('Comming Soon')
             }}
-            to={`/#`}
+            to={`#`}
           >
             gallery
           </HeaderNavItems>
@@ -309,11 +382,23 @@ const Header = () => {
             onClick={() => {
               alert('Comming Soon')
             }}
-            to={`/#`}
+            to={`#`}
           >
             My Page
           </HeaderNavItems>
         </HeaderNavContainer>
+        <HeaderMobileNavButton onClick={mobileNavOpenHandler}>
+          <svg
+            width="22"
+            height="20"
+            viewBox="0 0 22 8"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="22" height="1" fill="white" />
+            <rect y="7" width="22" height="1" fill="white" />
+          </svg>
+        </HeaderMobileNavButton>
         <HeaderNavSNSButton onClick={snsOpenHandler}>
           <svg
             width="20"
@@ -481,6 +566,7 @@ const Header = () => {
           )}
         </HeaderMenuButton>
       </HeaderButtonContainer>
+      <MobileNav mobileNavOpenState={mobileNavOpenState} />
       <SNSMenu snsOpenState={snsOpenState} />
     </HeaderBlock>
   )
