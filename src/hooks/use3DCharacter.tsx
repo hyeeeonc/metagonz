@@ -2,12 +2,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 
 type Node = {
   node: {
-    childImageSharp: {
-      fluid: {
-        originalName: string
-        src: string
-      }
-    }
+    publicURL: string
   }
 }
 
@@ -23,12 +18,7 @@ const use3DCharacter = (): [Node[], (index: number) => string] => {
       allFile(filter: { relativeDirectory: { eq: "images/3ds" } }) {
         edges {
           node {
-            childImageSharp {
-              fluid {
-                originalName
-                src
-              }
-            }
+            publicURL
           }
         }
       }
@@ -39,10 +29,9 @@ const use3DCharacter = (): [Node[], (index: number) => string] => {
     if (index <= 0 || index > 100) return ''
     const result = edges.find(
       ({ node }) =>
-        node.childImageSharp.fluid.originalName ===
-        `360_0001${`${index - 1}`.padStart(3, '0')}.jpg`,
+        node.publicURL === `360_0001${`${index - 1}`.padStart(3, '0')}.jpg`,
     )
-    return result?.node.childImageSharp.fluid.src ?? ''
+    return result?.node.publicURL ?? ''
   }
 
   return [edges, getImageSrc]

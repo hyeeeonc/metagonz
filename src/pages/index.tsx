@@ -13,7 +13,6 @@ import styled from '@emotion/styled'
 import { graphql, useStaticQuery } from 'gatsby'
 
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
-import HeadTag from 'components/common/HeadTag'
 
 const IndexBlock = styled.div`
   width: 100vw;
@@ -92,7 +91,6 @@ const IndexPage: FunctionComponent = function () {
 
   return (
     <>
-      <HeadTag />
       <Global styles={reset} />
       <Global styles={indexStyle} />
 
