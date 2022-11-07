@@ -56,6 +56,7 @@ const AudioProvider = ({ children }: ComponentProps<FC<PropsWithChildren>>) => {
     if (isInitialLoad) {
       setIsInitialLoad(false)
       if (audioRef.current) {
+        audioRef.current.volume = 0.3
         audioRef.current.load()
       }
     } else {

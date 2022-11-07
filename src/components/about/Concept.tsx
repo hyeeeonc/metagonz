@@ -254,8 +254,10 @@ const Concept = ({
   const [conceptTab, setConceptTap] = useState<string>('3d')
   const [imgIdx, setImgIdx] = useState<number>(1)
   const [_, getImageSrc] = use3DCharacter()
-  let videoImageCopy: any[] = []
+  const videoImageCopy: any[] = []
+  const mobilevideoImageCopy: any[] = []
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const canvasPcRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     /**
@@ -267,6 +269,7 @@ const Concept = ({
         const imgElement = new Image()
         imgElement.src = `${getImageSrc(i)}`
         videoImageCopy.push(imgElement)
+        mobilevideoImageCopy.push(imgElement)
       }
     }
 
@@ -274,6 +277,12 @@ const Concept = ({
 
     // Canvas에 Image 할당
     if (videoImageCopy[imgIdx]) {
+      canvasPcRef.current
+        ?.getContext('2d')
+        ?.drawImage(videoImageCopy[imgIdx], 0, 0)
+    }
+
+    if (mobilevideoImageCopy[imgIdx]) {
       canvasRef.current
         ?.getContext('2d')
         ?.drawImage(videoImageCopy[imgIdx], 0, 0)
@@ -295,7 +304,7 @@ const Concept = ({
     >
       <Concept3DImageContainer>
         <canvas
-          ref={canvasRef}
+          ref={canvasPcRef}
           width="650"
           height="1900"
           style={{
@@ -377,7 +386,8 @@ const Concept = ({
 
         <ConceptMobileNftImageContainer
           style={{
-            display: conceptTab == 'nft' ? 'block' : 'none',
+            display:
+              conceptTab == 'nft' ? (isMobile ? 'block' : 'none') : 'none',
             opacity: conceptTab == 'nft' ? 1 : 0,
           }}
         >
@@ -397,7 +407,7 @@ const Concept = ({
           justifyContent: 'center',
           marginTop: 150,
 
-          display: conceptTab == '3d' ? 'flex' : 'none',
+          display: conceptTab == '3d' ? (isMobile ? 'flex' : 'none') : 'none',
           opacity: conceptTab == '3d' ? 1 : 0,
         }}
       >

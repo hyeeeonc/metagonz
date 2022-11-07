@@ -83,10 +83,10 @@ const Footer: FunctionComponent = function () {
   const { isDarkmode } = useContext(DarkmodeContext)
   const docxSrc: docxType = useStaticQuery(graphql`
     query {
-      policy: file(relativePath: { eq: "document/Privacy Policy.docx" }) {
+      policy: file(relativePath: { eq: "document/PRIVACY POLICY.pdf" }) {
         publicURL
       }
-      use: file(relativePath: { eq: "document/Privacy Policy.docx" }) {
+      use: file(relativePath: { eq: "document/TERMS OF USE.pdf" }) {
         publicURL
       }
     }
@@ -112,7 +112,7 @@ const Footer: FunctionComponent = function () {
           color: isDarkmode ? 'black' : 'white',
         }}
         href={docxSrc.policy.publicURL}
-        download="Privacy Policy.docx"
+        download="PRIVACY POLICY.pdf"
       >
         Privacy policy
       </FooterLinker>
@@ -121,7 +121,7 @@ const Footer: FunctionComponent = function () {
           color: isDarkmode ? 'black' : 'white',
         }}
         href={docxSrc.use.publicURL}
-        download="1.7.7 TERMS OF USE.docx"
+        download="TERMS OF USE.pdf"
       >
         terms of use
       </FooterLinker>
