@@ -79,9 +79,11 @@ const CharacterSelectoritems = styled.div`
   cursor: pointer;
 
   transition: 0.3s ease;
-  :hover {
-    opacity: 1;
-    color: #6200ee;
+  @media (min-width: 768px) {
+    :hover {
+      opacity: 1;
+      color: #6200ee;
+    }
   }
 
   @media (max-width: 767px) {
@@ -546,7 +548,12 @@ const Characters = ({
           all
         </CharacterSelectoritems>
         {edges.map(({ node }, index) => (
-          <CharacterSelectoritems onClick={() => setSelected(index)}>
+          <CharacterSelectoritems
+            style={{
+              opacity: selected == index ? 1 : 0.3,
+            }}
+            onClick={() => setSelected(index)}
+          >
             {node.name}
           </CharacterSelectoritems>
         ))}
@@ -598,10 +605,10 @@ const Characters = ({
           style={{
             opacity: selected != -1 ? 1 : 0,
             zIndex: selected != -1 ? 0 : -1,
-            top: selected == 2 ? 370 : 400,
-            transform: `scale(${1 + imgIdx * 0.005}) translate(calc(-50%), ${
-              (1000 * imgIdx * 0.005 - 180) / 2
-            }px)`,
+            top: selected == 2 ? 450 : 500,
+            transform: `scale(${1 + imgIdx * 0.008}) translate(${
+              (-400 + 400 * imgIdx * 0.005) / 2
+            }px, ${(700 * imgIdx * 0.005 - 180) / 2}px)`,
           }}
           src={edges[selected]?.node.pic.publicURL}
         />

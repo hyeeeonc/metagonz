@@ -29,7 +29,6 @@ const DragBarBlock = styled.div`
 
   @media (max-width: 767px) {
     position: absolute;
-    bottom: none;
     top: 400px;
     left: calc(50vw - 119px);
 

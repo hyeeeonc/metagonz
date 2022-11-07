@@ -190,6 +190,23 @@ const Concept3DImageContainer = styled.div`
     backface-visibility: hidden;
     -webkit-perspective: 1;
   }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+`
+
+const ConceptMobile3DImageContainer = styled.canvas`
+  transition: opacity 0.5s ease;
+
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-perspective: 1;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
 `
 
 const ConceptNftImageContainer = styled.div`
@@ -276,7 +293,7 @@ const Concept = ({
         zIndex: tabNum != 3 ? 0 : 1,
       }}
     >
-      {/* <Concept3DImageContainer>
+      <Concept3DImageContainer>
         <canvas
           ref={canvasRef}
           width="650"
@@ -288,7 +305,7 @@ const Concept = ({
             }px, ${(1050 * imgIdx) / 100 - 900}px)`,
           }}
         />
-      </Concept3DImageContainer> */}
+      </Concept3DImageContainer>
 
       <ConceptNftImageContainer
         style={{
@@ -360,7 +377,7 @@ const Concept = ({
 
         <ConceptMobileNftImageContainer
           style={{
-            visibility: conceptTab == 'nft' ? 'visible' : 'hidden',
+            display: conceptTab == 'nft' ? 'block' : 'none',
             opacity: conceptTab == 'nft' ? 1 : 0,
           }}
         >
@@ -374,6 +391,29 @@ const Concept = ({
           />
         </ConceptMobileNftImageContainer>
       </ConceptContentContainer>
+      <div
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: 150,
+
+          display: conceptTab == '3d' ? 'flex' : 'none',
+          opacity: conceptTab == '3d' ? 1 : 0,
+        }}
+      >
+        <ConceptMobile3DImageContainer
+          ref={canvasRef}
+          width="650"
+          height="1900"
+          style={{
+            width: `${325 * (0.9 + imgIdx * 0.007)}px`,
+            height: `${950 * (0.9 + imgIdx * 0.007)}px`,
+            marginLeft: `calc(-(100vw + 650px * ${0.42 + imgIdx * 0.005}) / 2)`,
+            opacity: conceptTab == '3d' ? 1 : 0,
+            // transform: `translate(0px, ${(1050 * imgIdx) / 100 - 900}px)`,
+          }}
+        />
+      </div>
 
       <DragBar
         page="concept"
