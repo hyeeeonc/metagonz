@@ -159,6 +159,19 @@ const DragBar = ({
     [isDrag, offsetX, dragProgress],
   )
 
+  const touchHandler = useCallback(
+    (e: React.TouchEvent) => {
+      const progress = e.touches[0].clientX - offsetX
+      if (isDrag) {
+        if (progress >= 2 && progress <= 200) {
+          setDragProgress(progress)
+          setImgIdx(Math.ceil(progress / 2))
+        }
+      }
+    },
+    [isDrag, offsetX, dragProgress],
+  )
+
   return (
     <DragBarBlock
       style={{
@@ -187,7 +200,10 @@ const DragBar = ({
           strokeLinejoin="round"
         />
       </DragBarIcon>
-      <DragBarContainer onMouseMove={mouseMoveHandler}>
+      <DragBarContainer
+        onMouseMove={mouseMoveHandler}
+        onTouchMove={touchHandler}
+      >
         {page == 'concept' ? '<' : '-'}
         <DragBarBodyBackground>
           <DragBarBodyProgressBar
@@ -199,6 +215,12 @@ const DragBar = ({
             ref={barController}
             onMouseDown={() => {
               setIsDrag(true)
+            }}
+            onTouchStart={() => {
+              setIsDrag(true)
+            }}
+            onTouchEnd={() => {
+              setIsDrag(false)
             }}
             style={{
               left: `${dragProgress - 10}px`,
