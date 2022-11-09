@@ -200,7 +200,7 @@ const Utility = ({
             MetaOctagon Universe’s Limited 3D Avatar Lucky Draw Ticket
           </UtilityContentItemTitle>
           <UtilityContentItemContent>
-            Chance to get a limited edition 3D avatar with lucky draw
+            Chance to get a limited edition 3D avatar with lucky draw.
           </UtilityContentItemContent>
         </UtilityContentItems>
 
@@ -210,7 +210,7 @@ const Utility = ({
           </UtilityContentItemTitle>
           <UtilityContentItemContent>
             You can participate in NFT airdrop, an item that can customize your
-            character
+            character.
           </UtilityContentItemContent>
         </UtilityContentItems>
 

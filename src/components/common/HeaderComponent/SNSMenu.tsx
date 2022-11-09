@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'gatsby'
 import { DarkmodeContext } from '../../../contexts/DarkmodeProvider'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const SNSBlock = styled.nav`
   position: fixed;
@@ -14,25 +15,31 @@ const SNSBlock = styled.nav`
   align-items: center;
 
   width: 25px;
-  height: 148px;
+  height: 200px;
 
   transition: z-index: 1s linear;
 
   @media(max-width: 767px) {
     top: 70px;
     right: 67px;
-
-    height: 150px;
   }
 `
 
 const SNSItems = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 
   transform: translate(0px, -50px);
 `
 
 //interface SNSMenu
+type ImgType = {
+  octagonLogo: {
+    publicURL: string
+  }
+}
 
 const SNSMenu = ({
   snsOpenState,
@@ -42,7 +49,13 @@ const SNSMenu = ({
   mobileBackground: boolean
 }) => {
   const { isDarkmode } = useContext(DarkmodeContext)
-
+  const logo: ImgType = useStaticQuery(graphql`
+    query {
+      octagonLogo: file(relativePath: { eq: "images/octagonLogo.png" }) {
+        publicURL
+      }
+    }
+  `)
   return (
     <SNSBlock
       style={{
@@ -56,10 +69,8 @@ const SNSMenu = ({
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        href="#"
-        onClick={() => {
-          alert('will be released after minting')
-        }}
+        href="https://opensea.io/collection/metagonz8"
+        target="_blank"
       >
         <svg
           width="23"
@@ -194,6 +205,37 @@ const SNSMenu = ({
           </defs>
         </svg>
       </SNSItems>
+      {/* linktree */}
+      <SNSItems
+        style={{
+          transition: '0.8s ease',
+          opacity: snsOpenState ? 1 : 0,
+          transform: snsOpenState ? 'translate(0px, 0px)' : '',
+        }}
+        href="https://linktr.ee/metaoctagon"
+        target="_blank"
+      >
+        <svg
+          width="21"
+          height="24"
+          viewBox="0 0 28 35"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M11.5625 23.0132H16.5402V34.2007H11.5625V23.0132Z"
+            fill={isDarkmode ? (mobileBackground ? 'white' : 'black') : 'white'}
+          />
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M0.0529248 11.5608H8.51161L2.48932 5.8598L5.8078 2.47818L11.5376 8.33798V0H16.5153V8.33612L22.2433 2.47632L25.5617 5.85794L19.5395 11.558H28V16.273H19.4865L25.5367 22.1328L22.2182 25.4364L14 17.2052L5.7818 25.4364L2.46332 22.1328L8.51346 16.273H0V11.5608H0.0529248Z"
+            fill={isDarkmode ? (mobileBackground ? 'white' : 'black') : 'white'}
+          />
+        </svg>
+      </SNSItems>
       {/* metaoctagon */}
       <SNSItems
         style={{
@@ -204,18 +246,12 @@ const SNSMenu = ({
         href="https://metaoctagon.io/"
         target="_blank"
       >
-        <svg
-          width="20"
-          height="12"
-          viewBox="0 0 20 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M16.326 0H14.5326L10.3278 4.20482L6.11943 0H0.739258V12H6.11943L10.3243 7.79518L14.5291 12H19.9092V0H16.3225H16.326ZM4.32604 10.203V1.79339L8.53086 5.99821L4.32604 10.203ZM16.326 10.203L12.1212 5.99821L16.326 1.79339V10.203Z"
-            fill={isDarkmode ? (mobileBackground ? 'white' : 'black') : 'white'}
-          />
-        </svg>
+        <img
+          style={{
+            width: 23,
+          }}
+          src={logo.octagonLogo.publicURL}
+        />
       </SNSItems>
     </SNSBlock>
   )

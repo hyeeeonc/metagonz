@@ -141,7 +141,7 @@ const IndexPage: FunctionComponent = function () {
       video: file(relativePath: { eq: "videos/home.mp4" }) {
         publicURL
       }
-      background: file(relativePath: { eq: "images/tempback.jpg" }) {
+      background: file(relativePath: { eq: "images/mobilehome.jpg" }) {
         publicURL
       }
       allFile(
@@ -160,6 +160,7 @@ const IndexPage: FunctionComponent = function () {
   //for mobile
   const [selectedImg, setSelectedImg] = useState<number>(getRandomImgIdx())
   const [imgOpacity, setImgOpacity] = useState<number>(1)
+
   useEffect(() => {
     const imgCount = assets.allFile.edges.length
     const changeChar: NodeJS.Timer = setInterval(() => {
@@ -236,7 +237,7 @@ const IndexPage: FunctionComponent = function () {
                     ? `translate(-28px, 0)`
                     : '',
               }}
-              src={assets.allFile.edges[selectedImg].node.publicURL}
+              src={assets.allFile.edges[selectedImg]?.node.publicURL}
             />
           </MobileIndexBlock>
         </>
