@@ -80,6 +80,10 @@ type ImgType = {
   }
 }
 
+const getRandomImgIdx = () => {
+  return Math.floor(Math.random() * 8)
+}
+
 const IndexPage: FunctionComponent = function () {
   const isPc = useMediaQuery({
     query: '(min-width:768px)',
@@ -154,7 +158,7 @@ const IndexPage: FunctionComponent = function () {
   `)
 
   //for mobile
-  const [selectedImg, setSelectedImg] = useState<number>(0)
+  const [selectedImg, setSelectedImg] = useState<number>(getRandomImgIdx())
   const [imgOpacity, setImgOpacity] = useState<number>(1)
   useEffect(() => {
     const imgCount = assets.allFile.edges.length
