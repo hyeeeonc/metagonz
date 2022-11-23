@@ -583,7 +583,7 @@ const Menu = () => {
               <Link
                 to={octagon.url}
                 onClick={() => {
-                  if (i == 1) linkHandler()
+                  if (i == 1 || i == 2) linkHandler()
                   else {
                     alert('Comming Soon')
                   }

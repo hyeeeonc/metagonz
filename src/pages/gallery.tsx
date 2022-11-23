@@ -35,9 +35,9 @@ const GalleryNftContainer = styled.div`
   margin-top: 150px;
   margin-bottom: 100px;
 
-  display: flex:
+  display: flex;
   flex-wrap: wrap;
-  width: 1500px
+  width: 1500px;
 `
 
 const GalleryNftItems = styled.div`
@@ -46,14 +46,17 @@ const GalleryNftItems = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
+
+  margin: 0px 10px;
 `
 
 const GalleryNftImageContainer = styled.div`
   width: 320px;
   height: 420px;
 
-  margin: 0px 10px;
 
+
+  background: red;
   video, img {
     width: 100%
     height: auto;
@@ -90,9 +93,9 @@ const GalleryNftItemComponent = () => {
     <GalleryNftItems>
       <GalleryNftImageContainer>
         <video></video>
-        <GalleryNftItemAuthor>META GONZ</GalleryNftItemAuthor>
-        <GalleryNftItemNumber>NO. 0001</GalleryNftItemNumber>
       </GalleryNftImageContainer>
+      <GalleryNftItemAuthor>META GONZ</GalleryNftItemAuthor>
+      <GalleryNftItemNumber>NO. 0001</GalleryNftItemNumber>
     </GalleryNftItems>
   )
 }
@@ -114,7 +117,25 @@ const GalleryPage = () => {
 
   return (
     <GalleryBlock>
-      <GalleryNftContainer></GalleryNftContainer>
+      <GalleryNftContainer>
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+        <GalleryNftItemComponent />
+      </GalleryNftContainer>
     </GalleryBlock>
   )
 }
