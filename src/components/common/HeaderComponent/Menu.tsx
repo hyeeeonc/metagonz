@@ -440,7 +440,7 @@ const Menu = () => {
       531,
       990,
       images.gallery.publicURL,
-      '',
+      '/gallery',
       'gallery',
       2,
     )

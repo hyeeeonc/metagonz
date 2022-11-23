@@ -12,10 +12,6 @@ import { Global } from '@emotion/react'
 import { AboutTabContext } from '../contexts/AboutTabProvider'
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 
-import Story from 'components/about/Story'
-import Characters from 'components/about/characters'
-import Concept from 'components/about/Concept'
-import Utility from 'components/about/Utility'
 import { graphql, useStaticQuery } from 'gatsby'
 import { globalHistory } from '@reach/router'
 import { useMediaQuery } from 'react-responsive'
@@ -102,9 +98,25 @@ const GalleryNftItemComponent = () => {
 }
 
 const GalleryPage = () => {
+  const { setDefaultAudio } = useContext(AudioContext)
+  const { setMode, menuOpened } = useContext(DarkmodeContext)
+  useEffect(() => {
+    if (!menuOpened) {
+      setMode(true)
+    }
+  }, [menuOpened])
+
+  useEffect(() => {
+    return globalHistory.listen(({ action }) => {
+      if (action === 'PUSH' || action === 'POP') setDefaultAudio()
+    })
+  }, [setDefaultAudio])
+
   return (
     <GalleryBlock>
       <GalleryNftContainer></GalleryNftContainer>
     </GalleryBlock>
   )
 }
+
+export default GalleryPage
