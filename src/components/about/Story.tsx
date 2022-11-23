@@ -190,7 +190,12 @@ const Story = ({
           }}
         />
       </StoryImageContainer>
-      <StoryContentContainer>
+      <StoryContentContainer
+        onWheel={e => {
+          e.preventDefault()
+          e.stopPropagation()
+        }}
+      >
         <StoryContentNoBorder>
           When Metaverse is commercialized in the near future, one of the
           landmarks is called the MetaOctagon Universe.
