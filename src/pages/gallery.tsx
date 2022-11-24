@@ -9,18 +9,11 @@ import { AudioContext } from '../contexts/AudioProvider'
 import reset from '../../lib/styles/reset'
 import { Global } from '@emotion/react'
 
-import { AboutTabContext } from '../contexts/AboutTabProvider'
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 
 import { graphql, useStaticQuery } from 'gatsby'
 import { globalHistory } from '@reach/router'
 import { useMediaQuery } from 'react-responsive'
-import {
-  PageBlock,
-  PageNameIndicator,
-  PageNavContainer,
-  PageNavItems,
-} from 'components/pageLayout/pageLayout'
 import styled from '@emotion/styled'
 
 const GalleryBlock = styled.div`
@@ -34,6 +27,11 @@ const GalleryBlock = styled.div`
 const GalleryNftContainer = styled.div`
   margin-top: 150px;
   margin-bottom: 100px;
+
+  height: calc(100vh - 150px);
+
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   display: flex;
   flex-wrap: wrap;
@@ -116,27 +114,30 @@ const GalleryPage = () => {
   }, [setDefaultAudio])
 
   return (
-    <GalleryBlock>
-      <GalleryNftContainer>
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-        <GalleryNftItemComponent />
-      </GalleryNftContainer>
-    </GalleryBlock>
+    <>
+      <Global styles={reset} />
+      <GalleryBlock>
+        <GalleryNftContainer>
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+          <GalleryNftItemComponent />
+        </GalleryNftContainer>
+      </GalleryBlock>
+    </>
   )
 }
 

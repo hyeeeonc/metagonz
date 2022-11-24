@@ -427,7 +427,14 @@ const Menu = () => {
     }
   `)
   useEffect(() => {
-    const news = new Octagon(638, 1251, images.news.publicURL, '', 'news', 0)
+    const news = new Octagon(
+      638,
+      1251,
+      images.news.publicURL,
+      '/news',
+      'news',
+      0,
+    )
     const about = new Octagon(
       271,
       1099,
@@ -448,7 +455,7 @@ const Menu = () => {
       116,
       729,
       images.roadmap.publicURL,
-      '',
+      '/roadmap',
       'roadmap',
       3,
     )
@@ -464,7 +471,7 @@ const Menu = () => {
       638,
       729,
       images.community.publicURL,
-      '',
+      '/community',
       'community',
       5,
     )
@@ -583,7 +590,8 @@ const Menu = () => {
               <Link
                 to={octagon.url}
                 onClick={() => {
-                  if (i == 1 || i == 2) linkHandler()
+                  if (i == 0 || i == 1 || i == 2 || i == 3 || i == 5)
+                    linkHandler()
                   else {
                     alert('Comming Soon')
                   }
