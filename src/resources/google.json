@@ -1,0 +1,15 @@
+[
+  {
+    "type": "service_account",
+    "project_id": "manifest-glyph-347615",
+    "private_key_id": "cd1577b610185695a1d45f6016f7b54318328308",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCrh5KQpNd3lqUA\nKMZHS7deCRuARE21dMgHILrt67OZJnNUPNx1N8EckRDBmQr6CF9ot2eGSpkRg+/V\nu7EyVo6RmJUlL1f2HhyypaFe9YB+ACJRKJ8W4Y9Jj7IHfESPsbeETG8BvZ4Cc7kh\ntzaALkEYXQyAnQUcFDbvpihc3cvOGjo5dszdvXfktmJ3V+8rNX9pb3e8p/yvQ+0a\nmVma9xkJz7z0A0RJDQFqK8RJkj+v/niOZvZ40ifwQbinnnBO/h0CYBJtXBvNutQo\n0c5HJ6OqouWUPunoD4//lbncB0Yu+aUcxvF5P/fRtBUb/DWtYkkTK+KzL2aNQOxO\nuuH3/TbjAgMBAAECggEABWtKk5xJnGMbgmZHYWBAgk2KW2KNC/MNEMCVd0fPjEKd\nOSeVFXT1+meQ3nTt1llmXkIRGLqJnHaNILUF05/NcEcgSyT0Q/fOk0xNTVk3PoPV\nkbfVUt08cCgEiV0BM4L7V8gsZ6Msd0pdqnWF2MXdU54482VCkJEI7UhUFR8Cvdek\nB/s7unAZDVtPZ6NWiO0GNKYQCsiYRh/ZYuA0DtXK02kUMIM5kf6B33t+/dIMbO2/\n5ebLBauu3alaAH95qHHcUZMDMpZjCMtly3qX4OHqd8rTIaySGy0EPTEB6KfF0seN\nDNxBh5wtdHHihEn87eBcr7NmatidbXetFwqzX/yejQKBgQDZ/TDx0LMZoDZgAchk\n0jENL20UfhulIWb2KypdCQULXEhdrn5+HMtgPZX9bcZ5gm6DSw+0DgKJiw+tWpEP\nENPWzs5JIBOsrjGh6zWDLc8UXkFmF80t0u2wFaftGoichMRXYHZ9i23Y1EesKgR8\nzgtQg3telGCEFuUrGBHIMofzdwKBgQDJcHqQGlp9PtRc2QAYQXTR9zWs5FWvb63q\n6gtHHwoFHxr850CjJ7vdot1OhCEOcwb8C25jzhHi2aOWubxv531z1VBI02x15qtP\nb3Ox2SO4sUxNiPgJY9CnEyIGqWyNSFyE5Ab2I+NsQDW0CTYyLn8F6CT4zr8GTudm\nnnvL2pn69QKBgBx1fapUQM2bqP2nve3LszOxeWAvhpRsY/DHeeRjhRESny/70+/K\n+pI5+Bb5+etrJ9pkNkyfd51VVlqfdEivPbjRjwTk9yyYIUquVnIlzN8v3wHhIZxV\n6UoPybieui8U9j0iDtYdGd4w+Jp1cdiJXdjJEZYrcN5NzuVtYwTr8+vJAoGAVRkF\nTfc0HxD52bd6iMSuOz06Ga3kXNbLHCB/Xy5Hp146onh3H/XbMYhqAY9j/5ysaLHT\nkqoteC4FI9mXN5cNsm99GSbn/O7TlB07PPjEVHPiDic80YqvTMWSbEoKp6zYGPPT\n1QvYOZTumv4BPTXTR4WIiOueW2Xd78Yn+jiBMDkCgYEApLUNfxDUForu2z5Qqhiq\nVR3YZTI5KQDjZfCzCtrqaZADaAGfXy6JmX4uLWOI5Rkg12DONDhReyojzUxZ95/X\n/TuNbZqrRgR1HA+Mb/7gJYJ7JEeGCAH3gBN9aKOXrfFBZTTAs+aEHeNjSqk/kKPb\nhg/uEmUruvZbCkj+eKjZ+Xg=\n-----END PRIVATE KEY-----\n",
+    "client_email": "metagonz-test@manifest-glyph-347615.iam.gserviceaccount.com",
+    "client_id": "110324287211565003611",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/metagonz-test%40manifest-glyph-347615.iam.gserviceaccount.com",
+    "sheet_id": "1EMVPZPHGVbm1fVaRraiMBYl0XVnI_xPeGa5sJvVfe18"
+  }
+]

@@ -21,6 +21,7 @@ module.exports = {
     },
     `gatsby-plugin-image`,
     `gatsby-plugin-emotion`,
+    `gatsby-transformer-json`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -30,7 +31,14 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-transformer-json`,
     `gatsby-plugin-react-helmet`,
+    'gatsby-node-helpers',
+    {
+      resolve: 'gatsby-source-google-spreadsheet',
+      options: {
+        spreadsheetId: '1EMVPZPHGVbm1fVaRraiMBYl0XVnI_xPeGa5sJvVfe18',
+        credentials: require('./credentials.json'),
+      },
+    },
   ],
 }

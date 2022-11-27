@@ -1,5 +1,6 @@
 import React, {
   FunctionComponent,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -13,7 +14,6 @@ import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 
 import { graphql, useStaticQuery } from 'gatsby'
 import { globalHistory } from '@reach/router'
-import { useMediaQuery } from 'react-responsive'
 import styled from '@emotion/styled'
 
 const GalleryBlock = styled.div`
@@ -50,14 +50,12 @@ const GalleryNftItems = styled.div`
 
 const GalleryNftImageContainer = styled.div`
   width: 320px;
-  height: 420px;
+  height: 480px;
 
-
-
-  background: red;
-  video, img {
-    width: 100%
-    height: auto;
+  background: none;
+  video,
+  img {
+    width: 100%;
   }
 `
 
@@ -86,11 +84,13 @@ const GalleryNftItemNumber = styled.div`
   color: #000000;
 `
 
-const GalleryNftItemComponent = () => {
+const GalleryNftItemComponent = ({ src }: { src: string }) => {
   return (
     <GalleryNftItems>
       <GalleryNftImageContainer>
-        <video></video>
+        <video muted width="100%" autoPlay loop playsInline>
+          <source src={src} type="video/mp4"></source>
+        </video>
       </GalleryNftImageContainer>
       <GalleryNftItemAuthor>META GONZ</GalleryNftItemAuthor>
       <GalleryNftItemNumber>NO. 0001</GalleryNftItemNumber>
@@ -101,6 +101,20 @@ const GalleryNftItemComponent = () => {
 const GalleryPage = () => {
   const { setDefaultAudio } = useContext(AudioContext)
   const { setMode, menuOpened } = useContext(DarkmodeContext)
+
+  const [items, _] = useState<Array<any>>(Array(8888).fill(0))
+  const [itemRange, setItemRange] = useState<number>(20)
+
+  const {
+    reveal: { publicURL },
+  }: { reveal: { publicURL: string } } = useStaticQuery(graphql`
+    query {
+      reveal: file(relativePath: { eq: "videos/reveal.mp4" }) {
+        publicURL
+      }
+    }
+  `)
+
   useEffect(() => {
     if (!menuOpened) {
       setMode(true)
@@ -113,28 +127,25 @@ const GalleryPage = () => {
     })
   }, [setDefaultAudio])
 
+  useEffect(() => {})
+
+  const scrollHandler = useCallback((e: React.WheelEvent) => {
+    if (
+      e.currentTarget.scrollHeight - e.currentTarget.scrollTop <=
+      e.currentTarget.clientHeight + 200
+    ) {
+      setItemRange(range => range + 12)
+    }
+  }, [])
+
   return (
     <>
       <Global styles={reset} />
       <GalleryBlock>
-        <GalleryNftContainer>
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
-          <GalleryNftItemComponent />
+        <GalleryNftContainer onWheel={scrollHandler}>
+          {items.slice(0, itemRange).map(_ => (
+            <GalleryNftItemComponent src={publicURL} />
+          ))}
         </GalleryNftContainer>
       </GalleryBlock>
     </>

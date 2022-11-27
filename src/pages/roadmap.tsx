@@ -6,16 +6,10 @@ import { Global } from '@emotion/react'
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 
 import { graphql, useStaticQuery } from 'gatsby'
-import { globalHistory } from '@reach/router'
-import { useMediaQuery } from 'react-responsive'
 import styled from '@emotion/styled'
 
-import {
-  PageBlock,
-  PageNameIndicator,
-  PageNavContainer,
-  PageNavItems,
-} from 'components/pageLayout/pageLayout'
+import { PageNameIndicator } from 'components/pageLayout/pageLayout'
+import { GoogleSpreadsheet } from 'google-spreadsheet'
 
 const RoadmapBlock = styled.div`
   width: 100vw;
@@ -166,14 +160,28 @@ type ImgType = {
   }
 }
 
+type SheetType = {
+  client_email: string
+  private_key: string
+}
+
 const RoadmapPage = () => {
-  const background: ImgType = useStaticQuery(graphql`
+  const {
+    background: { publicURL },
+    client_email,
+    private_key,
+  }: ImgType & SheetType = useStaticQuery(graphql`
     query {
       background: file(relativePath: { eq: "images/roadmapback.jpg" }) {
         publicURL
       }
+      googleJson {
+        client_email
+        private_key
+      }
     }
   `)
+
   const { setMode, menuOpened } = useContext(DarkmodeContext)
 
   useEffect(() => {
@@ -213,6 +221,17 @@ const RoadmapPage = () => {
   }, [])
 
   useEffect(() => {
+    const doc = new GoogleSpreadsheet(
+      '1EMVPZPHGVbm1fVaRraiMBYl0XVnI_xPeGa5sJvVfe18',
+    )(async function () {
+      await doc.useServiceAccountAuth({
+        client_email,
+        private_key,
+      })
+    })
+  }, [])
+
+  useEffect(() => {
     const IndexBackgroundImageSizeRatio = windowSize.width / windowSize.height
     if (IndexBackgroundImageSizeRatio > 1728 / 980) {
       setimageSize(true)
@@ -235,7 +254,7 @@ const RoadmapPage = () => {
                   }
                 : { width: '100vw', height: 'auto' }
             }
-            src={background.background.publicURL}
+            src={publicURL}
           />
         </RoadmapBackgroundImageContainer>
         <RoadmapSectionContainer>
