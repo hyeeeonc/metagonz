@@ -20,10 +20,43 @@ import {
 } from 'components/pageLayout/pageLayout'
 import GlobalPartners from 'components/community/GlobalPartners'
 
+type TwitterData = {
+  data: {
+    id: number
+    username: string
+    created_at: Date
+    name: string
+    public_metrics: {
+      followers_count: number
+      following_count: number
+      tweet_count: number
+      listed_count: number
+    }
+  }
+}
+
 const CommunityPage = () => {
   const { setMode, menuOpened } = useContext(DarkmodeContext)
   const { tabNum, setTabNum } = useContext(AboutTabContext)
   const [hover, setHover] = useState<string>('') //hover 상태 저장
+
+  useEffect(() => {
+    ;(async function () {
+      const res = await fetch(
+        `https://api.twitter.com/2/users/by/username/WkfxjfrP?user.fields=public_metrics`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer CvSYS1IDuvDCUID4vnnzjFlTO',
+            'Access-Control-Allow-Origin': '*',
+          },
+          credentials: 'include',
+          mode: 'no-cors',
+        },
+      )
+      console.log(res)
+    })()
+  }, [])
 
   useEffect(() => {
     if (!menuOpened) {

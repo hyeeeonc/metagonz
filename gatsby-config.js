@@ -32,13 +32,5 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-react-helmet`,
-    'gatsby-node-helpers',
-    {
-      resolve: 'gatsby-source-google-spreadsheet',
-      options: {
-        spreadsheetId: '1EMVPZPHGVbm1fVaRraiMBYl0XVnI_xPeGa5sJvVfe18',
-        credentials: require('./credentials.json'),
-      },
-    },
   ],
 }

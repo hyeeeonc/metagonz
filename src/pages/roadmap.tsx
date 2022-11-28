@@ -9,7 +9,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 import styled from '@emotion/styled'
 
 import { PageNameIndicator } from 'components/pageLayout/pageLayout'
-import { GoogleSpreadsheet } from 'google-spreadsheet'
+import { SpreadsheetContext } from '../contexts/SpreadsheetProvider'
 
 const RoadmapBlock = styled.div`
   width: 100vw;
@@ -161,28 +161,25 @@ type ImgType = {
 }
 
 type SheetType = {
-  client_email: string
-  private_key: string
+  googleJson: {
+    client_email: string
+    private_key: string
+  }
 }
 
 const RoadmapPage = () => {
   const {
     background: { publicURL },
-    client_email,
-    private_key,
   }: ImgType & SheetType = useStaticQuery(graphql`
     query {
       background: file(relativePath: { eq: "images/roadmapback.jpg" }) {
         publicURL
       }
-      googleJson {
-        client_email
-        private_key
-      }
     }
   `)
 
   const { setMode, menuOpened } = useContext(DarkmodeContext)
+  const { doc, docLoaded } = useContext(SpreadsheetContext)
 
   useEffect(() => {
     if (!menuOpened) {
@@ -221,15 +218,22 @@ const RoadmapPage = () => {
   }, [])
 
   useEffect(() => {
-    const doc = new GoogleSpreadsheet(
-      '1EMVPZPHGVbm1fVaRraiMBYl0XVnI_xPeGa5sJvVfe18',
-    )(async function () {
-      await doc.useServiceAccountAuth({
-        client_email,
-        private_key,
-      })
-    })
-  }, [])
+    if (docLoaded) {
+      ;(async function () {
+        const sheet = doc.sheetsByIndex[0]
+        const rows = await sheet.getRows()
+
+        setItems(
+          rows.map(row => ({
+            progress: row.col1,
+            text: row.col2,
+          })),
+        )
+      })()
+    }
+  }, [docLoaded])
+
+  const [items, setItems] = useState<{ progress: number; text: string }[]>([])
 
   useEffect(() => {
     const IndexBackgroundImageSizeRatio = windowSize.width / windowSize.height
@@ -266,15 +270,9 @@ const RoadmapPage = () => {
         </RoadmapSectionContainer>
         <RoadmapItemContainer>
           <RoadmapItemYear>2022</RoadmapItemYear>
-          <RoadmapItem progress={1} text="Music" />
-          <RoadmapItem progress={2} text="Music" />
-          <RoadmapItem progress={3} text="Music" />
-          <RoadmapItem progress={4} text="Music" />
-          <RoadmapItem progress={1} text="Music" />
-          <RoadmapItem progress={1} text="Music" />
-          <RoadmapItem progress={1} text="Music" />
-          <RoadmapItem progress={1} text="Music" />
-          <RoadmapItem progress={1} text="Music" />
+          {items.map(({ progress, text }) => (
+            <RoadmapItem progress={progress} text={text} />
+          ))}
         </RoadmapItemContainer>
         <PageNameIndicator>roadmap</PageNameIndicator>
       </RoadmapBlock>
