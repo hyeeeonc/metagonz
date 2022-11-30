@@ -9,7 +9,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 import styled from '@emotion/styled'
 
 import { PageNameIndicator } from 'components/pageLayout/pageLayout'
-import { SpreadsheetContext } from '../contexts/SpreadsheetProvider'
+import { PublicDataContext } from '../contexts/PublicDataProvider'
 
 const RoadmapBlock = styled.div`
   width: 100vw;
@@ -167,6 +167,12 @@ type SheetType = {
   }
 }
 
+type RoadmapType = {
+  progress: number
+  text: string
+  year: number
+}
+
 const RoadmapPage = () => {
   const {
     background: { publicURL },
@@ -179,7 +185,7 @@ const RoadmapPage = () => {
   `)
 
   const { setMode, menuOpened } = useContext(DarkmodeContext)
-  const { doc, docLoaded } = useContext(SpreadsheetContext)
+  const { publicData } = useContext(PublicDataContext)
 
   useEffect(() => {
     if (!menuOpened) {
@@ -217,23 +223,21 @@ const RoadmapPage = () => {
     }
   }, [])
 
+  const [currentIndex, setCurrentIndex] = useState<number>(-1)
+
+  const [currentItems, setCurrentItems] = useState<Array<RoadmapType>>([])
+
   useEffect(() => {
-    if (docLoaded) {
-      ;(async function () {
-        const sheet = doc.sheetsByIndex[0]
-        const rows = await sheet.getRows()
-
-        setItems(
-          rows.map(row => ({
-            progress: row.col1,
-            text: row.col2,
-          })),
-        )
-      })()
+    if (currentIndex === -1) {
+      setCurrentItems(publicData.roadmap)
+    } else {
+      setCurrentItems(
+        publicData.roadmap.filter(item => item.progress === currentIndex),
+      )
     }
-  }, [docLoaded])
+  }, [currentIndex])
 
-  const [items, setItems] = useState<{ progress: number; text: string }[]>([])
+  const clickHandler = (progress: number) => () => setCurrentIndex(progress)
 
   useEffect(() => {
     const IndexBackgroundImageSizeRatio = windowSize.width / windowSize.height
@@ -262,15 +266,19 @@ const RoadmapPage = () => {
           />
         </RoadmapBackgroundImageContainer>
         <RoadmapSectionContainer>
-          <RoadmapSectionItems>all</RoadmapSectionItems>
-          <RoadmapSectionItems>complete</RoadmapSectionItems>
+          <RoadmapSectionItems onClick={clickHandler(-1)}>
+            all
+          </RoadmapSectionItems>
+          <RoadmapSectionItems onClick={clickHandler(1)}>
+            complete
+          </RoadmapSectionItems>
           <RoadmapSectionItems>in progress</RoadmapSectionItems>
           <RoadmapSectionItems>preparing</RoadmapSectionItems>
           <RoadmapSectionItems>redacted</RoadmapSectionItems>
         </RoadmapSectionContainer>
         <RoadmapItemContainer>
           <RoadmapItemYear>2022</RoadmapItemYear>
-          {items.map(({ progress, text }) => (
+          {currentItems.map(({ progress, text }) => (
             <RoadmapItem progress={progress} text={text} />
           ))}
         </RoadmapItemContainer>

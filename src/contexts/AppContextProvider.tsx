@@ -2,13 +2,13 @@ import { combineComponents } from '../common/combineComponents'
 import AboutTabProvider from './AboutTabProvider'
 import AudioProvider from './AudioProvider'
 import DarkmodeProvider from './DarkmodeProvider'
-import SpreadsheetProvider from './SpreadsheetProvider'
+import PublicDataProvider from './PublicDataProvider'
 
 const providers = [
   AudioProvider,
   DarkmodeProvider,
   AboutTabProvider(4),
-  SpreadsheetProvider,
+  PublicDataProvider,
 ]
 
 const AppContextProvier = combineComponents(...providers)

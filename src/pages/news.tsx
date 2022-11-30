@@ -111,8 +111,72 @@ const NewsItem = ({ title, date }: { title: string; date: string }) => {
   )
 }
 
+type ArticleType = {
+  title: string
+  published_at: Date
+  content: string
+}
+
 const NewsPage = () => {
   const { setMode, menuOpened } = useContext(DarkmodeContext)
+  const [articles, setArticles] = useState<ArticleType[]>([])
+
+  useEffect(() => {
+    const user_id = 'minsuk4820'
+    ;(async function () {
+      const username = 'cndro'
+      const RSSUrl = `https://medium.com/feed/@${username}`
+      const RSSConverter = `https://api.rss2json.com/v1/api.json?rss_url=${RSSUrl}`
+      const res = await fetch(RSSConverter)
+      const data = await res.json()
+    })()
+    ;(async function () {
+      const res = await fetch(
+        `https://medium2.p.rapidapi.com/user/${user_id}/articles`,
+        {
+          headers: {
+            Authorization:
+              'Token 205c6d266873f04dff993c80d541df335d0ea715ec04b0039008961639d1c11eb',
+          },
+        },
+      )
+      const { associated_articles }: { associated_articles: Array<string> } =
+        await res.json()
+
+      setArticles(
+        await Promise.all(
+          associated_articles.map(async article_id => {
+            // get article info
+            const res1 = await fetch(
+              `https://medium2.p.rapidapi.com/article/${article_id}`,
+              {
+                headers: {
+                  Authorization:
+                    '205c6d266873f04dff993c80d541df335d0ea715ec04b0039008961639d1c11eb',
+                },
+              },
+            )
+            const {
+              title,
+              published_at,
+            }: { title: string; published_at: Date } = await res1.json()
+
+            // get article content
+            const res2 = await fetch(
+              `https://medium2.p.rapidapi.com/article/${article_id}/content`,
+            )
+            const { content }: { content: string } = await res2.json()
+
+            return {
+              title,
+              published_at,
+              content,
+            } as ArticleType
+          }),
+        ),
+      )
+    })
+  }, [])
 
   useEffect(() => {
     if (!menuOpened) {
@@ -129,6 +193,9 @@ const NewsPage = () => {
             title="HelloHelloHelloHelloHelloHello"
             date="nov. 9. 2022"
           />
+          {articles.map(({ title, published_at, content }) => (
+            <NewsItem title={title} date={published_at.toString()} />
+          ))}
           <NewsItem title="Hello" date="nov. 9. 2022" />
           <NewsItem title="Hello" date="nov. 9. 2022" />
           <NewsItem title="Hello" date="nov. 9. 2022" />
