@@ -480,7 +480,7 @@ const Menu = () => {
       377,
       99,
       images.submit.publicURL,
-      '',
+      '/submit',
       'submit',
       7,
     )
@@ -590,7 +590,7 @@ const Menu = () => {
               <Link
                 to={octagon.url}
                 onClick={() => {
-                  if (i == 0 || i == 1 || i == 2 || i == 3 || i == 5)
+                  if (i == 0 || i == 1 || i == 2 || i == 3 || i == 5 || i == 7)
                     linkHandler()
                   else {
                     alert('Comming Soon')

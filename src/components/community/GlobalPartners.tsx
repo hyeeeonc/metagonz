@@ -2,10 +2,10 @@ import styled from '@emotion/styled'
 import { GlobalMapSvg } from './GlobalMapSvg'
 
 const GlobalPartnersBlock = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(180deg, #1c0044 0%, #6200ee 100%);
-  backdrop-filter: blur(15px);
+  width: 100%;
+  height: 100%;
+
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 `
 
 const GlobalPartnersTextContainer = styled.div`
@@ -46,8 +46,8 @@ const GlobalPartnersMapContainer = styled.div`
 
 const GlobalPartnersSNSCountContainer = styled.div`
   position: absolute;
-  top: 270px;
-  right: 30px;
+  top: 399px;
+  left: 30px;
 
   display: flex;
   justify-content: space-between;
@@ -81,9 +81,15 @@ const GlobalPartnersSNSCountItems = styled.div`
   gap: 10px;
 `
 
-const GlobalPartners = () => {
+const GlobalPartners = ({ tabNum }: { tabNum: number }) => {
   return (
-    <GlobalPartnersBlock>
+    <GlobalPartnersBlock
+      style={{
+        visibility: tabNum == 2 ? 'visible' : 'hidden',
+        opacity: tabNum == 2 ? 1 : 0,
+        zIndex: tabNum != 2 ? 0 : 1,
+      }}
+    >
       <GlobalPartnersMapContainer>
         <GlobalMapSvg />
       </GlobalPartnersMapContainer>
