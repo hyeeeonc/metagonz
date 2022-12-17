@@ -73,7 +73,7 @@ const MorePage = () => {
   `)
   const { setMode, menuOpened } = useContext(DarkmodeContext)
   const [tabNum, setTabNum] = useState<number>(1)
-  const [hover, setHover] = useState<string>('') //hover 상태 저장
+  const [hover, setHover] = useState<string>('')
 
   useEffect(() => {
     if (!menuOpened) {

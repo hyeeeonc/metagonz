@@ -16,13 +16,12 @@ const RoadmapBlock = styled.div`
   height: 100vh;
 `
 
-const RoadmapBackgroundImageContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const RoadmapCharacters = styled.img`
+  position: absolute;
+
+  height: 1500px;
+
+  opacity: 0.9;
 `
 
 const RoadmapSectionContainer = styled.div`
@@ -46,17 +45,30 @@ const RoadmapSectionItems = styled.div`
   line-height: 35px;
   text-transform: uppercase;
 
-  color: #ffffff;
+  color: black;
   cursor: pointer;
+
+  transition: opacity 0.2s ease;
 `
 
 const RoadmapItemContainer = styled.div`
   position: absolute;
-  top: 230px;
+  top: 210px;
   left: 400px;
 
+  width: calc(100vw - 400px - 100px);
+  padding: 20px;
   gap: 30px;
+
+  box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.6);
+
+  @media (max-width: 1200px) {
+    left: 200px;
+    width: calc(100vw - 200px - 100px);
+  }
 `
+
 const RoadmapItemYear = styled.div`
   font-family: 'SUIT';
   font-style: normal;
@@ -64,7 +76,7 @@ const RoadmapItemYear = styled.div`
   font-size: 25px;
   line-height: 35px;
 
-  color: #ffffff;
+  color: black;
 
   margin-bottom: 50px;
 `
@@ -104,7 +116,7 @@ const RoadRoadmapItemText = styled.div`
   font-size: 25px;
   line-height: 35px;
 
-  color: #ffffff;
+  color: black;
 `
 
 const RoadmapItem = ({
@@ -155,7 +167,10 @@ const RoadmapItem = ({
 }
 
 type ImgType = {
-  background: {
+  yua: {
+    publicURL: string
+  }
+  jua: {
     publicURL: string
   }
 }
@@ -174,11 +189,12 @@ type RoadmapType = {
 }
 
 const RoadmapPage = () => {
-  const {
-    background: { publicURL },
-  }: ImgType & SheetType = useStaticQuery(graphql`
+  const characters: ImgType = useStaticQuery(graphql`
     query {
-      background: file(relativePath: { eq: "images/roadmapback.jpg" }) {
+      yua: file(relativePath: { eq: "images/characters/03 Yua.png" }) {
+        publicURL
+      }
+      jua: file(relativePath: { eq: "images/characters/04 Jua.png" }) {
         publicURL
       }
     }
@@ -186,46 +202,15 @@ const RoadmapPage = () => {
 
   const { setMode, menuOpened } = useContext(DarkmodeContext)
   const { publicData } = useContext(PublicDataContext)
+  const [currentIndex, setCurrentIndex] = useState<number>(-1)
+  const [currentItems, setCurrentItems] = useState<Array<RoadmapType>>([])
+  const [hover, setHover] = useState<string>('')
 
   useEffect(() => {
     if (!menuOpened) {
-      setMode(false)
+      setMode(true)
     }
   }, [menuOpened])
-
-  const [windowSize, setWindowSize] = useState<{
-    width: number
-    height: number
-  }>({
-    width: 0,
-    height: 0,
-  })
-  const [imageSize, setimageSize] = useState<boolean>(false)
-
-  const handleResize = useCallback(() => {
-    setWindowSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    })
-  }, [])
-
-  useEffect(() => {
-    setWindowSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    })
-  }, [])
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
-  const [currentIndex, setCurrentIndex] = useState<number>(-1)
-
-  const [currentItems, setCurrentItems] = useState<Array<RoadmapType>>([])
 
   useEffect(() => {
     if (currentIndex === -1) {
@@ -239,42 +224,80 @@ const RoadmapPage = () => {
 
   const clickHandler = (progress: number) => () => setCurrentIndex(progress)
 
-  useEffect(() => {
-    const IndexBackgroundImageSizeRatio = windowSize.width / windowSize.height
-    if (IndexBackgroundImageSizeRatio > 1728 / 980) {
-      setimageSize(true)
-    } else {
-      setimageSize(false)
-    }
-  }, [windowSize])
-
   return (
     <>
       <Global styles={reset} />
       <RoadmapBlock>
-        <RoadmapBackgroundImageContainer>
-          <img
-            style={
-              imageSize === false
-                ? {
-                    height: '100vh',
-                    width: 'auto',
-                  }
-                : { width: '100vw', height: 'auto' }
-            }
-            src={publicURL}
-          />
-        </RoadmapBackgroundImageContainer>
+        <RoadmapCharacters
+          style={{
+            top: '-50px',
+            right: '120px',
+          }}
+          src={characters.yua.publicURL}
+        />
+        <RoadmapCharacters
+          style={{
+            top: '-50px',
+            right: '-100px',
+          }}
+          src={characters.jua.publicURL}
+        />
         <RoadmapSectionContainer>
-          <RoadmapSectionItems onClick={clickHandler(-1)}>
+          <RoadmapSectionItems
+            onMouseEnter={() => setHover('all')}
+            onMouseLeave={() => setHover('')}
+            style={{
+              color: 'black',
+              opacity: currentIndex == -1 || hover == 'all' ? 1 : 0.5,
+            }}
+            onClick={clickHandler(-1)}
+          >
             all
           </RoadmapSectionItems>
-          <RoadmapSectionItems onClick={clickHandler(1)}>
+          <RoadmapSectionItems
+            onMouseEnter={() => setHover('complete')}
+            onMouseLeave={() => setHover('')}
+            style={{
+              color: 'black',
+              opacity: currentIndex == 1 || hover == 'complete' ? 1 : 0.5,
+            }}
+            onClick={clickHandler(1)}
+          >
             complete
           </RoadmapSectionItems>
-          <RoadmapSectionItems>in progress</RoadmapSectionItems>
-          <RoadmapSectionItems>preparing</RoadmapSectionItems>
-          <RoadmapSectionItems>redacted</RoadmapSectionItems>
+          <RoadmapSectionItems
+            onMouseEnter={() => setHover('progress')}
+            onMouseLeave={() => setHover('')}
+            style={{
+              color: 'black',
+              opacity: currentIndex == 2 || hover == 'progress' ? 1 : 0.5,
+            }}
+            onClick={clickHandler(2)}
+          >
+            in progress
+          </RoadmapSectionItems>
+          <RoadmapSectionItems
+            onMouseEnter={() => setHover('preparing')}
+            onMouseLeave={() => setHover('')}
+            style={{
+              color: 'black',
+              opacity: currentIndex == 3 || hover == 'preparing' ? 1 : 0.5,
+            }}
+            onClick={clickHandler(3)}
+          >
+            preparing
+          </RoadmapSectionItems>
+          <RoadmapSectionItems
+            onMouseEnter={() => setHover('redacted')}
+            onMouseLeave={() => setHover('')}
+            style={{
+              color: 'black',
+              opacity: currentIndex == 4 || hover == 'redacted' ? 1 : 0.5,
+            }}
+            onClick={clickHandler(4)}
+          >
+            redacted
+          </RoadmapSectionItems>
         </RoadmapSectionContainer>
         <RoadmapItemContainer>
           <RoadmapItemYear>2022</RoadmapItemYear>

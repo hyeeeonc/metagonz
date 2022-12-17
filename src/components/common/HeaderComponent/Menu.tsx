@@ -28,7 +28,7 @@ const MenuBackground = styled.div`
     border-radius: 30px;
   }
 
-  transition: opacity 0.5s ease;
+  transition: opacity 0.2s ease;
 
   @media (min-width: 1430px) {
     display: flex;
@@ -108,7 +108,7 @@ const MenuButtonContainer = styled.div`
 
   overflow: hidden;
 
-  transition: 0.3s ease-out;
+  transition: 0.2s ease-out;
   transform: translate(50%, -50%);
 
   @media (max-width: 1727px) {
@@ -192,7 +192,7 @@ const MenuButtonBackground = styled.div`
   backdrop-filter: blur(15px);
   mix-blend-mode: color;
 
-  transition: 0.3s ease-out;
+  transition: 0.2s ease-out;
 
   clip-path: polygon(
     50% 0,
@@ -231,7 +231,7 @@ const MenuButtonImageContainer = styled.div`
 
   overflow: hidden;
 
-  transition: 0.3s ease-out;
+  transition: 0.2s ease-out;
   clip-path: polygon(
     100% 0,
     100% 50%,
@@ -293,7 +293,7 @@ const MenuButtonImage = styled.img`
 
   filter: grayscale(70%);
 
-  transition: 0.3s ease-out;
+  transition: 0.2s ease-out;
 
   @media (max-width: 499px) {
     left: 10px;
