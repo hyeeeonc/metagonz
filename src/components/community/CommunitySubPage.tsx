@@ -24,6 +24,10 @@ const CommunityNavContainer = styled.div`
 
   display: flex;
   justify-content: space-between;
+
+  @media (max-height: 859px) {
+    top: 160px;
+  }
 `
 
 const CommunityNavItems = styled.div`
@@ -46,6 +50,10 @@ const CommunityContentContainer = styled.div`
   top: 377px;
 
   transition: opacity 0.5s ease, visibility 0.5s ease;
+
+  @media (max-height: 859px) {
+    top: 210px;
+  }
 `
 
 const CommunityContentTitle = styled.div`

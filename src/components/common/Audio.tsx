@@ -20,7 +20,7 @@ const AudioBlock = styled.div`
   left: 30px;
   z-index: 3;
 
-  @media (max-width: 767px) {
+  @media (max-width: 767px), (max-height: 779px) {
     left: 10px;
     height: 70px;
   }
@@ -39,7 +39,7 @@ const AudioCharactorContainer = styled.div`
 
   transition: width 0.5s ease;
 
-  @media (max-width: 767px) {
+  @media (max-width: 767px), (max-height: 779px) {
     width: 60px;
     height: 70px;
   }
@@ -60,7 +60,7 @@ const AudioCharactorBackground = styled.div`
 
   transition: 0.5s ease;
 
-  @media (max-width: 767px) {
+  @media (max-width: 767px), (max-height: 779px) {
     width: 60px;
     height: 40px;
   }
@@ -74,7 +74,7 @@ const AudioCharactorImageContainer = styled.img`
 
   transition: opacity 0.3s ease;
 
-  @media (max-width: 767px) {
+  @media (max-width: 767px), (max-height: 779px) {
     width: 53px;
     height: 70px;
   }
@@ -95,7 +95,7 @@ const AudioPlayer = styled.div`
 
   transition: 0.5s ease;
 
-  @media (max-width: 767px) {
+  @media (max-width: 767px), (max-height: 779px) {
     left: 65px;
     width: 245px;
     height: 40px;
@@ -124,7 +124,7 @@ const AudioTitle = styled.div`
   white-space: nowrap;
 
   transition: 0.5s ease;
-  @media (max-width: 767px) {
+  @media (max-width: 767px), (max-height: 779px) {
     left: 10px;
     top: 5px;
 
@@ -157,7 +157,7 @@ const AudioSinger = styled.div`
 
   transition: 0.5s ease;
 
-  @media (max-width: 767px) {
+  @media (max-width: 767px), (max-height: 779px) {
     left: 10px;
     bottom: 0px;
     line-height: 15px;
@@ -182,7 +182,7 @@ const AudioContorllerPrev = styled.div`
     transition: 0.5s ease;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 767px), (max-height: 779px) {
     top: 14px;
     right: 90px;
   }
@@ -205,7 +205,7 @@ const AudioControllerPlayPause = styled.div`
     transition: 0.5s ease;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 767px), (max-height: 779px) {
     top: 12px;
     right: 64px;
   }
@@ -228,7 +228,7 @@ const AudioControllerNext = styled.div`
     transition: 0.5s ease;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 767px), (max-height: 779px) {
     top: 14px;
     right: 41px;
   }
@@ -259,7 +259,7 @@ const AudioFoldingButton = styled.div`
 
   transition: 0.5s ease;
 
-  @media (max-width: 767px) {
+  @media (max-width: 767px), (max-height: 779px) {
     top: 13px;
     right: 10px;
 
@@ -296,7 +296,7 @@ const Audio: FunctionComponent = function () {
   }
 
   const handleResize = () => {
-    if (window.innerWidth <= 767) {
+    if (window.innerWidth <= 767 || window.innerHeight <= 779) {
       setMobileView(true)
     } else setMobileView(false)
   }

@@ -201,7 +201,7 @@ const SubmitPage = () => {
       <SubmitBackgroundImage src={backImg.background.publicURL} />
       <SubmitContentForm
         method="post"
-        action="https://script.google.com/macros/s/AKfycbyPfoWydAGkwNl4qPkQAONZAZhKTLpiOKVR1ax7R-m3duyeftm7wkYIRO4Bh5ZIKHA/exec"
+        action="https://script.google.com/macros/s/AKfycbz4ju8_lBPYf8p93dU_WM2ahYk-Ke79u_jvNU6nmMo12u6zi_4OTrwfaobife3t1tv6/exec"
         target="iframe1"
       >
         <SubmitContentTitle>submit your awesome idea!</SubmitContentTitle>

@@ -17,6 +17,30 @@ import {
 import GlobalPartners from 'components/community/GlobalPartners'
 import CommunitySubPage from 'components/community/CommunitySubPage'
 
+const CommunityPageNavContainer = styled(PageNavContainer)`
+  transition: none;
+
+  @media (max-height: 859px) {
+    top: 100px;
+  }
+
+  @media (max-width: 767px) {
+    top: 192px;
+    left: 20px;
+  }
+`
+
+const CommunityPageNameIndicator = styled(PageNameIndicator)`
+  @media (max-height: 859px) {
+    top: 56px;
+  }
+
+  @media (max-width: 767px) {
+    left: 20px;
+    top: 110px;
+  }
+`
+
 const CommunityBackground = styled.div`
   position: absolute;
   top: 0;
@@ -99,7 +123,7 @@ const CommunityPage = () => {
       <PageBlock>
         <CommunitySubPage tabNum={tabNum} />
         <GlobalPartners tabNum={tabNum} />
-        <PageNavContainer>
+        <CommunityPageNavContainer>
           <PageNavItems
             onMouseEnter={() => setHover('community')}
             onMouseLeave={() => setHover('')}
@@ -126,10 +150,10 @@ const CommunityPage = () => {
           >
             global partners
           </PageNavItems>
-        </PageNavContainer>
-        <PageNameIndicator style={{ color: 'white' }}>
+        </CommunityPageNavContainer>
+        <CommunityPageNameIndicator style={{ color: 'white' }}>
           community
-        </PageNameIndicator>
+        </CommunityPageNameIndicator>
       </PageBlock>
     </>
   )

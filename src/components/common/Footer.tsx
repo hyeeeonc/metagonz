@@ -25,7 +25,7 @@ const FooterBlock = styled.footer`
 
   z-index: 3;
 
-  @media (max-width: 767px) {
+  @media (max-width: 767px), (max-height: 779px) {
     left: 10px;
 
     padding: 4px 10px;

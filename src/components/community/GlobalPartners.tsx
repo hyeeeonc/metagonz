@@ -22,6 +22,10 @@ const GlobalPartnersTextContainer = styled.div`
   line-height: 19px;
 
   color: #ffffff;
+
+  @media (max-height: 859px) {
+    top: 160px;
+  }
 `
 
 const GlobalPartnersMapContainer = styled.div`
@@ -42,6 +46,11 @@ const GlobalPartnersMapContainer = styled.div`
     background: #1c0044;
     border-radius: 30px;
   }
+
+  @media (max-height: 859px) {
+    height: calc(100vh - 220px);
+    top: 220px;
+  }
 `
 
 const GlobalPartnersSNSCountContainer = styled.div`
@@ -60,6 +69,10 @@ const GlobalPartnersSNSCountContainer = styled.div`
 
   background: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
+
+  @media (max-height: 859px) {
+    top: 230px;
+  }
 `
 
 const GlobalPartnersSNSCountItems = styled.div`

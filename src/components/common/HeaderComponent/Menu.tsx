@@ -475,7 +475,14 @@ const Menu = () => {
       'community',
       5,
     )
-    const more = new Octagon(269, 360, images.more.publicURL, '', 'more', 6)
+    const more = new Octagon(
+      269,
+      360,
+      images.more.publicURL,
+      '/more',
+      'more',
+      6,
+    )
     const submit = new Octagon(
       377,
       99,
@@ -588,10 +595,10 @@ const Menu = () => {
           <MenuBlock>
             {octagons.map((octagon, i) => (
               <Link
+                key={i}
                 to={octagon.url}
                 onClick={() => {
-                  if (i == 0 || i == 1 || i == 2 || i == 3 || i == 5 || i == 7)
-                    linkHandler()
+                  if (i != 4) linkHandler()
                   else {
                     alert('Comming Soon')
                   }
