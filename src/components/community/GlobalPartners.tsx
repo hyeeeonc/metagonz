@@ -1,4 +1,6 @@
 import styled from '@emotion/styled'
+import { JsonDataContext } from '../../contexts/JsonDataProvider'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { GlobalMapSvg } from './GlobalMapSvg'
 
 const GlobalPartnersBlock = styled.div`
@@ -95,6 +97,17 @@ const GlobalPartnersSNSCountItems = styled.div`
 `
 
 const GlobalPartners = ({ tabNum }: { tabNum: number }) => {
+  const { discord, twitter } = useContext(JsonDataContext)
+
+  const convertNumber = useCallback((num: number): string => {
+    if (num / 1000000 >= 1) {
+      return `${(num / 1000000).toFixed(1)}M`
+    } else if (num / 1000 >= 1) {
+      return `${(num / 1000).toFixed(1)}K`
+    } else {
+      return num.toString()
+    }
+  }, [])
   return (
     <GlobalPartnersBlock
       style={{
@@ -124,7 +137,7 @@ const GlobalPartners = ({ tabNum }: { tabNum: number }) => {
               fill="white"
             />
           </svg>
-          1.5M
+          {convertNumber(discord)}
         </GlobalPartnersSNSCountItems>
         <GlobalPartnersSNSCountItems>
           <svg
@@ -139,7 +152,7 @@ const GlobalPartners = ({ tabNum }: { tabNum: number }) => {
               fill="white"
             />
           </svg>
-          1.5M
+          {convertNumber(twitter)}
         </GlobalPartnersSNSCountItems>
       </GlobalPartnersSNSCountContainer>
     </GlobalPartnersBlock>

@@ -10,6 +10,7 @@ import styled from '@emotion/styled'
 
 import { PageNameIndicator } from 'components/pageLayout/pageLayout'
 import { PublicDataContext } from '../contexts/PublicDataProvider'
+import { JsonDataContext } from '../contexts/JsonDataProvider'
 
 const RoadmapBlock = styled.div`
   width: 100vw;
@@ -175,13 +176,6 @@ type ImgType = {
   }
 }
 
-type SheetType = {
-  googleJson: {
-    client_email: string
-    private_key: string
-  }
-}
-
 type RoadmapType = {
   progress: number
   text: string
@@ -201,10 +195,15 @@ const RoadmapPage = () => {
   `)
 
   const { setMode, menuOpened } = useContext(DarkmodeContext)
-  const { publicData } = useContext(PublicDataContext)
   const [currentIndex, setCurrentIndex] = useState<number>(-1)
   const [currentItems, setCurrentItems] = useState<Array<RoadmapType>>([])
   const [hover, setHover] = useState<string>('')
+
+  const { roadmap } = useContext(JsonDataContext)
+
+  useEffect(() => {
+    console.log(roadmap)
+  }, [])
 
   useEffect(() => {
     if (!menuOpened) {
@@ -214,13 +213,11 @@ const RoadmapPage = () => {
 
   useEffect(() => {
     if (currentIndex === -1) {
-      setCurrentItems(publicData.roadmap)
+      setCurrentItems(roadmap)
     } else {
-      setCurrentItems(
-        publicData.roadmap.filter(item => item.progress === currentIndex),
-      )
+      setCurrentItems(roadmap.filter(item => item.progress === currentIndex))
     }
-  }, [currentIndex])
+  }, [currentIndex, roadmap])
 
   const clickHandler = (progress: number) => () => setCurrentIndex(progress)
 

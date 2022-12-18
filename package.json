@@ -13,6 +13,7 @@
     "babel-runtime": "^6.26.0",
     "camelcase": "^7.0.0",
     "crypto": "^1.0.1",
+    "fs": "^0.0.1-security",
     "gatsby": "^4.21.1",
     "gatsby-plugin-emotion": "^7.22.0",
     "gatsby-plugin-image": "^2.21.0",
