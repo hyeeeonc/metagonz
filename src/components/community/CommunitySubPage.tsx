@@ -12,6 +12,24 @@ const CommunityBlock = styled.div`
   overflow: hidden;
 
   transition: opacity 0.5s ease, visibility 0.5s ease;
+
+  @media (max-width: 767px) {
+    top: 218px;
+    left: 0px;
+
+    width: calc(100vw);
+    height: calc(100vh - calc(100vh - 100%) - 218px);
+    box-sizing: border-box;
+
+    overflow-y: scroll;
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    ::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
+  }
 `
 
 const CommunityNavContainer = styled.div`
@@ -27,6 +45,15 @@ const CommunityNavContainer = styled.div`
 
   @media (max-height: 859px) {
     top: 160px;
+  }
+
+  @media (max-width: 767px) {
+    position: static;
+    margin-top: 45px;
+    margin-left: 20px;
+    box-shadow: none;
+    background-color: none;
+    padding: 0;
   }
 `
 
@@ -54,6 +81,18 @@ const CommunityContentContainer = styled.div`
   @media (max-height: 859px) {
     top: 210px;
   }
+
+  @media (max-width: 767px) {
+    // position: static;
+    // margin-top: 45px;
+    // margin-left: 20px;
+    left: 20px;
+    top: 106px;
+
+    width: calc(100vw - 40px);
+    box-shadow: none;
+    background-color: none;
+  }
 `
 
 const CommunityContentTitle = styled.div`
@@ -67,6 +106,11 @@ const CommunityContentTitle = styled.div`
   color: #ffffff;
 
   margin-bottom: 15px;
+
+  @media (max-width: 767px) {
+    font-size: 15px;
+    line-height: 19px;
+  }
 `
 
 const CommunityContentContent = styled.div`
@@ -111,6 +155,17 @@ const CommunityDiscordButton = styled.a`
   cursor: pointer;
 
   text-decoration: none;
+`
+
+const CommunitySpacer = styled.div`
+  min-width: 100vw;
+  min-height: 0;
+
+  @media (max-width: 767px) {
+    @media (max-width: 900px) {
+      min-height: 150px;
+    }
+  }
 `
 
 const CommunitySubPage = ({ tabNum }: { tabNum: number }) => {
@@ -188,6 +243,7 @@ const CommunitySubPage = ({ tabNum }: { tabNum: number }) => {
           <br />
           This is the MetaOctagon Universe.
         </CommunityContentContent>
+        <CommunitySpacer> </CommunitySpacer>
       </CommunityContentContainer>
       {/* /we */}
 
@@ -220,6 +276,7 @@ const CommunitySubPage = ({ tabNum }: { tabNum: number }) => {
           <br />
           distributes values according to creation.
         </CommunityContentContent>
+        <CommunitySpacer> </CommunitySpacer>
       </CommunityContentContainer>
       {/* /visiton */}
 
@@ -277,6 +334,7 @@ const CommunitySubPage = ({ tabNum }: { tabNum: number }) => {
           </svg>
           <>Go to Discord</>
         </CommunityDiscordButton>
+        <CommunitySpacer> </CommunitySpacer>
       </CommunityContentContainer>
       {/* /value */}
     </CommunityBlock>

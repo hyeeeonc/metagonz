@@ -21,7 +21,7 @@ export const MoreContentContainer = styled.div`
   transition: opacity 0.5s ease, visibility 0.5s ease;
 
   @media (max-height: 859px) {
-    top: 210px;
+    top: 256px;
   }
 `
 

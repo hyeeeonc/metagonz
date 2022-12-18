@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { JsonDataContext } from '../../contexts/JsonDataProvider'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { GlobalMapSvg } from './GlobalMapSvg'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const GlobalPartnersBlock = styled.div`
   width: 100%;
@@ -28,6 +29,10 @@ const GlobalPartnersTextContainer = styled.div`
   @media (max-height: 859px) {
     top: 160px;
   }
+
+  @media (max-width: 767px) {
+    top: 253px;
+  }
 `
 
 const GlobalPartnersMapContainer = styled.div`
@@ -53,6 +58,25 @@ const GlobalPartnersMapContainer = styled.div`
     height: calc(100vh - 220px);
     top: 220px;
   }
+
+  @media (max-width: 767px) {
+    top: 350px;
+  }
+`
+
+const GlobalPartnersMapFlags = styled.img`
+  position: absolute;
+
+  width: 50px;
+  height: 80px;
+
+  transform: translate(-50%, -100%);
+
+  transition: transform 0.2s ease;
+
+  :hover {
+    transform: translate(-50%, -100%) scale(1.2);
+  }
 `
 
 const GlobalPartnersSNSCountContainer = styled.div`
@@ -61,29 +85,36 @@ const GlobalPartnersSNSCountContainer = styled.div`
   left: 30px;
 
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   box-sizing: border-box;
 
-  width: 185px;
-  height: 68px;
+  width: 140px;
+  height: 105px;
 
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
   border-radius: 5px;
 
   @media (max-height: 859px) {
     top: 230px;
   }
+
+  @media (max-width: 767px) {
+    top: 351px;
+  }
 `
 
 const GlobalPartnersSNSCountItems = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 100%;
+  justify-content: space-between;
+
+  width: 80px;
+  height: 40px;
 
   font-family: 'SUIT';
   font-style: normal;
@@ -96,7 +127,50 @@ const GlobalPartnersSNSCountItems = styled.div`
   gap: 10px;
 `
 
+type ImgType = {
+  japan: {
+    publicURL: string
+  }
+  korea: {
+    publicURL: string
+  }
+  russia: {
+    publicURL: string
+  }
+  china: {
+    publicURL: string
+  }
+  england: {
+    publicURL: string
+  }
+  us: {
+    publicURL: string
+  }
+}
+
 const GlobalPartners = ({ tabNum }: { tabNum: number }) => {
+  const flags: ImgType = useStaticQuery(graphql`
+    query {
+      japan: file(relativePath: { eq: "images/flags/japan.png" }) {
+        publicURL
+      }
+      korea: file(relativePath: { eq: "images/flags/korea.png" }) {
+        publicURL
+      }
+      russia: file(relativePath: { eq: "images/flags/russia.png" }) {
+        publicURL
+      }
+      china: file(relativePath: { eq: "images/flags/china.png" }) {
+        publicURL
+      }
+      england: file(relativePath: { eq: "images/flags/england.png" }) {
+        publicURL
+      }
+      us: file(relativePath: { eq: "images/flags/us.png" }) {
+        publicURL
+      }
+    }
+  `)
   const { discord, twitter } = useContext(JsonDataContext)
 
   const convertNumber = useCallback((num: number): string => {
@@ -118,6 +192,48 @@ const GlobalPartners = ({ tabNum }: { tabNum: number }) => {
     >
       <GlobalPartnersMapContainer>
         <GlobalMapSvg />
+        <GlobalPartnersMapFlags
+          src={flags.us.publicURL}
+          style={{
+            top: '250px',
+            left: '320px',
+          }}
+        />
+        <GlobalPartnersMapFlags
+          src={flags.china.publicURL}
+          style={{
+            top: '220px',
+            left: '1270px',
+          }}
+        />
+        <GlobalPartnersMapFlags
+          src={flags.england.publicURL}
+          style={{
+            top: '110px',
+            left: '750px',
+          }}
+        />
+        <GlobalPartnersMapFlags
+          src={flags.korea.publicURL}
+          style={{
+            top: '240px',
+            left: '1350px',
+          }}
+        />
+        <GlobalPartnersMapFlags
+          src={flags.japan.publicURL}
+          style={{
+            top: '250px',
+            left: '1420px',
+          }}
+        />
+        <GlobalPartnersMapFlags
+          src={flags.russia.publicURL}
+          style={{
+            top: '120px',
+            left: '1000px',
+          }}
+        />
       </GlobalPartnersMapContainer>
       <GlobalPartnersTextContainer>
         A Global Metagonz community making together to build a decentralized

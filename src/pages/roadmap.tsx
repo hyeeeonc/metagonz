@@ -9,20 +9,11 @@ import { graphql, useStaticQuery } from 'gatsby'
 import styled from '@emotion/styled'
 
 import { PageNameIndicator } from 'components/pageLayout/pageLayout'
-import { PublicDataContext } from '../contexts/PublicDataProvider'
 import { JsonDataContext } from '../contexts/JsonDataProvider'
 
 const RoadmapBlock = styled.div`
   width: 100vw;
   height: 100vh;
-`
-
-const RoadmapCharacters = styled.img`
-  position: absolute;
-
-  height: 1500px;
-
-  opacity: 0.9;
 `
 
 const RoadmapSectionContainer = styled.div`
@@ -36,6 +27,16 @@ const RoadmapSectionContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: 767px) {
+    top: 192px;
+    left: 20px;
+
+    width: calc(100vw - 40px);
+    height: 16px;
+
+    flex-direction: row;
+  }
 `
 
 const RoadmapSectionItems = styled.div`
@@ -50,23 +51,70 @@ const RoadmapSectionItems = styled.div`
   cursor: pointer;
 
   transition: opacity 0.2s ease;
+
+  @media (max-width: 767px) {
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 10px;
+    line-height: 16px;
+  }
 `
 
 const RoadmapItemContainer = styled.div`
   position: absolute;
-  top: 210px;
+  top: 230px;
   left: 400px;
 
-  width: calc(100vw - 400px - 100px);
-  padding: 20px;
+  width: calc(100vw - 400px - 60px);
+  min-height: calc(100vh - 250px);
+  padding-right: 20px;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
   gap: 30px;
 
-  box-shadow: 2px 7px 15px 8px rgba(0, 0, 0, 0.3);
-  background-color: rgba(255, 255, 255, 0.6);
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #000;
+
+    border-radius: 100px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
 
   @media (max-width: 1200px) {
     left: 200px;
-    width: calc(100vw - 200px - 100px);
+    width: calc(100vw - 200px - 60px);
+  }
+
+  @media (max-width: 767px) {
+    top: 261px;
+    left: 0px;
+    width: calc(100vw - 40px);
+    min-height: calc(100vh - 200px);
+    padding: 0 30px 0 20px;
+  }
+`
+
+const RoadmapItemWrapper = styled.div`
+  position: absolute;
+  width: calc(100vw - 400px - 60px);
+
+  @media (max-width: 1200px) {
+    width: calc(100vw - 200px - 60px);
+  }
+
+  @media (max-width: 767px) {
+    width: calc(100vw - 40px);
   }
 `
 
@@ -80,13 +128,23 @@ const RoadmapItemYear = styled.div`
   color: black;
 
   margin-bottom: 50px;
+
+  @media (max-width: 767px) {
+    font-size: 15px;
+    line-height: 35px;
+
+    margin-bottom: 20px;
+  }
 `
 
 const RoadmapItems = styled.div`
   display: flex;
-  align-items: center;
 
   margin-bottom: 30px;
+
+  @media (max-width: 767px) {
+    margin-bottom: 20px;
+  }
 `
 
 const RoadmapItemProgress = styled.div`
@@ -94,7 +152,7 @@ const RoadmapItemProgress = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 130px;
+  min-width: 130px;
   height: 35px;
   border-radius: 5px;
 
@@ -108,6 +166,18 @@ const RoadmapItemProgress = styled.div`
   text-transform: uppercase;
 
   color: #ffffff;
+
+  @media (max-width: 767px) {
+    min-width: 80px;
+    height: 23px;
+
+    font-size: 8px;
+    line-height: 20px;
+
+    margin-right: 10px;
+
+    color: black;
+  }
 `
 
 const RoadRoadmapItemText = styled.div`
@@ -117,7 +187,47 @@ const RoadRoadmapItemText = styled.div`
   font-size: 25px;
   line-height: 35px;
 
+  width: calc(100% - 155px);
+
   color: black;
+
+  word-break: break-all;
+
+  @media (max-width: 767px) {
+    font-size: 13px;
+    line-height: 20px;
+
+    width: auto;
+  }
+`
+
+const RoadmapCharacterPCContainer = styled.div`
+  opacity: 0.8;
+  @media (max-width: 767px) {
+    display: none;
+  }
+`
+
+const RoadmapCharacterMobileContainer = styled.div`
+  display: none;
+  @media (max-width: 767px) {
+    display: block;
+  }
+`
+
+const RoadmapCharacters = styled.img`
+  position: absolute;
+
+  height: 1500px;
+`
+
+const RoadmapSpacer = styled.div`
+  min-width: 100vw;
+  min-height: 150px;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `
 
 const RoadmapItem = ({
@@ -202,10 +312,6 @@ const RoadmapPage = () => {
   const { roadmap } = useContext(JsonDataContext)
 
   useEffect(() => {
-    console.log(roadmap)
-  }, [])
-
-  useEffect(() => {
     if (!menuOpened) {
       setMode(true)
     }
@@ -214,6 +320,7 @@ const RoadmapPage = () => {
   useEffect(() => {
     if (currentIndex === -1) {
       setCurrentItems(roadmap)
+      // console.log(currentItems.group(item => item.year))
     } else {
       setCurrentItems(roadmap.filter(item => item.progress === currentIndex))
     }
@@ -225,20 +332,26 @@ const RoadmapPage = () => {
     <>
       <Global styles={reset} />
       <RoadmapBlock>
-        <RoadmapCharacters
+        <RoadmapCharacterPCContainer
           style={{
-            top: '-50px',
-            right: '120px',
+            opacity: 0.7,
           }}
-          src={characters.yua.publicURL}
-        />
-        <RoadmapCharacters
-          style={{
-            top: '-50px',
-            right: '-100px',
-          }}
-          src={characters.jua.publicURL}
-        />
+        >
+          <RoadmapCharacters
+            style={{
+              top: '-50px',
+              right: '170px',
+            }}
+            src={characters.yua.publicURL}
+          />
+          <RoadmapCharacters
+            style={{
+              top: '-50px',
+              right: '-50px',
+            }}
+            src={characters.jua.publicURL}
+          />
+        </RoadmapCharacterPCContainer>
         <RoadmapSectionContainer>
           <RoadmapSectionItems
             onMouseEnter={() => setHover('all')}
@@ -296,11 +409,35 @@ const RoadmapPage = () => {
             redacted
           </RoadmapSectionItems>
         </RoadmapSectionContainer>
+
         <RoadmapItemContainer>
-          <RoadmapItemYear>2022</RoadmapItemYear>
-          {currentItems.map(({ progress, text }) => (
-            <RoadmapItem progress={progress} text={text} />
-          ))}
+          <RoadmapItemWrapper>
+            <RoadmapItemYear>2022</RoadmapItemYear>
+            {currentItems.map(({ progress, text }) => (
+              <RoadmapItem progress={progress} text={text} />
+            ))}
+            <RoadmapSpacer />
+            <RoadmapCharacterMobileContainer>
+              <img
+                src={characters.yua.publicURL}
+                style={{
+                  position: 'absolute',
+                  bottom: '-1100px',
+                  height: '1200px',
+                  left: '-160px',
+                }}
+              />
+              <img
+                src={characters.jua.publicURL}
+                style={{
+                  position: 'absolute',
+                  bottom: '-1090px',
+                  height: '1200px',
+                  right: '-100px',
+                }}
+              />
+            </RoadmapCharacterMobileContainer>
+          </RoadmapItemWrapper>
         </RoadmapItemContainer>
         <PageNameIndicator>roadmap</PageNameIndicator>
       </RoadmapBlock>
