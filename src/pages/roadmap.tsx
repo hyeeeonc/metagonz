@@ -292,6 +292,14 @@ type RoadmapType = {
   year: number
 }
 
+const groupBy = <T, K extends keyof any>(list: T[], getKey: (item: T) => K) =>
+  list.reduce((previous, currentItem) => {
+    const group = getKey(currentItem)
+    if (!previous[group]) previous[group] = []
+    previous[group].push(currentItem)
+    return previous
+  }, {} as Record<K, T[]>)
+
 const RoadmapPage = () => {
   const characters: ImgType = useStaticQuery(graphql`
     query {
@@ -308,6 +316,9 @@ const RoadmapPage = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(-1)
   const [currentItems, setCurrentItems] = useState<Array<RoadmapType>>([])
   const [hover, setHover] = useState<string>('')
+  const [selectedItems, setSelectedItems] = useState<
+    Record<number, RoadmapType[]>
+  >([])
 
   const { roadmap } = useContext(JsonDataContext)
 
@@ -320,10 +331,20 @@ const RoadmapPage = () => {
   useEffect(() => {
     if (currentIndex === -1) {
       setCurrentItems(roadmap)
-      // console.log(currentItems.group(item => item.year))
     } else {
       setCurrentItems(roadmap.filter(item => item.progress === currentIndex))
     }
+
+    setSelectedItems(() => {
+      if (currentIndex === -1) {
+        return groupBy(roadmap, ({ year }) => year)
+      } else {
+        return groupBy(
+          roadmap.filter(({ progress }) => progress === currentIndex),
+          ({ year }) => year,
+        )
+      }
+    })
   }, [currentIndex, roadmap])
 
   const clickHandler = (progress: number) => () => setCurrentIndex(progress)
