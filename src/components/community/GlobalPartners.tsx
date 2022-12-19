@@ -1,8 +1,9 @@
 import styled from '@emotion/styled'
 import { JsonDataContext } from '../../contexts/JsonDataProvider'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext } from 'react'
 import { GlobalMapSvg } from './GlobalMapSvg'
 import { graphql, useStaticQuery } from 'gatsby'
+import { useMediaQuery } from 'react-responsive'
 
 const GlobalPartnersBlock = styled.div`
   width: 100%;
@@ -61,6 +62,10 @@ const GlobalPartnersMapContainer = styled.div`
 
   @media (max-width: 767px) {
     top: 350px;
+    svg {
+      width: 1200px;
+      height: auto;
+    }
   }
 `
 
@@ -76,6 +81,11 @@ const GlobalPartnersMapFlags = styled.img`
 
   :hover {
     transform: translate(-50%, -100%) scale(1.2);
+  }
+
+  @media (max-width: 767px) {
+    width: 37.5px;
+    height: 60px;
   }
 `
 
@@ -103,7 +113,9 @@ const GlobalPartnersSNSCountContainer = styled.div`
   }
 
   @media (max-width: 767px) {
-    top: 351px;
+    top: 320px;
+    width: 105px;
+    height: 78.75px;
   }
 `
 
@@ -125,6 +137,11 @@ const GlobalPartnersSNSCountItems = styled.div`
   color: rgba(255, 255, 255, 0.6);
 
   gap: 10px;
+
+  @media (max-width: 767px) {
+    width: 70px;
+    height: 30px;
+  }
 `
 
 type ImgType = {
@@ -172,6 +189,12 @@ const GlobalPartners = ({ tabNum }: { tabNum: number }) => {
     }
   `)
   const { discord, twitter } = useContext(JsonDataContext)
+  const isPc = useMediaQuery({
+    query: '(min-width:768px)',
+  })
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  })
 
   const convertNumber = useCallback((num: number): string => {
     if (num / 1000000 >= 1) {
@@ -195,43 +218,43 @@ const GlobalPartners = ({ tabNum }: { tabNum: number }) => {
         <GlobalPartnersMapFlags
           src={flags.us.publicURL}
           style={{
-            top: '250px',
-            left: '320px',
+            top: isPc ? '250px' : '187px',
+            left: isPc ? '320px' : '240px',
           }}
         />
         <GlobalPartnersMapFlags
           src={flags.china.publicURL}
           style={{
-            top: '220px',
-            left: '1270px',
+            top: isPc ? '220px' : '165px',
+            left: isPc ? '1270px' : '952px',
           }}
         />
         <GlobalPartnersMapFlags
           src={flags.england.publicURL}
           style={{
-            top: '110px',
-            left: '750px',
+            top: isPc ? '110px' : '82px',
+            left: isPc ? '750px' : '562px',
           }}
         />
         <GlobalPartnersMapFlags
           src={flags.korea.publicURL}
           style={{
-            top: '240px',
-            left: '1350px',
+            top: isPc ? '240px' : '180px',
+            left: isPc ? '1350px' : '1012.5px',
           }}
         />
         <GlobalPartnersMapFlags
           src={flags.japan.publicURL}
           style={{
-            top: '250px',
-            left: '1420px',
+            top: isPc ? '250px' : '187.5px',
+            left: isPc ? '1420px' : '1065px',
           }}
         />
         <GlobalPartnersMapFlags
           src={flags.russia.publicURL}
           style={{
-            top: '120px',
-            left: '1000px',
+            top: isPc ? '120px' : '90px',
+            left: isPc ? '1000px' : '750px',
           }}
         />
       </GlobalPartnersMapContainer>

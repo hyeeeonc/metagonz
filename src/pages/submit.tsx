@@ -8,9 +8,6 @@ import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 import { graphql, useStaticQuery } from 'gatsby'
 import styled from '@emotion/styled'
 
-import { PageNameIndicator } from 'components/pageLayout/pageLayout'
-import { PublicDataContext } from '../contexts/PublicDataProvider'
-
 const SubmitBlock = styled.div`
   position: absolute;
 
@@ -22,9 +19,6 @@ const SubmitBlock = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  overflow-y: scroll;
-  overflow-x: hidden;
 `
 
 const SubmitBackgroundImage = styled.img`
@@ -59,6 +53,11 @@ const SubmitContentForm = styled.form`
     position: absolute;
     top: 185px;
     left: 0px;
+
+    height: calc(100vh - 190px);
+
+    overflow-y: scroll;
+    overflow-x: hidden;
     align-items: flex-start;
     margin-left: 20px;
   }
@@ -83,7 +82,7 @@ const SubmitContentTitle = styled.div`
 
 const SubmitContentTextarea = styled.textarea`
   width: 600px;
-  height: 256px;
+  min-height: 256px;
 
   font-family: 'SUIT';
   font-style: normal;
@@ -118,7 +117,7 @@ const SubmitContentTextarea = styled.textarea`
 
   @media (max-width: 640px) {
     width: calc(100vw - 40px);
-    height: 300px;
+    min-height: 300px;
   }
 `
 
@@ -175,6 +174,16 @@ const SubmitContentButton = styled.button`
   }
 `
 
+const SubmitSpacer = styled.div`
+  min-width: 100vw;
+  min-height: 250px;
+  display: none;
+
+  @media (max-width: 640px) {
+    display: block;
+  }
+`
+
 type ImgType = {
   background: {
     publicURL: string
@@ -217,15 +226,16 @@ const SubmitPage = () => {
         >
           SUBMIT
         </SubmitContentButton>
+        <SubmitSpacer />
       </SubmitContentForm>
       <iframe id="iframe1" name="iframe1" style={{ display: 'none' }}></iframe>
-      <PageNameIndicator
+      {/* <PageNameIndicator
         style={{
           color: 'white',
         }}
       >
         submit&nbsp;idea
-      </PageNameIndicator>
+      </PageNameIndicator> */}
     </SubmitBlock>
   )
 }

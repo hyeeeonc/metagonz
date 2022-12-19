@@ -31,7 +31,7 @@ const JsonDataProvider = ({
   useEffect(() => {
     ;(async function () {
       const res = await fetch(
-        `http://jsongettester.s3-website-us-east-1.amazonaws.com/parse.json`,
+        `https://d178gfbb5ksb7v.cloudfront.net/parse.json`,
       )
       const json: JsonDataType = await res.json()
       setData(json)

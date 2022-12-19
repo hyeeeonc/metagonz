@@ -427,14 +427,7 @@ const Menu = () => {
     }
   `)
   useEffect(() => {
-    const news = new Octagon(
-      638,
-      1251,
-      images.news.publicURL,
-      '/news',
-      'news',
-      0,
-    )
+    const news = new Octagon(638, 1251, images.news.publicURL, '', 'news', 0)
     const about = new Octagon(
       271,
       1099,
@@ -447,7 +440,7 @@ const Menu = () => {
       531,
       990,
       images.gallery.publicURL,
-      '/gallery',
+      '',
       'gallery',
       2,
     )
@@ -463,8 +456,8 @@ const Menu = () => {
       377,
       621,
       images.eightshop.publicURL,
-      '',
-      '8 shop',
+      '/submit',
+      'submit',
       4,
     )
     const community = new Octagon(
@@ -483,14 +476,7 @@ const Menu = () => {
       'more',
       6,
     )
-    const submit = new Octagon(
-      377,
-      99,
-      images.submit.publicURL,
-      '/submit',
-      'submit',
-      7,
-    )
+    const submit = new Octagon(377, 99, images.submit.publicURL, '', '', 7)
     news.setAdj([null, gallery, null, null, null, null, null, null])
     about.setAdj([null, null, null, gallery, null, null, null, null])
     gallery.setAdj([null, null, community, null, null, news, null, about])
@@ -516,6 +502,8 @@ const Menu = () => {
       toggleMenu()
     }
   }, [menuOpened])
+
+  const doNothing = () => {}
 
   useEffect(() => {
     octagons.forEach(octagon => {
@@ -598,10 +586,9 @@ const Menu = () => {
                 key={i}
                 to={octagon.url}
                 onClick={() => {
-                  if (i != 4) linkHandler()
-                  else {
-                    alert('Comming Soon')
-                  }
+                  if (i == 0 || i == 2) alert('Comming Soon')
+                  else if (i == 7) doNothing()
+                  else linkHandler()
                 }}
               >
                 <MenuButtonContainer
@@ -633,9 +620,9 @@ const Menu = () => {
       {isMobile && (
         <>
           <Link
-            to="#"
+            to="/roadmap"
             onClick={() => {
-              alert('Comming Soon')
+              linkHandler()
             }}
           >
             <MenuMobileButtons
@@ -672,9 +659,9 @@ const Menu = () => {
             />
           </Link>
           <Link
-            to="#"
+            to="/more"
             onClick={() => {
-              alert('Comming Soon')
+              linkHandler()
             }}
           >
             <MenuMobileButtons
@@ -698,9 +685,9 @@ const Menu = () => {
             />
           </Link>
           <Link
-            to="#"
+            to="/community"
             onClick={() => {
-              alert('Comming Soon')
+              linkHandler()
             }}
           >
             <MenuMobileButtons
@@ -711,9 +698,9 @@ const Menu = () => {
             />
           </Link>
           <Link
-            to="#"
+            to="/submit"
             onClick={() => {
-              alert('Comming Soon')
+              linkHandler()
             }}
           >
             <MenuMobileButtons

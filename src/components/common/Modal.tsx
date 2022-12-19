@@ -30,11 +30,16 @@ const ModalContentContainer = styled.main`
 
 type ModalProps = {
   children: React.ReactNode
+  modalOpen: boolean
 }
 
-const Modal = ({ children }: ModalProps) => {
+const Modal = ({ children, modalOpen }: ModalProps) => {
   return (
-    <ModalBlock>
+    <ModalBlock
+      style={{
+        display: modalOpen ? 'flex' : 'none',
+      }}
+    >
       <ModalContentContainer>{children}</ModalContentContainer>
     </ModalBlock>
   )

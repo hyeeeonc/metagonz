@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react'
+import React, { FunctionComponent, useContext, useState } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 
 import styled from '@emotion/styled'
@@ -81,6 +81,7 @@ type docxType = {
 }
 const Footer: FunctionComponent = function () {
   const { isDarkmode } = useContext(DarkmodeContext)
+  const [modal, setModal] = useState<string>('')
   const docxSrc: docxType = useStaticQuery(graphql`
     query {
       policy: file(relativePath: { eq: "document/PRIVACY POLICY.pdf" }) {

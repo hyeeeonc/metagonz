@@ -28,7 +28,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <AppContextProvier>
-      <Helmet>
+      {/* <Helmet>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -72,7 +72,7 @@ const Layout = ({ children }: LayoutProps) => {
         <meta name="twitter:description" content="METAGONZ BE A PART OF US" />
 
         <title>METAGONZ</title>
-      </Helmet>
+      </Helmet> */}
 
       {children}
       <Header />

@@ -5,6 +5,7 @@ import {
   MoreContentContent,
   MoreContentTitle,
   MoredBlock,
+  MoreSpacer,
 } from './moreSubPageLayout'
 
 const WorldContentContent = styled(MoreContentContent)`
@@ -46,6 +47,7 @@ const World = ({ tabNum }: { tabNum: number }) => {
           the digital generation and lead the culture, presenting a paradigm
           shift of high energy digital entertainment culture beyond reality.
         </WorldContentContent>
+        <MoreSpacer />
       </MoreContentContainer>
     </MoredBlock>
   )

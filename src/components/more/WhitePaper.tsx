@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { MoreContentContainer, MoredBlock } from './moreSubPageLayout'
+import {
+  MoreContentContainer,
+  MoredBlock,
+  MoreSpacer,
+} from './moreSubPageLayout'
 
-const WhitePaperContentContainer = styled(MoreContentContainer)`
-  top: 361px;
-`
+const WhitePaperContentContainer = styled(MoreContentContainer)``
 
 const WhitePaperButton = styled.a`
   display: flex;
@@ -25,6 +27,11 @@ const WhitePaperButton = styled.a`
   margin-bottom: 20px;
 
   cursor: pointer;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: 121px;
+  }
 `
 
 const WhitePaperButtonTitle = styled.div`
@@ -68,7 +75,10 @@ const WhitePaper = ({ tabNum }: { tabNum: number }) => {
       }}
     >
       <WhitePaperContentContainer>
-        <WhitePaperButton>
+        <WhitePaperButton
+          target="_blank"
+          href="https://metaoctagon.gitbook.io/metaoctagon/"
+        >
           <WhitePaperButtonTitle>
             <svg
               width="32"
@@ -92,12 +102,12 @@ const WhitePaper = ({ tabNum }: { tabNum: number }) => {
             </svg>
             MOTG&nbsp;UNIVERSE
           </WhitePaperButtonTitle>
-          <WhitePaperButtonLink>
-            metaoctagon.gitbook.io/metaoctagon
-          </WhitePaperButtonLink>
         </WhitePaperButton>
 
-        <WhitePaperButton>
+        <WhitePaperButton
+          target="_blank"
+          href="https://notch-tiglon-309.notion.site/Metagonz-Whitepaper-V1-ENG-31dadfc06d114e32abd80de94e8c50a6"
+        >
           <WhitePaperButtonTitle>
             <svg
               width="29"
@@ -115,10 +125,8 @@ const WhitePaper = ({ tabNum }: { tabNum: number }) => {
             </svg>
             METAGONZ&nbsp;Notion
           </WhitePaperButtonTitle>
-          <WhitePaperButtonLink>
-            a&nbsp;link&nbsp;of&nbsp;notion
-          </WhitePaperButtonLink>
         </WhitePaperButton>
+        <MoreSpacer />
       </WhitePaperContentContainer>
     </MoredBlock>
   )

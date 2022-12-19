@@ -5,13 +5,11 @@ import React, {
   useEffect,
   useContext,
 } from 'react'
-
 import reset from '../../lib/styles/reset'
 import indexStyle from '../../lib/styles/indexStyle'
 import { Global } from '@emotion/react'
 import styled from '@emotion/styled'
 import { graphql, useStaticQuery } from 'gatsby'
-
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 import { useMediaQuery } from 'react-responsive'
 

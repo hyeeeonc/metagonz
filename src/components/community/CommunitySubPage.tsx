@@ -163,7 +163,7 @@ const CommunitySpacer = styled.div`
 
   @media (max-width: 767px) {
     @media (max-width: 900px) {
-      min-height: 150px;
+      min-height: 250px;
     }
   }
 `

@@ -14,6 +14,8 @@ import { JsonDataContext } from '../contexts/JsonDataProvider'
 const RoadmapBlock = styled.div`
   width: 100vw;
   height: 100vh;
+
+  overflow: hidden;
 `
 
 const RoadmapSectionContainer = styled.div`
@@ -101,7 +103,11 @@ const RoadmapItemContainer = styled.div`
     left: 0px;
     width: calc(100vw - 40px);
     min-height: calc(100vh - 200px);
-    padding: 0 30px 0 20px;
+    padding: 0 20px;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `
 
@@ -316,9 +322,7 @@ const RoadmapPage = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(-1)
   const [currentItems, setCurrentItems] = useState<Array<RoadmapType>>([])
   const [hover, setHover] = useState<string>('')
-  const [selectedItems, setSelectedItems] = useState<
-    Record<number, RoadmapType[]>
-  >([])
+  const [years, setYears] = useState<Array<number>>([])
 
   const { roadmap } = useContext(JsonDataContext)
 
@@ -329,22 +333,42 @@ const RoadmapPage = () => {
   }, [menuOpened])
 
   useEffect(() => {
-    if (currentIndex === -1) {
-      setCurrentItems(roadmap)
-    } else {
-      setCurrentItems(roadmap.filter(item => item.progress === currentIndex))
-    }
-
-    setSelectedItems(() => {
+    setCurrentItems(() => {
       if (currentIndex === -1) {
-        return groupBy(roadmap, ({ year }) => year)
+        const tempYear: number[] = []
+        roadmap.forEach(item => {
+          if (!tempYear.includes(item.year)) {
+            tempYear.push(item.year)
+          }
+          setYears(tempYear)
+        })
+        return roadmap
       } else {
-        return groupBy(
-          roadmap.filter(({ progress }) => progress === currentIndex),
-          ({ year }) => year,
-        )
+        const tempYear: number[] = []
+        roadmap
+          .filter(item => item.progress === currentIndex)
+          .forEach(item => {
+            if (!tempYear.includes(item.year)) {
+              tempYear.push(item.year)
+            }
+            setYears(tempYear)
+          })
+        return roadmap.filter(item => item.progress === currentIndex)
       }
     })
+    // setSelectedItems(() => {
+    //   if (currentIndex === -1) {
+    //     return groupBy(roadmap, ({ year }) => year)
+    //   } else {
+    //     return groupBy(
+    //       roadmap.filter(({ progress }) => progress === currentIndex),
+    //       ({ year }) => year,
+    //     )
+    //   }
+    // })
+
+    // const clearArray<Array<number>> = []
+    // setYears(clearArray)
   }, [currentIndex, roadmap])
 
   const clickHandler = (progress: number) => () => setCurrentIndex(progress)
@@ -433,10 +457,17 @@ const RoadmapPage = () => {
 
         <RoadmapItemContainer>
           <RoadmapItemWrapper>
-            <RoadmapItemYear>2022</RoadmapItemYear>
-            {currentItems.map(({ progress, text }) => (
-              <RoadmapItem progress={progress} text={text} />
+            {years.map((largeYear, idx) => (
+              <>
+                <RoadmapItemYear key={idx}>{largeYear}</RoadmapItemYear>
+                {currentItems
+                  .filter(currentItem => currentItem.year == largeYear)
+                  .map(({ progress, text }, idx) => (
+                    <RoadmapItem key={idx} progress={progress} text={text} />
+                  ))}
+              </>
             ))}
+
             <RoadmapSpacer />
             <RoadmapCharacterMobileContainer>
               <img

@@ -5,6 +5,7 @@ import {
   MoreContentContent,
   MoreContentTitle,
   MoredBlock,
+  MoreSpacer,
 } from './moreSubPageLayout'
 
 const EcoSystemUl = styled.ul`
@@ -33,6 +34,11 @@ const EcoSystemTokenContainer = styled.div`
   border-radius: 5px;
 
   margin-bottom: 10px;
+
+  @media (max-width: 767px) {
+    width: 350px;
+    height: 158px;
+  }
 `
 
 const EcoSystemTokenTitle = styled.div`
@@ -50,10 +56,17 @@ const EcoSystemTokenTitle = styled.div`
 
 const EcoSystemTokenBoxContainer = styled.div`
   display: flex;
+  flex-direction: row;
   gap: 10px;
 
   width: 530px;
   height: 36px;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    width: 170px;
+    height: 128px;
+  }
 `
 
 const EcoSystemTokenBox = styled.div`
@@ -139,6 +152,7 @@ const EcoSystem = ({ tabNum }: { tabNum: number }) => {
             <EcoSystemTokenBox>3D Avatar Purchase</EcoSystemTokenBox>
           </EcoSystemTokenBoxContainer>
         </EcoSystemTokenContainer>
+        <MoreSpacer />
       </MoreContentContainer>
     </MoredBlock>
   )

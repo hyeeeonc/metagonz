@@ -17,6 +17,54 @@ import CreatedByMany from 'components/more/CreatedByMany'
 import WhitePaper from 'components/more/WhitePaper'
 import Partners from 'components/more/Partners'
 
+const MorePageNavContainer = styled(PageNavContainer)`
+  transition: none;
+
+  @media (max-height: 859px) {
+    top: 100px;
+  }
+
+  @media (max-width: 1181px) {
+    width: calc(100vw - 60px);
+    height: 45px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    ::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #fff;
+      border-radius: 100px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  @media (max-width: 767px) {
+    top: 192px;
+    left: 20px;
+
+    height: 33px;
+
+    width: calc(100vw - 40px);
+  }
+`
+
+const MorePageNameIndicator = styled(PageNameIndicator)`
+  @media (max-height: 859px) {
+    top: 56px;
+  }
+
+  @media (max-width: 767px) {
+    left: 20px;
+    top: 110px;
+  }
+`
+
 const MoreBackground = styled.div`
   position: absolute;
   top: 0;
@@ -95,7 +143,7 @@ const MorePage = () => {
         <Partners tabNum={tabNum} />
         <WhitePaper tabNum={tabNum} />
 
-        <PageNavContainer>
+        <MorePageNavContainer>
           <PageNavItems
             onMouseEnter={() => setHover('world')}
             onMouseLeave={() => setHover('')}
@@ -174,8 +222,10 @@ const MorePage = () => {
           >
             white&nbsp;paper
           </PageNavItems>
-        </PageNavContainer>
-        <PageNameIndicator style={{ color: 'white' }}>more</PageNameIndicator>
+        </MorePageNavContainer>
+        <MorePageNameIndicator style={{ color: 'white' }}>
+          more
+        </MorePageNameIndicator>
       </PageBlock>
     </>
   )

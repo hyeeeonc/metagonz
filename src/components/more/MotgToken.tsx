@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
 import { graphql, useStaticQuery } from 'gatsby'
 import {
@@ -6,7 +6,9 @@ import {
   MoreContentContent,
   MoreContentTitle,
   MoredBlock,
+  MoreSpacer,
 } from './moreSubPageLayout'
+import { useMediaQuery } from 'react-responsive'
 
 const MotgTokenContentContent = styled(MoreContentContent)`
   max-width: 870px;
@@ -16,13 +18,22 @@ const MotgTokenContentContent = styled(MoreContentContent)`
 
 const MotgTokenSupplyContainer = styled.div`
   display: flex;
-  flex-direction: column;
+
+  @media (max-width: 1110px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `
 
 const MotgTokenSupplySiteContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+
+  @media (max-width: 1110px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `
 
 const MotgTokenSupplySiteTitle = styled.div`
@@ -38,6 +49,13 @@ const MotgTokenSupplySiteTitle = styled.div`
 const MotgTokenSupplySiteBoxContainer = styled.div`
   display: flex;
   gap: 5px;
+
+  @media (max-width: 1110px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-bottom: 30px;
+  }
 `
 
 const MotgTokenSupplySiteBox = styled.div`
@@ -57,6 +75,14 @@ const MotgTokenSupplySiteBox = styled.div`
   line-height: 16px;
 
   color: #ffffff;
+
+  @media (max-width: 1110px) {
+    width: 190px;
+    height: 36px;
+    box-sizing: border-box;
+
+    justify-content: center;
+  }
 `
 
 const MotgTokenSupplyIndicatingBox = styled.div`
@@ -66,6 +92,12 @@ const MotgTokenSupplyIndicatingBox = styled.div`
 
   background: #6200ee;
   border-radius: 3px;
+
+  @media (max-width: 1110px) {
+    position: static;
+    height: 30px;
+    margin-bottom: 5px;
+  }
 `
 
 const MotgTokenSupplyIndicatingTextContainer = styled.div`
@@ -75,6 +107,11 @@ const MotgTokenSupplyIndicatingTextContainer = styled.div`
   gap: 10px;
 
   height: 19px;
+
+  @media (max-width: 1110px) {
+    position: static;
+    margin-bottom: 15px;
+  }
 `
 
 const MotgTokenSupplyIndicatingTextPercent = styled.span`
@@ -97,6 +134,13 @@ const MotgTokenSupplyIndicatingText = styled.span`
   line-height: 19px;
 
   color: #ffffff;
+`
+
+const MotgTokenSpacer = styled(MoreSpacer)`
+  min-height: 500px;
+  @media (max-width: 1110px) {
+    min-height: 250px;
+  }
 `
 
 const MotgTokenSupplyIndicatingBoxComponent = ({
@@ -126,7 +170,7 @@ const MotgTokenSupplyIndicatingBoxComponent = ({
 }
 
 type ImgType = {
-  background: {
+  gateio: {
     publicURL: string
   }
 }
@@ -134,11 +178,15 @@ type ImgType = {
 const MotgToken = ({ tabNum }: { tabNum: number }) => {
   const gaetioLogo: ImgType = useStaticQuery(graphql`
     query {
-      background: file(relativePath: { eq: "images/home.png" }) {
+      gateio: file(relativePath: { eq: "images/gateio.png" }) {
         publicURL
       }
     }
   `)
+
+  const isWide = useMediaQuery({
+    query: '(min-width:1111px)',
+  })
 
   return (
     <MoredBlock
@@ -284,10 +332,20 @@ const MotgToken = ({ tabNum }: { tabNum: number }) => {
                   />
                 </svg>
               </MotgTokenSupplySiteBox>
-              <MotgTokenSupplySiteBox></MotgTokenSupplySiteBox>
+              <MotgTokenSupplySiteBox>
+                <img
+                  style={{
+                    width: 'auto',
+                    height: '16px',
+                  }}
+                  src={gaetioLogo.gateio.publicURL}
+                />
+              </MotgTokenSupplySiteBox>
             </MotgTokenSupplySiteBoxContainer>
           </MotgTokenSupplySiteContainer>
-
+          {/* 
+          {isWide ? (
+            <> */}
           <MotgTokenSupplyIndicatingBox
             style={{
               left: '0px',
@@ -395,7 +453,12 @@ const MotgToken = ({ tabNum }: { tabNum: number }) => {
             percent={5}
             text="Reverse"
           />
+          {/* </> */}
+          {/* ) : (
+            <></>
+          )} */}
         </MotgTokenSupplyContainer>
+        <MotgTokenSpacer />
       </MoreContentContainer>
     </MoredBlock>
   )
