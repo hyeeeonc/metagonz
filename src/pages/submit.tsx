@@ -102,8 +102,8 @@ const SubmitContentTextarea = styled.textarea`
   font-family: 'SUIT';
   font-style: normal;
   font-weight: 600;
-  font-size: 13px;
-  line-height: 16px;
+  font-size: 16px;
+  line-height: 19px;
 
   color: #000000;
 
@@ -111,8 +111,8 @@ const SubmitContentTextarea = styled.textarea`
     font-family: 'SUIT';
     font-style: normal;
     font-weight: 600;
-    font-size: 13px;
-    line-height: 16px;
+    font-size: 16px;
+    line-height: 19px;
 
     color: rgba(0, 0, 0, 0.3);
   }

@@ -24,7 +24,7 @@ const NewsBlock = styled.div`
 
 const NewsItemContainer = styled.div`
   margin-top: 230px;
-  width: calc(100vw - 60px);
+  width: 1300px;
   height: calc(100vh - 270px);
 
   // display: flex;
@@ -47,6 +47,18 @@ const NewsItemContainer = styled.div`
     background: rgba(0, 0, 0, 0.1);
     border-radius: 30px;
   }
+
+  @media (max-width: 1339px) {
+    width: calc(100vw - 40px);
+  }
+
+  @media (max-width: 767px) {
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    margin-top: 180px;
+    width: calc(100vw - 40px);
+  }
 `
 
 const NewsItemLinker = styled.a`
@@ -62,6 +74,9 @@ const NewsItems = styled.div`
 
   text-decoration: none;
 
+  padding: 0 10px;
+  box-sizing: border-box;
+
   :hover {
     background: rgba(0, 0, 0, 0.02);
   }
@@ -70,7 +85,13 @@ const NewsItems = styled.div`
     color: #6200ee;
   }
 
-  border: 1px solid black;
+  @media (max-width: 1339px) {
+    width: calc(100vw - 80px);
+  }
+
+  @media (max-width: 767px) {
+    width: calc(100vw - 40px);
+  }
 `
 
 const NewsItemTitle = styled.div`
@@ -81,11 +102,16 @@ const NewsItemTitle = styled.div`
   line-height: 31px;
   text-align: center;
 
-  margin: 30px 0 20px 0;
+  padding: 30px 0 20px 0;
 
   color: #000000;
 
-  transition: 0.3s ease;
+  transition: color 0.3s ease;
+
+  @media (max-width: 767px) {
+    font-size: 15px;
+    line-height: 19px;
+  }
 `
 
 const NewsItemDate = styled.div`
@@ -98,6 +124,18 @@ const NewsItemDate = styled.div`
   letter-spacing: 0.05em;
 
   color: #000000;
+
+  padding-bottom: 20px;
+
+  @media (max-width: 767px) {
+    font-size: 13px;
+    line-height: 16px;
+  }
+`
+
+const NewsSpacer = styled.div`
+  min-width: 100vw;
+  min-height: 200px;
 `
 
 const NewsItem = ({
@@ -136,9 +174,8 @@ const NewsPage = () => {
         'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@metaoctagon',
       )
       .then(res => {
-        console.log(res)
         const tempArr: Array<ArticleType> = []
-        res.data?.items?.map(item => {
+        res.data?.items?.map((item: any) => {
           const tempObj: ArticleType = {
             link: item?.link,
             title: item.title,
@@ -147,7 +184,6 @@ const NewsPage = () => {
           }
           tempArr.push(tempObj)
         })
-        console.log(tempArr)
         setArticles(tempArr)
       })
       .catch(err => {
@@ -167,9 +203,10 @@ const NewsPage = () => {
       <Global styles={reset} />
       <NewsBlock>
         <NewsItemContainer>
-          {articles.map(({ link, title, published_at, content }) => (
-            <NewsItem link={link} title={title} date={published_at} />
+          {articles.map(({ link, title, published_at }, idx) => (
+            <NewsItem link={link} title={title} date={published_at} key={idx} />
           ))}
+          <NewsSpacer />
         </NewsItemContainer>
         <PageNameIndicator>news</PageNameIndicator>
       </NewsBlock>
