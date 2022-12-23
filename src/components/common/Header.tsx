@@ -10,11 +10,13 @@ import MobileNav from './HeaderComponent/MobileNav'
 import { useMediaQuery } from 'react-responsive'
 
 const HeaderBlock = styled.header`
-  width: 100%;
-  height: 6rem;
   position: fixed;
   top: 0px;
   left: 0px;
+
+  width: 100%;
+  height: 6rem;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -65,7 +67,7 @@ const HeaderNavContainer = styled.nav`
   }
 `
 
-const HeaderNavItemsLightMode = styled(Link)`
+const HeaderNavItemsLightMode = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,7 +93,7 @@ const HeaderNavItemsLightMode = styled(Link)`
   cursor: pointer;
 `
 
-const HeaderNavItemsDarkMode = styled(Link)`
+const HeaderNavItemsDarkMode = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -437,7 +439,7 @@ const Header = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g clip-path="url(#clip0_871_419)">
+              <g clipPath="url(#clip0_871_419)">
                 <path
                   d="M38.8885 20.0023C38.8885 24.2982 35.4057 27.7811 31.1098 27.7811C26.814 27.7811 23.3359 24.2982 23.3359 20.0023C23.3359 15.7065 26.8188 12.2236 31.1098 12.2236C35.4009 12.2236 38.8885 15.7065 38.8885 20.0023Z"
                   fill={
@@ -520,32 +522,33 @@ const Header = () => {
       </HeaderLogoContainer>
       <HeaderButtonContainer>
         <HeaderNavContainer>
-          <HeaderNavItems
-            onClick={() => {
-              alert('Comming Soon')
+          <a
+            style={{
+              textDecoration: 'none',
             }}
-            to={`#`}
+            target="_blank"
+            href="https://mint.metagonz.io/"
           >
-            minting
-          </HeaderNavItems>
+            <HeaderNavItems>minting</HeaderNavItems>
+          </a>
 
-          <HeaderNavItems
-            onClick={() => {
-              alert('Comming Soon')
+          <Link
+            style={{
+              textDecoration: 'none',
             }}
-            to={`#`}
+            to={`/gallery`}
           >
-            gallery
-          </HeaderNavItems>
+            <HeaderNavItems>gallery</HeaderNavItems>
+          </Link>
 
-          <HeaderNavItems
-            onClick={() => {
-              alert('Comming Soon')
+          <Link
+            style={{
+              textDecoration: 'none',
             }}
-            to={`#`}
+            to={`/mypage`}
           >
-            My Page
-          </HeaderNavItems>
+            <HeaderNavItems>My Page</HeaderNavItems>
+          </Link>
         </HeaderNavContainer>
         <HeaderMobileNavButton onClick={mobileNavOpenHandler}>
           <svg

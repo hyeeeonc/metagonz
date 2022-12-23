@@ -1,7 +1,7 @@
 [
   {
     "trait_type": "Rarity",
-    "values": ["Common", "Rare", "SR", "SSR", "Legendary"]
+    "values": ["Common", "Rare", "SR", "SSR"]
   },
   {
     "trait_type": "Background",
@@ -21,14 +21,14 @@
       "Back Wall:Violet",
       "Back Wall:Lilak",
       "Back Wall:Steel Blue",
-      "Neon 1",
-      "Neon 2",
-      "Neon 3",
-      "Neon 4",
-      "Neon 5",
-      "Neon 6",
-      "Neon 7",
-      "Neon 8"
+      "LED Back Wall:Pink",
+      "LED Back Wall:Peach",
+      "LED Back Wall:Violet",
+      "LED Back Wall:Sky",
+      "LED Back Wall:Dark",
+      "LED Back Wall:Yellow",
+      "LED Back Wall:Blue",
+      "LED Back Wall:Purple"
     ]
   },
   {

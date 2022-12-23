@@ -114,7 +114,8 @@ const Footer: FunctionComponent = function () {
           color: isDarkmode ? 'black' : 'white',
         }}
         href={docxSrc.policy.publicURL}
-        download="PRIVACY POLICY.pdf"
+        target="_blank"
+        //download="PRIVACY POLICY.pdf"
       >
         Privacy policy
       </FooterLinker>
@@ -123,7 +124,8 @@ const Footer: FunctionComponent = function () {
           color: isDarkmode ? 'black' : 'white',
         }}
         href={docxSrc.use.publicURL}
-        download="TERMS OF USE.pdf"
+        target="_blank"
+        //download="TERMS OF USE.pdf"
       >
         terms of use
       </FooterLinker>

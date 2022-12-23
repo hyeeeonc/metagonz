@@ -27,9 +27,9 @@ const NewsItemContainer = styled.div`
   width: calc(100vw - 60px);
   height: calc(100vh - 270px);
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
 
   overflow-y: scroll;
   overflow-x: hidden;
@@ -49,13 +49,12 @@ const NewsItemContainer = styled.div`
   }
 `
 
-const NewsItems = styled.a`
-  // display: flex;
-  // flex-direction: column;
+const NewsItemLinker = styled.a`
+  text-decoration: none;
+`
 
+const NewsItems = styled.div`
   width: 1260px;
-  height: 130px;
-  padding-bottom: 30px;
 
   border-top: 1px;
   border-radius: 5px;
@@ -70,6 +69,8 @@ const NewsItems = styled.a`
   :hover .news-title {
     color: #6200ee;
   }
+
+  border: 1px solid black;
 `
 
 const NewsItemTitle = styled.div`
@@ -109,9 +110,11 @@ const NewsItem = ({
   date: string
 }) => {
   return (
-    <NewsItems target="_blank" href={link}>
-      <NewsItemTitle className="news-title">{title}</NewsItemTitle>
-      <NewsItemDate>{date}</NewsItemDate>
+    <NewsItems>
+      <NewsItemLinker target="_blank" href={link}>
+        <NewsItemTitle className="news-title">{title}</NewsItemTitle>
+        <NewsItemDate>{date}</NewsItemDate>
+      </NewsItemLinker>
     </NewsItems>
   )
 }

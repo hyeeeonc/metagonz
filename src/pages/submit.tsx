@@ -19,6 +19,8 @@ const SubmitBlock = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  overflow: hidden;
 `
 
 const SubmitBackgroundImage = styled.img`

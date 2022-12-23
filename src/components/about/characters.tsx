@@ -549,6 +549,7 @@ const Characters = ({
         </CharacterSelectoritems>
         {edges.map(({ node }, index) => (
           <CharacterSelectoritems
+            key={index}
             style={{
               opacity: selected == index ? 1 : 0.3,
             }}
