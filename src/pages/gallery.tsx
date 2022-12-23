@@ -12,6 +12,7 @@ import styled from '@emotion/styled'
 import { PageNameIndicator } from 'components/pageLayout/pageLayout'
 
 import { Trait } from '../types/Trait.type'
+import { Item } from '../types/Item.type'
 
 const GalleryBlock = styled.div`
   width: 100vw;
@@ -248,29 +249,43 @@ const GallerySelectMenuSearchIcon = styled.div`
   margin-left: 5px;
 `
 
-const GalleryNftItemComponent = ({ src }: { src: string }) => {
+const GalleryNftItemComponent = ({
+  image,
+  imageName,
+  edition,
+}: {
+  image: string
+  imageName: string
+  edition: string
+}) => {
   return (
     <GalleryNftItems>
       <GalleryNftImageContainer>
-        <video muted width="100%" autoPlay loop playsInline>
-          <source src={src} type="video/mp4"></source>
-        </video>
+        {imageName.split('.')[1] === 'png' ||
+        imageName.split('.')[1] === 'gif' ? (
+          <img src={image} alt="" />
+        ) : (
+          <video muted width="100%" autoPlay loop playsInline>
+            <source src={image} type="video/mp4" />
+          </video>
+        )}
       </GalleryNftImageContainer>
       <GalleryNftItemAuthor>META GONZ</GalleryNftItemAuthor>
-      <GalleryNftItemNumber>NO. 0001</GalleryNftItemNumber>
+      <GalleryNftItemNumber>NO. {edition}</GalleryNftItemNumber>
     </GalleryNftItems>
   )
 }
 
 // eslint-disable-next-line
-const traits: Array<Trait> = require('../resources/trait.json')
+const items: Array<Item> = require('../resources/metadata.json')
+const traits: Array<Trait> = require('../resources/traits.json')
 
 const GalleryPage = () => {
   const { setDefaultAudio } = useContext(AudioContext)
   const { setMode, menuOpened } = useContext(DarkmodeContext)
 
-  const [items, _] = useState<Array<any>>(Array(8888).fill(0))
-  const [itemRange, setItemRange] = useState<number>(20)
+  const [currentItems, setCurrentItems] = useState<Array<Item>>(items)
+  const [itemRange, setItemRange] = useState<number>(12)
   // const [menuOpen, setMenuOpen] = useState<Array<Array<number>>>([
   //   [],
   //   [],
@@ -286,14 +301,24 @@ const GalleryPage = () => {
 
   const [searchQuery, setSearchQuery] = useState<Map<string, Set<string>>>(
     new Map([
-      ['background', new Set()],
-      ['skin', new Set()],
+      ['Background', new Set()],
+      ['Rarity', new Set()],
+      ['Hair', new Set()],
+      ['Body', new Set()],
+      ['Clothes', new Set()],
+      ['Accessory', new Set()],
+      ['Sunglassess', new Set()],
+      ['Outer', new Set()],
+      ['Music', new Set()],
+      ['Music Equipment', new Set()],
     ]),
   )
 
+  useEffect(() => {}, [searchQuery])
+
   useEffect(() => {
-    console.log(searchQuery)
-  }, [searchQuery])
+    console.log(items)
+  })
 
   // 기본 height
   const [menuOpenHeight, setMenuOpenHeight] = useState<Array<number>>([
@@ -328,12 +353,13 @@ const GalleryPage = () => {
   // 특성값 클릭했을 때 => 검색에 직접 영향
   const valueClickHandler = (mapKey: string, sub: string) => {
     setSearchQuery(searchQuery => {
+      const temp = new Map(searchQuery)
       if (searchQuery.get(mapKey)?.has(sub)) {
-        searchQuery.get(mapKey)?.add(sub)
+        temp.get(mapKey)?.delete(sub)
       } else {
-        searchQuery.get(mapKey)?.delete(sub)
+        temp.get(mapKey)?.add(sub)
       }
-      return searchQuery
+      return temp
     })
   }
 
@@ -342,6 +368,27 @@ const GalleryPage = () => {
       setMode(true)
     }
   }, [menuOpened])
+
+  useEffect(() => {
+    setCurrentItems(_ => {
+      return items.reduce<Array<Item>>((acc, item) => {
+        const test = item.attributes.reduce<boolean>(
+          (acc, { trait_type, value }) =>
+            acc &&
+            (searchQuery.get(trait_type)?.size === 0 ||
+              (searchQuery.get(trait_type)?.has(value) ?? true)),
+          true,
+        )
+        if (test) {
+          return acc.concat(item)
+        } else {
+          return acc
+        }
+      }, [])
+    })
+
+    setItemRange(12)
+  }, [searchQuery])
 
   useEffect(() => {
     return globalHistory.listen(({ action }) => {
@@ -354,6 +401,7 @@ const GalleryPage = () => {
       e.currentTarget.scrollHeight - e.currentTarget.scrollTop <=
       e.currentTarget.clientHeight + 200
     ) {
+      console.log('test')
       setItemRange(range => range + 12)
     }
   }, [])
@@ -362,7 +410,7 @@ const GalleryPage = () => {
     <>
       <Global styles={reset} />
       <GalleryBlock>
-        <GalleryWholeContainer>
+        <GalleryWholeContainer onWheel={scrollHandler}>
           <GallerySelectMenuContainer>
             <GallerySelectMenuAttributeContainer>
               <GallerySelectMenuAttributeTitleContainer>
@@ -426,7 +474,7 @@ const GalleryPage = () => {
                   {trait.values.map((value, subIdx) => (
                     <GallerySelectMenuValues
                       key={subIdx}
-                      onClick={() => {
+                      onClick={e => {
                         valueClickHandler(trait.trait_type, value)
                       }}
                     >
@@ -449,10 +497,16 @@ const GalleryPage = () => {
             ))}
           </GallerySelectMenuContainer>
 
-          <GalleryNftContainer onWheel={scrollHandler}>
-            {items.slice(0, itemRange).map(_ => (
-              <GalleryNftItemComponent src={publicURL} />
-            ))}
+          <GalleryNftContainer>
+            {currentItems
+              .slice(0, itemRange)
+              .map(({ name, image, imageName, edition }) => (
+                <GalleryNftItemComponent
+                  image={image}
+                  imageName={imageName}
+                  edition={edition}
+                />
+              ))}
           </GalleryNftContainer>
           <PageNameIndicator>gallery</PageNameIndicator>
         </GalleryWholeContainer>
