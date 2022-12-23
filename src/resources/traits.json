@@ -1,7 +1,7 @@
 [
   {
     "trait_type": "Rarity",
-    "values": ["Rare", "Common", "SR", "Legendary", "SSR"]
+    "values": ["Common", "Rare", "SR", "SSR", "Legendary"]
   },
   {
     "trait_type": "Background",
@@ -12,7 +12,6 @@
       "Back Wall:Dark Lavender",
       "Back Wall:Dawn",
       "Back Wall:Dark",
-      "Neon 2",
       "Back Wall:Blue Gray",
       "Back Wall:Peach",
       "Back Wall:Green",
@@ -20,15 +19,15 @@
       "Back Wall:Dusty Pink",
       "Back Wall:Blossom",
       "Back Wall:Violet",
-      "Special Background",
-      "Neon 6",
       "Back Wall:Lilak",
-      "Neon 5",
-      "Neon 7",
-      "Neon 3",
-      "Neon 4",
       "Back Wall:Steel Blue",
       "Neon 1",
+      "Neon 2",
+      "Neon 3",
+      "Neon 4",
+      "Neon 5",
+      "Neon 6",
+      "Neon 7",
       "Neon 8"
     ]
   },
@@ -52,43 +51,18 @@
       "Blond wavy bangs hair",
       "Space bun with braids",
       "Red brown two braided hair",
-      "Sana's Special Hair",
       "Blue gray shorts bob hair",
       "Orange wavy short bangs hair",
       "Orange braided hair",
       "Dark purple bangs straight hair",
       "Blond two braided pigtails",
       "Buns with braids fringe",
-      "Loose wavy hair",
-      "Ara's Special Hair",
-      "Sia's Special Hair",
-      "Yua's Special Hair",
-      "Jua's Special Hair",
-      "Roa's Special Hair",
-      "Dana's Special Hair",
-      "Sara's Special Hair"
+      "Loose wavy hair"
     ]
   },
   {
     "trait_type": "Body",
-    "values": [
-      "Sia",
-      "Sara",
-      "Jua",
-      "Roa",
-      "Ara",
-      "Dana",
-      "Yua",
-      "Kina",
-      "Sana standing",
-      "Ara standing",
-      "Sia standing",
-      "Yua standing",
-      "Jua standing",
-      "Roa standing",
-      "Dana standing",
-      "Sara standing"
-    ]
+    "values": ["Sia", "Sara", "Jua", "Roa", "Ara", "Dana", "Yua", "Sana"]
   },
   {
     "trait_type": "Clothes",
@@ -145,16 +119,11 @@
       "Cream button detail top",
       "White layered top",
       "Black flare sleeveless",
-      "Yua's Special Cloth",
+      "Green knit cardigan",
       "Cream logo bodysuit",
       "Navy box T shirt",
       "White crop knit top",
-      "Denim tank top",
-      "Jua's Special Cloth",
-      "Roa's Special Cloth",
-      "Green knit cardigan",
-      "Dana's Special Cloth",
-      "Sara's Special Cloth"
+      "Denim tank top"
     ]
   },
   {
@@ -175,19 +144,11 @@
       "Colorful beads necklace",
       "Silver ball chain earring set",
       "Drop single earring",
-      "Sana's Special Accessory",
       "Silver bold  chain necklace",
       "Silver big ribbon necklace",
       "bold heart necklace earcuff set",
       "Gold coin necklace",
-      "Gold charm bracelet.png",
-      "Ara's Special Accessory",
-      "Sia's Special Accessory",
-      "Yua's Special Accessory",
-      "Jua's Special Accessory",
-      "Roa's Special Accessory",
-      "Dana's Special Accessory",
-      "Sara's Special Accessory"
+      "Gold charm bracelet.png"
     ]
   },
   {
@@ -199,7 +160,6 @@
       "prism sporty sunglasses",
       "Black square frame sunglasses",
       "black aviator sunglasses",
-      "Invisible sunglasses",
       "Brown oval frame sunglasses"
     ]
   },
@@ -212,34 +172,15 @@
       "Brown boomer jarket",
       "Black leather crop jarket",
       "Brown vintage lether crop outer",
-      "Sana's Special Outer",
       "White racing jarket",
       "Cream turtle bolero",
       "Red denim jarket",
       "Gray tweed crop jarket",
-      "Ara's Special Outer",
-      "Sia's Special Outer",
-      "Yua's Special Outer",
-      "Jua's Special Outer",
-      "Roa's Special Outer",
-      "Black cross string vest",
-      "Dana's Special Outer",
-      "Sara's Special Outer"
+      "Black cross string vest"
     ]
   },
   {
     "trait_type": "Music",
-    "values": [
-      "Sana's Sound:Moombah",
-      "Go Metagonz",
-      "Ara's Sound:Future Bass",
-      "Sia's Sound:Slap House",
-      "Yua's Sound:Trance Future Rave",
-      "Jua's Sound:Funky House",
-      "Roa's Sound:Jackin House",
-      "Dana's Sound:Acid Techno",
-      "Sara's Sound:Dubstep"
-    ]
-  },
-  { "trait_type": "Music Equipment", "values": ["Chrome Audio Mixer"] }
+    "values": ["Go Metagonz"]
+  }
 ]

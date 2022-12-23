@@ -9,7 +9,7 @@
     "@emotion/styled": "^11.10.4",
     "@types/react-helmet": "^6.1.5",
     "assert": "^2.0.0",
-    "axios": "^1.2.0",
+    "axios": "^1.2.1",
     "babel-runtime": "^6.26.0",
     "camelcase": "^7.0.0",
     "crypto": "^1.0.1",

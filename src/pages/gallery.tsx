@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { AudioContext } from '../contexts/AudioProvider'
 
@@ -32,6 +33,17 @@ const GalleryWholeContainer = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
   width: 1500px;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+
+  @media (max-width: 949px) {
+    margin-left: 10px;
+    margin-top: 192px;
+  }
 `
 
 const GalleryNftContainer = styled.div`
@@ -42,27 +54,50 @@ const GalleryNftContainer = styled.div`
 `
 
 const GalleryNftItems = styled.div`
-  width: 320px;
+  width: 300px;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
 
-  margin: 0px 10px;
+  margin: 0px 5px;
+
+  @media (max-width: 1506px) {
+    margin: 0px calc((100vw - (30px + 207px + 30px) - 900px) / 6);
+  }
+
+  @media (max-width: 1200px) {
+    margin: 0px calc((100vw - 40px - 900px) / 6);
+  }
+
+  @media (max-width: 949px) {
+    margin: 0px 10px;
+    width: calc((100vw - 60px) / 2);
+  }
 `
 
 const GalleryNftImageContainer = styled.div`
-  width: 320px;
-  height: 480px;
+  width: 300px;
+  height: 400px;
 
   background: none;
   video,
   img {
     width: 100%;
   }
+
+  @media (max-width: 949px) {
+    width: calc((100vw - 60px) / 2);
+    height: calc((100vw - 60px) / 6 * 4);
+    overflow: hidden;
+
+    border-radius: 5px;
+  }
 `
 
 const GalleryNftItemAuthor = styled.div`
+  margin-top: 20px;
+
   font-family: 'SUIT';
   font-style: normal;
   font-weight: 700;
@@ -72,9 +107,15 @@ const GalleryNftItemAuthor = styled.div`
   text-transform: uppercase;
 
   color: #000000;
+
+  @media (max-width: 949px) {
+    margin-top: 15px;
+  }
 `
 
 const GalleryNftItemNumber = styled.div`
+  margin-bottom: 50px;
+
   font-family: 'SUIT';
   font-style: normal;
   font-weight: 400;
@@ -84,6 +125,10 @@ const GalleryNftItemNumber = styled.div`
   text-transform: uppercase;
 
   color: #000000;
+
+  @media (max-width: 949px) {
+    margin-bottom: 40px;
+  }
 `
 
 const GallerySelectMenuContainer = styled.div`
@@ -92,6 +137,15 @@ const GallerySelectMenuContainer = styled.div`
   gap: 5px;
 
   width: 207px;
+  margin-right: 30px;
+
+  @media (max-width: 1200px) {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+
+    display: none;
+  }
 `
 
 const GallerySelectMenuAttributeContainer = styled.div`
@@ -121,6 +175,13 @@ const GallerySelectMenuAttributeTitleContainer = styled.div`
   box-sizing: border-box;
 
   overflow: hidden;
+
+  font-family: 'SUIT';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  text-transform: uppercase;
 `
 
 const GallerySelectMenuAttributeTitle = styled.div`
@@ -276,28 +337,16 @@ const GalleryNftItemComponent = ({
   )
 }
 
-// eslint-disable-next-line
 const items: Array<Item> = require('../resources/metadata.json')
 const traits: Array<Trait> = require('../resources/traits.json')
 
 const GalleryPage = () => {
   const { setDefaultAudio } = useContext(AudioContext)
   const { setMode, menuOpened } = useContext(DarkmodeContext)
+  const [sideMenuOpen, setSideMenuOpen] = useState<boolean>(false)
 
   const [currentItems, setCurrentItems] = useState<Array<Item>>(items)
   const [itemRange, setItemRange] = useState<number>(12)
-  // const [menuOpen, setMenuOpen] = useState<Array<Array<number>>>([
-  //   [],
-  //   [],
-  //   [],
-  //   [],
-  //   [],
-  //   [],
-  //   [],
-  //   [],
-  //   [],
-  // ])
-  //rarelity background hair body cloth accessary sunglasses outer music Music Equipment
 
   const [searchQuery, setSearchQuery] = useState<Map<string, Set<string>>>(
     new Map([
@@ -307,7 +356,7 @@ const GalleryPage = () => {
       ['Body', new Set()],
       ['Clothes', new Set()],
       ['Accessory', new Set()],
-      ['Sunglassess', new Set()],
+      ['Sunglasses', new Set()],
       ['Outer', new Set()],
       ['Music', new Set()],
       ['Music Equipment', new Set()],
@@ -316,7 +365,7 @@ const GalleryPage = () => {
 
   // 기본 height
   const [menuOpenHeight, setMenuOpenHeight] = useState<Array<number>>([
-    32, 32, 32, 32, 32, 32, 32, 32, 32,
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
   ])
 
   // 메뉴 title 선택했을 때 => 특성값들 보이게 하는 handler
@@ -416,7 +465,16 @@ const GalleryPage = () => {
         <GalleryWholeContainer onWheel={scrollHandler}>
           <GallerySelectMenuContainer>
             <GallerySelectMenuAttributeContainer>
-              <GallerySelectMenuAttributeTitleContainer>
+              <GallerySelectMenuAttributeTitleContainer
+                style={{
+                  color: 'white',
+                  background: '#FF1D61',
+                  cursor: 'pointer',
+                }}
+                onClick={e => {
+                  valueClickHandler('Rarity', 'Legendary')
+                }}
+              >
                 special
               </GallerySelectMenuAttributeTitleContainer>
             </GallerySelectMenuAttributeContainer>

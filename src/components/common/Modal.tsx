@@ -31,13 +31,17 @@ const ModalContentContainer = styled.main`
 type ModalProps = {
   children: React.ReactNode
   modalOpen: boolean
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Modal = ({ children, modalOpen }: ModalProps) => {
+const Modal = ({ children, modalOpen, setModalOpen }: ModalProps) => {
   return (
     <ModalBlock
       style={{
         display: modalOpen ? 'flex' : 'none',
+      }}
+      onClick={() => {
+        setModalOpen(false)
       }}
     >
       <ModalContentContainer>{children}</ModalContentContainer>

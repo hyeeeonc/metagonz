@@ -427,7 +427,14 @@ const Menu = () => {
     }
   `)
   useEffect(() => {
-    const news = new Octagon(638, 1251, images.news.publicURL, '', 'news', 0)
+    const news = new Octagon(
+      638,
+      1251,
+      images.news.publicURL,
+      '/news',
+      'news',
+      0,
+    )
     const about = new Octagon(
       271,
       1099,
@@ -440,7 +447,7 @@ const Menu = () => {
       531,
       990,
       images.gallery.publicURL,
-      '',
+      '/gallery',
       'gallery',
       2,
     )
@@ -502,8 +509,6 @@ const Menu = () => {
       toggleMenu()
     }
   }, [menuOpened])
-
-  const doNothing = () => {}
 
   useEffect(() => {
     octagons.forEach(octagon => {
@@ -586,9 +591,7 @@ const Menu = () => {
                 key={i}
                 to={octagon.url}
                 onClick={() => {
-                  if (i == 0 || i == 2) alert('Comming Soon')
-                  else if (i == 7) doNothing()
-                  else linkHandler()
+                  if (i != 7) linkHandler()
                 }}
               >
                 <MenuButtonContainer
@@ -633,9 +636,9 @@ const Menu = () => {
             />
           </Link>
           <Link
-            to="#"
+            to="/gallery"
             onClick={() => {
-              alert('Comming Soon')
+              linkHandler()
             }}
           >
             <MenuMobileButtons
@@ -672,9 +675,9 @@ const Menu = () => {
             />
           </Link>
           <Link
-            to="#"
+            to="/news"
             onClick={() => {
-              alert('Comming Soon')
+              linkHandler()
             }}
           >
             <MenuMobileButtons
