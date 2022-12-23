@@ -371,8 +371,27 @@ const GalleryPage = () => {
 
   useEffect(() => {
     setCurrentItems(_ => {
+      const attrs = [
+        'Rarity',
+        'Background',
+        'Hair',
+        'Body',
+        'Clothes',
+        'Accessory',
+        'Sunglasses',
+        'Outer',
+        'Music',
+        'Music Equipment',
+      ]
       return items.reduce<Array<Item>>((acc, item) => {
-        const test = item.attributes.reduce<boolean>(
+        const temp = Array.from(item.attributes)
+        attrs.forEach(attr => {
+          const result = temp.filter(({ trait_type }) => trait_type === attr)
+          if (result.length === 0) {
+            temp.push({ trait_type: attr, value: '' })
+          }
+        })
+        const test = temp.reduce<boolean>(
           (acc, { trait_type, value }) =>
             acc &&
             (searchQuery.get(trait_type)?.size === 0 ||
