@@ -79,6 +79,7 @@ type docxType = {
     publicURL: string
   }
 }
+
 const Footer: FunctionComponent = function () {
   const { isDarkmode } = useContext(DarkmodeContext)
   const [modal, setModal] = useState<string>('')

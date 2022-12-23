@@ -265,7 +265,7 @@ const GalleryNftItemComponent = ({
         imageName.split('.')[1] === 'gif' ? (
           <img src={image} alt="" />
         ) : (
-          <video muted width="100%" autoPlay loop playsInline>
+          <video width="100%" controls>
             <source src={image} type="video/mp4" />
           </video>
         )}
@@ -314,26 +314,10 @@ const GalleryPage = () => {
     ]),
   )
 
-  useEffect(() => {}, [searchQuery])
-
-  useEffect(() => {
-    console.log(items)
-  })
-
   // 기본 height
   const [menuOpenHeight, setMenuOpenHeight] = useState<Array<number>>([
     32, 32, 32, 32, 32, 32, 32, 32, 32,
   ])
-
-  const {
-    reveal: { publicURL },
-  }: { reveal: { publicURL: string } } = useStaticQuery(graphql`
-    query {
-      reveal: file(relativePath: { eq: "videos/reveal.mp4" }) {
-        publicURL
-      }
-    }
-  `)
 
   // 메뉴 title 선택했을 때 => 특성값들 보이게 하는 handler
   const titleClickHandler = (idx: number, numberOfData: number) => {
