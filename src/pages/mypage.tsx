@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext, useRef } from 'react'
 import axios from 'axios'
 import Web3 from 'web3'
 import styled from '@emotion/styled'
-import { DarkmodeContext } from '../contexts/DarkmodeProvider'
+import { DarkmodeContext, menuOpened } from '../contexts/DarkmodeProvider'
 import { graphql, useStaticQuery } from 'gatsby'
 import { Global } from '@emotion/react'
 import reset from '../../lib/styles/reset'
@@ -336,11 +336,13 @@ const MypagePage = () => {
       }
     }
   `)
-  const { setMode } = useContext(DarkmodeContext)
+  const { setMode, menuOpened } = useContext(DarkmodeContext)
 
   useEffect(() => {
-    setMode(true)
-  }, [])
+    if (!menuOpened) {
+      setMode(true)
+    }
+  }, [menuOpened])
 
   const [account, setAccount] = useState<string>('')
   const [smartContract, setSmartContract] = useState<any>()
@@ -358,11 +360,10 @@ const MypagePage = () => {
         const networkId = await window?.ethereum.request({
           method: 'net_version',
         })
-        if (networkId == 5) {
+        if (networkId == 1) {
           const SmartContractObj = new web3.eth.Contract(
             CONTARCTABI.abi,
-            '0x9628D16c7e9411447e42De2A72B0ce2fDE9a3cf9',
-            // '0x166a21b0bd45757ccffcb6999660acf2298457cf',
+            '0x166a21b0bd45757ccffcb6999660acf2298457cf',
           )
           // console.log(SmartContractObj.methods)
           setAccount(accounts[0])
