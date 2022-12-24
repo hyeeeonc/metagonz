@@ -32,6 +32,10 @@ const SNSItems = styled.a`
   cursor: pointer;
 
   transform: translate(0px, -50px);
+
+  .dark {
+    filter: invert(100%);
+  }
 `
 
 //interface SNSMenu
@@ -69,7 +73,7 @@ const SNSMenu = ({
           opacity: snsOpenState ? 1 : 0,
           transform: snsOpenState ? 'translate(0px, 0px)' : '',
         }}
-        href="https://opensea.io/collection/metagonz8"
+        href="https://opensea.io/collection/metagonz"
         target="_blank"
       >
         <svg
@@ -247,8 +251,16 @@ const SNSMenu = ({
         target="_blank"
       >
         <img
+          className={
+            isDarkmode ? (mobileBackground ? 'white' : 'dark') : 'white'
+          }
           style={{
             width: 23,
+            filter: isDarkmode
+              ? mobileBackground
+                ? 'inver(0%)'
+                : 'inver(100%)'
+              : 'inver(0%)',
           }}
           src={logo.octagonLogo.publicURL}
         />

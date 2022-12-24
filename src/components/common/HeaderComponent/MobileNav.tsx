@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'gatsby'
 import { DarkmodeContext } from '../../../contexts/DarkmodeProvider'
@@ -27,7 +27,6 @@ const MobileItems = styled(Link)`
   font-weight: 700;
   font-size: 15px;
   line-height: 19px;
-  /* identical to box height */
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
@@ -37,10 +36,8 @@ const MobileItems = styled(Link)`
   transform: translate(0px, -50px);
 `
 
-//interface SNSMenu
-
 const MobileNav = ({ mobileNavOpenState }: { mobileNavOpenState: boolean }) => {
-  const { isDarkmode } = useContext(DarkmodeContext)
+  const { isDarkmode, menuOpened, toggleMenu } = useContext(DarkmodeContext)
 
   return (
     <MobileNavBlock
@@ -55,7 +52,7 @@ const MobileNav = ({ mobileNavOpenState }: { mobileNavOpenState: boolean }) => {
           transform: mobileNavOpenState ? 'translate(0px, 0px)' : '',
         }}
         onClick={() => {
-          alert('Comming Soon')
+          alert('Please use a PC with a larger screen or Metamask installed')
         }}
         to={`#`}
       >
@@ -68,9 +65,9 @@ const MobileNav = ({ mobileNavOpenState }: { mobileNavOpenState: boolean }) => {
           transform: mobileNavOpenState ? 'translate(0px, 0px)' : '',
         }}
         onClick={() => {
-          alert('Comming Soon')
+          if (menuOpened) toggleMenu()
         }}
-        to={`#`}
+        to={`/gallery`}
       >
         Gallery
       </MobileItems>
@@ -81,9 +78,9 @@ const MobileNav = ({ mobileNavOpenState }: { mobileNavOpenState: boolean }) => {
           transform: mobileNavOpenState ? 'translate(0px, 0px)' : '',
         }}
         onClick={() => {
-          alert('Comming Soon')
+          if (menuOpened) toggleMenu()
         }}
-        to={`#`}
+        to={`/mypage`}
       >
         my page
       </MobileItems>

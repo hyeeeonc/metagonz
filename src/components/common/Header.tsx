@@ -533,6 +533,9 @@ const Header = () => {
           </a>
 
           <Link
+            onClick={() => {
+              if (menuOpened) toggleMenu()
+            }}
             style={{
               textDecoration: 'none',
             }}
@@ -542,6 +545,9 @@ const Header = () => {
           </Link>
 
           <Link
+            onClick={() => {
+              if (menuOpened) toggleMenu()
+            }}
             style={{
               textDecoration: 'none',
             }}

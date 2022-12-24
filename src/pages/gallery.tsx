@@ -1,5 +1,11 @@
 /* eslint-disable */
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+} from 'react'
 import { AudioContext } from '../contexts/AudioProvider'
 
 import reset from '../../lib/styles/reset'
@@ -374,7 +380,17 @@ const GalleryNftItemComponent = ({
   imageName: string
   edition: string
 }) => {
-  const imageUrl: string = `${image}#t=0.001`
+  const videoRef = useRef()
+  const [videoUrl, setVideoUrl] = useState<string>(`${image}#t=0.001`)
+
+  useEffect(() => {
+    setVideoUrl(`${image}#t=0.001`)
+  }, [image])
+
+  useEffect(() => {
+    videoRef.current?.load()
+  }, [videoUrl])
+
   return (
     <GalleryNftItems>
       <GalleryNftImageContainer>
@@ -382,8 +398,8 @@ const GalleryNftItemComponent = ({
         imageName.split('.')[1] === 'gif' ? (
           <img src={image} alt="" />
         ) : (
-          <video playsInline width="100%" controls>
-            <source src={imageUrl} type="video/mp4" />
+          <video ref={videoRef} key={image} playsInline width="100%" controls>
+            <source src={videoUrl} type="video/mp4" />
           </video>
         )}
       </GalleryNftImageContainer>
@@ -405,6 +421,7 @@ const GalleryPage = () => {
   const [sideMenuOpen, setSideMenuOpen] = useState<boolean>(false)
   const [currentItems, setCurrentItems] = useState<Array<Item>>(items)
   const [itemRange, setItemRange] = useState<number>(12)
+  const [searchNumber, setSearchNumber] = useState<string>('')
   const [searchQuery, setSearchQuery] = useState<Map<string, Set<string>>>(
     new Map([
       ['Background', new Set()],
@@ -473,31 +490,33 @@ const GalleryPage = () => {
         'Music',
         'Music Equipment',
       ]
-      return items.reduce<Array<Item>>((acc, item) => {
-        const temp = Array.from(item.attributes)
-        attrs.forEach(attr => {
-          const result = temp.filter(({ trait_type }) => trait_type === attr)
-          if (result.length === 0) {
-            temp.push({ trait_type: attr, value: '' })
+      return items
+        .filter(item => item.edition.toString().includes(searchNumber))
+        .reduce<Array<Item>>((acc, item) => {
+          const temp = Array.from(item.attributes)
+          attrs.forEach(attr => {
+            const result = temp.filter(({ trait_type }) => trait_type === attr)
+            if (result.length === 0) {
+              temp.push({ trait_type: attr, value: '' })
+            }
+          })
+          const test = temp.reduce<boolean>(
+            (acc, { trait_type, value }) =>
+              acc &&
+              (searchQuery.get(trait_type)?.size === 0 ||
+                (searchQuery.get(trait_type)?.has(value) ?? true)),
+            true,
+          )
+          if (test) {
+            return acc.concat(item)
+          } else {
+            return acc
           }
-        })
-        const test = temp.reduce<boolean>(
-          (acc, { trait_type, value }) =>
-            acc &&
-            (searchQuery.get(trait_type)?.size === 0 ||
-              (searchQuery.get(trait_type)?.has(value) ?? true)),
-          true,
-        )
-        if (test) {
-          return acc.concat(item)
-        } else {
-          return acc
-        }
-      }, [])
+        }, [])
     })
 
     setItemRange(12)
-  }, [searchQuery])
+  }, [searchQuery, searchNumber])
 
   useEffect(() => {
     return globalHistory.listen(({ action }) => {
@@ -532,6 +551,15 @@ const GalleryPage = () => {
       setItemRange(range => range + 12)
     }
   }, [])
+
+  const moveHandler = (e: React.TouchEvent) => {
+    if (
+      e.currentTarget.scrollHeight - e.currentTarget.scrollTop <=
+      e.currentTarget.clientHeight + 400
+    ) {
+      setItemRange(range => range + 12)
+    }
+  }
 
   return (
     <>
@@ -617,6 +645,9 @@ const GalleryPage = () => {
                     <GallerySelectMenuSearch
                       type="number"
                       placeholder="Sort By Serial"
+                      onChange={e => {
+                        setSearchNumber(e.target.value)
+                      }}
                     />
                   </GallerySelectMenuSearchContainer>
 
@@ -695,7 +726,10 @@ const GalleryPage = () => {
         ) : (
           <></>
         )}
-        <GalleryWholeContainer onWheel={scrollHandler}>
+        <GalleryWholeContainer
+          onWheel={scrollHandler}
+          onTouchMove={moveHandler}
+        >
           {!isMobile ? (
             <GallerySelectMenuContainer>
               <GallerySelectMenuAttributeContainer>
@@ -728,6 +762,9 @@ const GalleryPage = () => {
                 <GallerySelectMenuSearch
                   type="number"
                   placeholder="Sort By Serial"
+                  onChange={e => {
+                    setSearchNumber(e.target.value)
+                  }}
                 />
               </GallerySelectMenuSearchContainer>
 
@@ -806,9 +843,8 @@ const GalleryPage = () => {
           <GalleryNftContainer>
             {currentItems
               .slice(0, itemRange)
-              .map(({ name, image, imageName, edition }, idx) => (
+              .map(({ image, imageName, edition }) => (
                 <GalleryNftItemComponent
-                  key={idx}
                   image={image}
                   imageName={imageName}
                   edition={edition}

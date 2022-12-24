@@ -28,7 +28,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <AppContextProvier>
-      {/* <Helmet>
+      <Helmet>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -52,7 +52,10 @@ const Layout = ({ children }: LayoutProps) => {
         <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="METAGONZ" />
+        <meta
+          property="og:title"
+          content="Metagonz ㅣ 메타곤즈 -  “ BE A PART OF US “"
+        />
         <meta property="og:url" content="https://metagonz.io" />
         <meta property="og:site_name" content="METAGONZ" />
         <meta
@@ -60,19 +63,39 @@ const Layout = ({ children }: LayoutProps) => {
           content="https://metagonz.io/assets/thumb.png"
         />
         <meta property="og:image:type" content="image/png" />
-        <meta property="og:description" content="METAGONZ BE A PART OF US" />
+        <meta
+          property="og:description"
+          content="Metagonz is an iconic NFT / Avatar project representing the Web3 based MetaOctagon / Metaverse /  MOTG Token."
+        />
 
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="METAGONZ" />
+        <meta
+          name="twitter:title"
+          content="Metagonz ㅣ 메타곤즈 -  “ BE A PART OF US “"
+        />
         <meta name="twitter:url" content="https://metagonz.io" />
         <meta
           name="twitter:image"
           content="https://metagonz.io/assets/thumb.png"
         />
-        <meta name="twitter:description" content="METAGONZ BE A PART OF US" />
+        <meta
+          name="twitter:description"
+          content="Metagonz is an iconic NFT / Avatar project representing the Web3 based MetaOctagon / Metaverse /  MOTG Token."
+        />
 
+        {/* google web master meta tag */}
+        <meta
+          name="google-site-verification"
+          content="SHwn9joo0INTGEUSNuc0D0tyPsCAqfSAbv1ROF3GNv4"
+        />
+
+        {/* naver web master meta tag */}
+        <meta
+          name="naver-site-verification"
+          content="78a75c6b8911dd784f32925cc742155c6e39124d"
+        />
         <title>METAGONZ</title>
-      </Helmet> */}
+      </Helmet>
 
       {children}
       <Header />

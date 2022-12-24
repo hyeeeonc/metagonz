@@ -6,13 +6,9 @@ import { Global } from '@emotion/react'
 import { DarkmodeContext } from '../contexts/DarkmodeProvider'
 import styled from '@emotion/styled'
 
-import {
-  PageNameIndicator,
-  PageNavContainer,
-  PageNavItems,
-} from 'components/pageLayout/pageLayout'
+import { PageNameIndicator } from 'components/pageLayout/pageLayout'
 import axios from 'axios'
-import { object } from 'prop-types'
+import { JsonDataContext } from '../contexts/JsonDataProvider'
 
 const NewsBlock = styled.div`
   width: 100vw;
@@ -138,6 +134,43 @@ const NewsSpacer = styled.div`
   min-height: 200px;
 `
 
+const PinItem = ({
+  link,
+  title,
+  date,
+}: {
+  link: string
+  title: string
+  date: string
+}) => {
+  return (
+    <NewsItems
+      style={{
+        background: 'linear-gradient(180deg, #1c0044 0%, #6200ee 100%)',
+        color: 'white',
+      }}
+    >
+      <NewsItemLinker target="_blank" href={link}>
+        <NewsItemTitle
+          style={{
+            color: 'white',
+          }}
+          className="news-title"
+        >
+          {title}
+        </NewsItemTitle>
+        <NewsItemDate
+          style={{
+            color: 'white',
+          }}
+        >
+          {date}
+        </NewsItemDate>
+      </NewsItemLinker>
+    </NewsItems>
+  )
+}
+
 const NewsItem = ({
   link,
   title,
@@ -168,6 +201,20 @@ const NewsPage = () => {
   const { setMode, menuOpened } = useContext(DarkmodeContext)
   const [articles, setArticles] = useState<ArticleType[]>([])
 
+  const { news } = useContext(JsonDataContext)
+
+  useEffect(() => {
+    const tempArticles = articles
+    tempArticles.forEach((item, idx) => {
+      if (item.title === news.title) {
+        console.log('duppp')
+        tempArticles.splice(idx, 1)
+      }
+    })
+    console.log(tempArticles)
+    setArticles(tempArticles)
+  })
+
   useEffect(() => {
     axios
       .get(
@@ -182,8 +229,9 @@ const NewsPage = () => {
             published_at: item.pubDate.split(' ')[0],
             content: item.content,
           }
-          tempArr.push(tempObj)
+          if (item.title !== news?.title) tempArr.push(tempObj)
         })
+
         setArticles(tempArr)
       })
       .catch(err => {
@@ -203,8 +251,24 @@ const NewsPage = () => {
       <Global styles={reset} />
       <NewsBlock>
         <NewsItemContainer>
-          {articles.map(({ link, title, published_at }, idx) => (
-            <NewsItem link={link} title={title} date={published_at} key={idx} />
+          {news.onOff ? (
+            <>
+              <PinItem
+                link={news.link}
+                title={news.title}
+                date={news.published_at}
+              />
+            </>
+          ) : (
+            <></>
+          )}
+          {articles.map(({ link, title, published_at }) => (
+            <NewsItem
+              link={link}
+              title={title}
+              date={published_at}
+              key={title}
+            />
           ))}
           <NewsSpacer />
         </NewsItemContainer>

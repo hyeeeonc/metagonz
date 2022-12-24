@@ -10,6 +10,12 @@ import {
 type JsonDataType = {
   discord: number
   twitter: number
+  news: {
+    onOff: boolean
+    link: string
+    title: string
+    published_at: string
+  }
   roadmap: Array<{
     progress: number
     text: string
@@ -25,6 +31,12 @@ const JsonDataProvider = ({
   const [data, setData] = useState<JsonDataType>({
     discord: 0,
     twitter: 0,
+    news: {
+      onOff: false,
+      link: '',
+      title: '',
+      published_at: '',
+    },
     roadmap: [],
   })
 
