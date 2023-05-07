@@ -5,6 +5,13 @@
 
 ## Description
 
+https://www.metagonz.io/ 
+by
+https://metaoctagon.io/ 
+
+
+(metaoctagon에서 본인은 about 페이지에만 참여하였음)
+
 
 
 ## 🚀 Quick start(Gatsby.js)
